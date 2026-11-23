@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HealthGuard: Clinical AI Governance &amp; EU AI Act Audit — Production Architecture Case Study | Amit Kumar Koshta</title>
+  <meta name="description" content="End-to-End Clinical ML Fairness, Mechanistic TreeSHAP Proxy Attribution, Counterfactual De-Biasing (-31.4 pp FNR Gap) &amp; EU AI Act Annex III Compliance Portfolio" />
+  <meta name="author" content="Amit Kumar Koshta" />
+  <link rel="canonical" href="https://kenseiamit.github.io/projects/clinical-ai-governance-fairness-audit/" />
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://kenseiamit.github.io/projects/clinical-ai-governance-fairness-audit/" />
+  <meta property="og:title" content="HealthGuard: Clinical AI Governance &amp; EU AI Act Audit — Production Case Study (@kenseiAmit)" />
+  <meta property="og:description" content="End-to-End Clinical ML Fairness, Mechanistic TreeSHAP Proxy Attribution, Counterfactual De-Biasing (-31.4 pp FNR Gap) &amp; EU AI Act Annex III Compliance Portfolio" />
+  <meta property="og:image" content="https://kenseiamit.github.io/assets/og/clinical-ai-governance-fairness-audit.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="HealthGuard: Clinical AI Governance &amp; EU AI Act Audit — Amit Kumar Koshta" />
+  <meta name="twitter:description" content="End-to-End Clinical ML Fairness, Mechanistic TreeSHAP Proxy Attribution, Counterfactual De-Biasing (-31.4 pp FNR Gap) &amp; EU AI Act Annex III Compliance Portfolio" />
+  <meta name="twitter:image" content="https://kenseiamit.github.io/assets/og/clinical-ai-governance-fairness-audit.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../../css/styles.css" />
+  <link rel="stylesheet" href="../../css/case-study.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-inner">
+      <div class="cs-breadcrumb">
+        <a href="../../" class="brand" style="gap:10px;">
+          <span class="brand-mark mono" style="width:32px;height:32px;font-size:0.8rem;">AK</span>
+          <span>← Portfolio</span>
+        </a>
+        <span>/</span>
+        <span class="mono" style="color:var(--text-faint);">projects</span>
+        <span>/</span>
+        <strong class="mono" style="color:var(--text-primary);">clinical-ai-governance-fairness-audit</strong>
+      </div>
+
+      <div class="nav-actions">
+        <div class="cs-switcher">
+          <select id="flagshipSelect" class="cs-select mono" aria-label="Switch Flagship Case Study">
+            <option value="../guarded-salesops-agent-runtime/" >#1 · Guarded SalesOps Agent Runtime</option>
+<option value="../rag-gateway-eval-cost-controls/" >#2 · Production RAG Gateway &amp; Cost Controls</option>
+<option value="../multi-agent-banking-system/" >#3 · Multi-Agent Banking System (A2A + LangGraph)</option>
+<option value="../trace-aml-sar-compliance-engine/" >#4 · TRACE: FinCEN AML &amp; SAR Compliance Engine</option>
+<option value="../bedrock-rag-threat-modeling-guardrails/" >#5 · AWS Bedrock RAG Threat Modeling &amp; Guardrails</option>
+<option value="../clinical-ai-governance-fairness-audit/" selected>#6 · HealthGuard: Clinical AI Governance &amp; EU AI Act Audit</option>
+<option value="../claude-extraction-eval-observability/" >#7 · Claude Extraction Eval &amp; Confidence Calibration</option>
+          </select>
+        </div>
+        <button type="button" class="icon-btn" id="copyPageUrlBtn" title="Copy shareable Case Study link">Share URL</button>
+        <button type="button" class="icon-btn" id="themeToggleBtn" aria-label="Toggle theme"><span id="themeIcon">☀</span></button>
+        <a href="https://github.com/kenseiAmit/clinical-ai-governance-fairness-audit" target="_blank" rel="noopener" class="btn btn-primary btn-sm">GitHub Repo ↗</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="cs-hero">
+    <div class="container">
+      <div class="cs-badge-row">
+        <span class="cs-rank-pill mono">FLAGSHIP #6 · AI GOVERNANCE, ALGORITHMIC FAIRNESS &amp; EU AI ACT</span>
+        <a href="https://github.com/kenseiAmit/clinical-ai-governance-fairness-audit/actions/workflows/ci.yml" target="_blank" rel="noopener" class="pill pill-ci mono">✓ GitHub Actions CI Passing ↗</a>
+        <span class="pill mono" style="background:var(--bg-subtle);border:1px solid var(--border-subtle);color:var(--text-secondary);">MIT License · Python</span>
+      </div>
+
+      <h1 class="cs-title">HealthGuard: Clinical AI Governance &amp; EU AI Act Audit</h1>
+      <p class="cs-subtitle">End-to-End Clinical ML Fairness, Mechanistic TreeSHAP Proxy Attribution, Counterfactual De-Biasing (-31.4 pp FNR Gap) &amp; EU AI Act Annex III Compliance Portfolio</p>
+
+      <div class="hero-ctas" style="margin-bottom:18px;">
+        <a href="https://github.com/kenseiAmit/clinical-ai-governance-fairness-audit" target="_blank" rel="noopener" class="btn btn-primary">Inspect Source Code on GitHub ↗</a>
+        <a href="https://huggingface.co/spaces/kenseiamit/agentops-governance-sandbox" target="_blank" rel="noopener" class="btn btn-secondary">Try Live in HF Sandbox ↗</a>
+        <a href="#features" class="btn btn-ghost">6 Production Features ↓</a>
+        <a href="#telemetry" class="btn btn-ghost">Empirical Telemetry ↓</a>
+      </div>
+
+      <div class="stack-row" style="margin-bottom:0;">
+        <span class="stack-chip mono">Scikit-Learn</span><span class="stack-chip mono">TreeSHAP</span><span class="stack-chip mono">EU AI Act</span><span class="stack-chip mono">NIST AI RMF</span><span class="stack-chip mono">MITRE ATLAS</span><span class="stack-chip mono">Fairness AI</span><span class="stack-chip mono">Python</span><span class="stack-chip mono">GitHub Actions</span>
+      </div>
+
+      <div class="cs-kpi-grid">
+        
+        <div class="cs-kpi-card">
+          <div class="cs-kpi-val mono">-31.4 pp</div>
+          <div class="cs-kpi-lbl">Medicaid–Private FNR Gap</div>
+          <div class="cs-kpi-sub mono">Collapsed +37.5 pp -&gt; +6.2 pp</div>
+        </div>
+        
+
+        <div class="cs-kpi-card">
+          <div class="cs-kpi-val mono">34 / 34</div>
+          <div class="cs-kpi-lbl">Automated Audit Pytests</div>
+          <div class="cs-kpi-sub mono">Fairness, SHAP &amp; KRI Gates</div>
+        </div>
+        
+
+        <div class="cs-kpi-card">
+          <div class="cs-kpi-val mono">0.807 AUC</div>
+          <div class="cs-kpi-lbl">Post-Debiasing ROC-AUC</div>
+          <div class="cs-kpi-sub mono">vs 0.812 Baseline (-0.005 Only)</div>
+        </div>
+        
+
+        <div class="cs-kpi-card">
+          <div class="cs-kpi-val mono">Annex III</div>
+          <div class="cs-kpi-lbl">EU AI Act + GDPR + ATLAS</div>
+          <div class="cs-kpi-sub mono">8-Deliverable GRC Package</div>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+
+  <div class="container cs-layout">
+    <aside class="cs-toc" aria-label="Case Study Sections">
+      <div class="cs-toc-title mono">On This Page</div>
+      <nav class="cs-toc-nav">
+        <a href="#readiness" class="active">01 · Production Readiness</a>
+        <a href="#topology">02 · Topology &amp; Lifecycles</a>
+        <a href="#features">03 · Technical Features (6)</a>
+        <a href="#adrs">04 · Architectural Decisions</a>
+        <a href="#telemetry">05 · Telemetry &amp; Traces</a>
+        <a href="#runbook">06 · Quick Start &amp; CI Gates</a>
+      </nav>
+      <div class="cs-toc-links">
+        <a href="https://github.com/kenseiAmit/clinical-ai-governance-fairness-audit" target="_blank" rel="noopener" class="btn btn-secondary btn-sm" style="justify-content:center;">View Repository ↗</a>
+        <a href="../../#flagships" class="btn btn-ghost btn-sm" style="justify-content:center;">← All 7 Flagships</a>
+        <a href="../../#catalog" class="btn btn-ghost btn-sm" style="justify-content:center;">All 28 Systems</a>
+      </div>
+    </aside>
+
+    <main class="cs-main">
+      <!-- 01. Production Readiness Scorecard -->
+      <section class="cs-section" id="readiness">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker mono">01 · Production Engineering Scorecard</div>
+          <h2 class="cs-sec-title">Six-Pillar Production Readiness Matrix</h2>
+          <p class="cs-sec-desc">How this system enforces security, observability, fault isolation, unit economics, and automated verification beyond notebook prototypes.</p>
+        </div>
+        <div class="readiness-grid">
+          
+        <div class="readiness-card">
+          <div class="readiness-top">
+            <span class="readiness-pillar mono">Intersectional Auditing</span>
+            <span class="readiness-status mono">✓ 12 SUBGROUPS</span>
+          </div>
+          <p class="readiness-detail">Audits <code class="inline-code">Region x Insurance</code> multi-index cells (<code class="inline-code">N = 3,000</code>) with minimum-<code class="inline-code">n</code> statistical power filtering (<code class="inline-code">n_positives &gt;= 20</code>) to prevent small-sample noise.</p>
+        </div>
+        
+
+        <div class="readiness-card">
+          <div class="readiness-top">
+            <span class="readiness-pillar mono">Mechanistic Explainability</span>
+            <span class="readiness-status mono">✓ TREESHAP</span>
+          </div>
+          <p class="readiness-detail"><code class="inline-code">shap_analysis.py</code> proves <code class="inline-code">insurance_type</code> acted as a socioeconomic proxy driving <code class="inline-code">60.6%</code> False Negative Rate on <code class="inline-code">Rural x Medicaid</code> patients.</p>
+        </div>
+        
+
+        <div class="readiness-card">
+          <div class="readiness-top">
+            <span class="readiness-pillar mono">Bias Remediation</span>
+            <span class="readiness-status mono">✓ -31.4 pp GAP</span>
+          </div>
+          <p class="readiness-detail">Counterfactual <code class="inline-code">insurance_type</code> ablation cuts <code class="inline-code">Rural x Medicaid</code> FNR <code class="inline-code">60.6% -&gt; 48.5%</code> (<code class="inline-code">-12.1 pp</code>) and slashes within-rural gap <code class="inline-code">+37.5 pp -&gt; +6.2 pp</code>.</p>
+        </div>
+        
+
+        <div class="readiness-card">
+          <div class="readiness-top">
+            <span class="readiness-pillar mono">Operational KRI Bands</span>
+            <span class="readiness-status mono">✓ GREEN/AMBER/RED</span>
+          </div>
+          <p class="readiness-detail"><code class="inline-code">kri.py</code> codifies continuous Key Risk Indicators across clinician override rates, structured override share, and anomaly frequency per 1,000 predictions.</p>
+        </div>
+        
+
+        <div class="readiness-card">
+          <div class="readiness-top">
+            <span class="readiness-pillar mono">Adversarial &amp; Privacy GRC</span>
+            <span class="readiness-status mono">✓ ATLAS + GDPR</span>
+          </div>
+          <p class="readiness-detail">Covers MITRE ATLAS clinical ML threat modeling, GDPR/CPRA Schrems II Cross-Border Transfer Impact Assessment (TIA), and data-flow governance.</p>
+        </div>
+        
+
+        <div class="readiness-card">
+          <div class="readiness-top">
+            <span class="readiness-pillar mono">Modular Testable Code</span>
+            <span class="readiness-status mono">✓ 34/34 CI PASS</span>
+          </div>
+          <p class="readiness-detail">Packaged in <code class="inline-code">lab/</code> (<code class="inline-code">audit.py</code>, <code class="inline-code">fairness_metrics.py</code>, <code class="inline-code">shap_analysis.py</code>, <code class="inline-code">kri.py</code>) with 34 edge-case unit tests running in GitHub Actions CI.</p>
+        </div>
+        
+        </div>
+      </section>
+
+      <!-- 02. System Architecture Topology & Lifecycles -->
+      <section class="cs-section" id="topology">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker mono">02 · Architecture &amp; Control Flow</div>
+          <h2 class="cs-sec-title">System Topology &amp; Failure-Mode Lifecycles</h2>
+          <p class="cs-sec-desc">End-to-end execution graph paired with nominal request flow and adversarial / degraded fault-handling paths.</p>
+        </div>
+
+        
+        <div class="mermaid-stage" data-mermaid-src="flowchart LR
+    DATA[&quot;Clinical Diabetes Triage Cohort&quot;] --&gt; BASE[&quot;Baseline Classifier\nIntersectional Subgroup Audit&quot;]
+    BASE --&gt; SHAP[&quot;TreeSHAP Proxy Attribution\nInsurance -&gt; Socioeconomic Bias&quot;]
+    SHAP --&gt; DEBIAS[&quot;Counterfactual Sample Re-Weighting\n-31.4 pp Medicaid-Private FNR Gap&quot;]
+    DEBIAS --&gt; GRC[&quot;EU AI Act Annex III + NIST AI RMF\nKRIs · MITRE ATLAS · Schrems II TIA&quot;]">
+          <pre class="mono" style="text-align:left;font-size:0.78rem;color:var(--text-muted);overflow:auto;">flowchart LR
+    DATA[&quot;Clinical Diabetes Triage Cohort&quot;] --&gt; BASE[&quot;Baseline Classifier\nIntersectional Subgroup Audit&quot;]
+    BASE --&gt; SHAP[&quot;TreeSHAP Proxy Attribution\nInsurance -&gt; Socioeconomic Bias&quot;]
+    SHAP --&gt; DEBIAS[&quot;Counterfactual Sample Re-Weighting\n-31.4 pp Medicaid-Private FNR Gap&quot;]
+    DEBIAS --&gt; GRC[&quot;EU AI Act Annex III + NIST AI RMF\nKRIs · MITRE ATLAS · Schrems II TIA&quot;]</pre>
+        </div>
+        
+
+        <div class="lifecycle-grid">
+          <div class="lifecycle-box happy">
+            <h4 class="mono" style="color:var(--accent-emerald);">✓ Nominal Production Request Path</h4>
+            <ol class="lifecycle-list">
+              <li><code class="inline-code">audit.py</code> evaluates held-out clinical cohort (<code class="inline-code">N = 3,000</code>, operating threshold <code class="inline-code">0.26</code>) across marginal and <code class="inline-code">Region x Insurance</code> intersectional slices.</li>
+<li>Identifies <code class="inline-code">Rural x Medicaid</code> (<code class="inline-code">n=284</code>, <code class="inline-code">pos=33</code>) as most-harmed subgroup (<code class="inline-code">60.6%</code> FNR vs <code class="inline-code">23.1%</code> <code class="inline-code">Rural x Private</code> -&gt; <code class="inline-code">+37.5 pp</code> within-rural disparity).</li>
+<li><code class="inline-code">shap_analysis.py</code> computes global &amp; local TreeSHAP attributions confirming <code class="inline-code">insurance_type</code> suppresses risk scores for Medicaid patients with identical clinical vitals.</li>
+<li>Counterfactual retraining without <code class="inline-code">insurance_type</code> reduces disparity by <code class="inline-code">31.4 pp</code> while preserving <code class="inline-code">0.807</code> ROC-AUC, governed continuously by <code class="inline-code">kri.py</code> thresholds.</li>
+            </ol>
+          </div>
+          <div class="lifecycle-box adversarial">
+            <h4 class="mono" style="color:var(--accent-red);">✕ Adversarial, Policy &amp; Fault-Handling Paths</h4>
+            <ul class="lifecycle-list">
+              <li>Subgroups with <code class="inline-code">n_positives &lt; 20</code> (e.g., <code class="inline-code">Rural x Uninsured</code>, <code class="inline-code">pos=10</code>) are flagged <code class="inline-code">Sample &lt; 20</code> by <code class="inline-code">find_most_harmed()</code> so noisy cells never misdirect remediation.</li>
+<li>Division-by-zero edge cases (cohorts with zero positives or zero negatives) return explicit <code class="inline-code">NaN</code> contracts tested in <code class="inline-code">test_fairness_metrics.py</code>.</li>
+<li>Clinician override spike or unstructured override drift trips <code class="inline-code">kri.py</code> <code class="inline-code">AMBER</code> / <code class="inline-code">RED</code> governance bands, halting silent post-deployment clinical degradation.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03. Production-Ready Technical Features -->
+      <section class="cs-section" id="features">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker mono">03 · Code-Grounded Implementation</div>
+          <h2 class="cs-sec-title">Production-Ready Technical Features</h2>
+          <p class="cs-sec-desc">Every capability below links directly to the verified source module, policy configuration, or CI workflow in <code class="inline-code">kenseiAmit/clinical-ai-governance-fairness-audit</code>.</p>
+        </div>
+        <div class="features-grid">
+          
+        <article class="feature-card">
+          <span class="feature-cat mono">Algorithmic Fairness</span>
+          <h3>Multi-Index Intersectional Subgroup Engine (<code class="inline-code">audit.py</code>)</h3>
+          <p>Computes FNR, FPR, selection rate, Demographic Parity Difference (DPD), and Equalized Odds Difference (EOD) across 12 <code class="inline-code">Region x Insurance</code> cells with sample-size guards.</p>
+          <div class="source-links mono">
+            <a href="https://github.com/kenseiAmit/clinical-ai-governance-fairness-audit/blob/main/lab/audit.py" target="_blank" rel="noopener" class="source-pill" title="View lab/audit.py on GitHub"><span>📄 lab/audit.py</span><span>↗</span></a><a href="https://github.com/kenseiAmit/clinical-ai-governance-fairness-audit/blob/main/lab/fairness_metrics.py" target="_blank" rel="noopener" class="source-pill" title="View lab/fairness_metrics.py on GitHub"><span>📄 lab/fairness_metrics.py</span><span>↗</span></a><a href="https://github.com/kenseiAmit/clinical-ai-governance-fairness-audit/blob/main/lab/tests/test_audit.py" target="_blank" rel="noopener" class="source-pill" title="View lab/tests/test_audit.py on GitHub"><span>📄 lab/tests/test_audit.py</span><span>↗</span></a>
+          </div>
+        </article>
+        
+
+        <article class="feature-card">
+          <span class="feature-cat mono">Mechanistic Attribution</span>
+          <h3>TreeSHAP Socioeconomic Proxy Proof (<code class="inline-code">shap_analysis.py</code>)</h3>
+          <p>Combines global feature importance with matched-pair local SHAP waterfalls showing <code class="inline-code">insurance_type</code> penalizing Medicaid patients despite elevated HbA1c/BMI.</p>
+          <div class="source-links mono">
+            <a href="https://github.com/kenseiAmit/clinical-ai-governance-fairness-audit/blob/main/lab/shap_analysis.py" target="_blank" rel="noopener" class="source-pill" title="View lab/shap_analysis.py on GitHub"><span>📄 lab/shap_analysis.py</span><span>↗</span></a><a href="https://github.com/kenseiAmit/clinical-ai-governance-fairness-audit/blob/main/lab/tests/test_shap_analysis.py" target="_blank" rel="noopener" class="source-pill" title="View lab/tests/test_shap_analysis.py on GitHub"><span>📄 lab/tests/test_shap_analysis.py</span><span>↗</span></a>
+          </div>
+        </article>
+        
+
+        <article class="feature-card">
+          <span class="feature-cat mono">Counterfactual Remediation</span>
+          <h3>Proxy Ablation Retraining (<code class="inline-code">-31.4 pp</code> Disparity Collapse)</h3>
+          <p>Empirically validates bias mitigation prior to deployment: removing the socioeconomic proxy collapses within-rural Medicaid–Private FNR gap from <code class="inline-code">+37.5 pp</code> to <code class="inline-code">+6.2 pp</code> with negligible <code class="inline-code">-0.005</code> AUC trade-off.</p>
+          <div class="source-links mono">
+            <a href="https://github.com/kenseiAmit/clinical-ai-governance-fairness-audit/blob/main/README.md" target="_blank" rel="noopener" class="source-pill" title="View README.md on GitHub"><span>📄 README.md</span><span>↗</span></a><a href="https://github.com/kenseiAmit/clinical-ai-governance-fairness-audit/blob/main/lab/fairness_metrics.py" target="_blank" rel="noopener" class="source-pill" title="View lab/fairness_metrics.py on GitHub"><span>📄 lab/fairness_metrics.py</span><span>↗</span></a>
+          </div>
+        </article>
+        
+
+        <article class="feature-card">
+          <span class="feature-cat mono">Continuous Monitoring</span>
+          <h3>Automated Key Risk Indicator (KRI) Governance Engine</h3>
+          <p>Evaluates clinical override rates, structured reason-code shares, and input anomaly rates against Green/Amber/Red SLA bands (<code class="inline-code">test_kri.py</code>).</p>
+          <div class="source-links mono">
+            <a href="https://github.com/kenseiAmit/clinical-ai-governance-fairness-audit/blob/main/lab/kri.py" target="_blank" rel="noopener" class="source-pill" title="View lab/kri.py on GitHub"><span>📄 lab/kri.py</span><span>↗</span></a><a href="https://github.com/kenseiAmit/clinical-ai-governance-fairness-audit/blob/main/lab/tests/test_kri.py" target="_blank" rel="noopener" class="source-pill" title="View lab/tests/test_kri.py on GitHub"><span>📄 lab/tests/test_kri.py</span><span>↗</span></a>
+          </div>
+        </article>
+        
+
+        <article class="feature-card">
+          <span class="feature-cat mono">Regulatory Conformity</span>
+          <h3>EU AI Act Annex III, MITRE ATLAS &amp; Schrems II TIA</h3>
+          <p>Translates empirical ML metrics into complete high-risk medical AI regulatory deliverables: conformity assessment, adversarial threat register, and cross-border data flow controls.</p>
+          <div class="source-links mono">
+            <a href="https://github.com/kenseiAmit/clinical-ai-governance-fairness-audit/blob/main/README.md" target="_blank" rel="noopener" class="source-pill" title="View README.md on GitHub"><span>📄 README.md</span><span>↗</span></a><a href="https://github.com/kenseiAmit/clinical-ai-governance-fairness-audit/blob/main/lab/audit.py" target="_blank" rel="noopener" class="source-pill" title="View lab/audit.py on GitHub"><span>📄 lab/audit.py</span><span>↗</span></a>
+          </div>
+        </article>
+        
+
+        <article class="feature-card">
+          <span class="feature-cat mono">Verified QA</span>
+          <h3>34-Test Edge-Case Pytest Suite in GitHub Actions CI</h3>
+          <p>Verifies exact arithmetic, multi-index shapes, low-<code class="inline-code">n</code> exclusions, proxy-support hypotheses, and KRI state transitions on every commit.</p>
+          <div class="source-links mono">
+            <a href="https://github.com/kenseiAmit/clinical-ai-governance-fairness-audit/blob/main/lab/tests/test_fairness_metrics.py" target="_blank" rel="noopener" class="source-pill" title="View lab/tests/test_fairness_metrics.py on GitHub"><span>📄 lab/tests/test_fairness_metrics.py</span><span>↗</span></a><a href="https://github.com/kenseiAmit/clinical-ai-governance-fairness-audit/blob/main/.github/workflows/ci.yml" target="_blank" rel="noopener" class="source-pill" title="View .github/workflows/ci.yml on GitHub"><span>📄 .github/workflows/ci.yml</span><span>↗</span></a>
+          </div>
+        </article>
+        
+        </div>
+      </section>
+
+      <!-- 04. Architecture Decision Records -->
+      <section class="cs-section" id="adrs">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker mono">04 · Engineering Trade-Offs (ADRs)</div>
+          <h2 class="cs-sec-title">Why This Architecture Over Naive Prototypes?</h2>
+          <p class="cs-sec-desc">Key architectural decisions balancing determinism, latency, cost, privacy, and operational maintainability.</p>
+        </div>
+        <div class="adr-wrap">
+          <table class="adr-table">
+            <thead>
+              <tr>
+                <th>Architectural Decision</th>
+                <th>Naive Prototype Anti-Pattern</th>
+                <th>Production Engineering Choice &amp; Outcome</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+        <tr>
+          <td class="mono" style="font-weight:700;min-width:210px;">12-Cell Intersectional Audit vs. Marginal Single-Axis Fairness</td>
+          <td class="adr-anti">Checking <code class="inline-code">Region</code> alone or <code class="inline-code">Insurance</code> alone—where <code class="inline-code">Urban x Medicaid</code> (<code class="inline-code">19.2%</code> FNR) masks severe <code class="inline-code">Rural x Medicaid</code> (<code class="inline-code">60.6%</code> FNR) clinical under-triage.</td>
+          <td class="adr-prod">Multi-index <code class="inline-code">Region x Insurance</code> auditing with <code class="inline-code">n_positives &gt;= 20</code> statistical power gates pinpoints the exact harmed cohort.</td>
+        </tr>
+        
+
+        <tr>
+          <td class="mono" style="font-weight:700;min-width:210px;">TreeSHAP Proxy Proof + Feature Ablation vs. Blind Threshold Tweaking</td>
+          <td class="adr-anti">Lowering the global classification threshold for everyone, inflating False Positives across all clinics without fixing within-region proxy bias.</td>
+          <td class="adr-prod">Mechanistic TreeSHAP attribution + counterfactual <code class="inline-code">insurance_type</code> ablation cuts rural disparity by <code class="inline-code">31.4 pp</code> while holding <code class="inline-code">0.807</code> ROC-AUC.</td>
+        </tr>
+        
+
+        <tr>
+          <td class="mono" style="font-weight:700;min-width:210px;">Dual-Metric Clinician Override KRI (<code class="inline-code">Rate</code> + <code class="inline-code">Structured Share</code>)</td>
+          <td class="adr-anti">Tracking only model prediction drift while ignoring clinicians overriding or bypassing triage alerts in production.</td>
+          <td class="adr-prod">Joint KRI gating on override volume AND structured justification share (<code class="inline-code">kri.py</code>), catching automation bias and workflow friction early.</td>
+        </tr>
+        
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 05. Empirical Telemetry & Execution Traces -->
+      <section class="cs-section" id="telemetry">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker mono">05 · Verified Execution Evidence</div>
+          <h2 class="cs-sec-title">Empirical Telemetry, Dashboards &amp; Runtime Traces</h2>
+          <p class="cs-sec-desc">Recorded execution traces, benchmark sweeps, and raw repository JSON artifacts.</p>
+        </div>
+
+        
+        <figure class="gallery-figure" style="margin-bottom:20px;">
+          <img src="../../assets/demos/clinical-ai-governance-fairness-audit.svg" alt="HealthGuard: Clinical AI Governance &amp; EU AI Act Audit live execution trace" />
+          <figcaption class="gallery-caption mono">Recorded Terminal Execution Trace · clinical-ai-governance-fairness-audit</figcaption>
+        </figure>
+        
+
+        <div class="gallery-grid">
+          
+        <figure class="gallery-figure">
+          <a href="../../assets/telemetry/clinical-ai-governance-fairness-audit.png" target="_blank" rel="noopener">
+            <img src="../../assets/telemetry/clinical-ai-governance-fairness-audit.png" alt="Intersectional FNR &amp; Counterfactual De-Biasing" loading="lazy" />
+          </a>
+          <figcaption class="gallery-caption mono">Intersectional FNR &amp; Counterfactual De-Biasing (Full-Res ↗)</figcaption>
+        </figure>
+        
+
+        <figure class="gallery-figure">
+          <a href="https://raw.githubusercontent.com/kenseiAmit/clinical-ai-governance-fairness-audit/main/images/treeshap_global_and_local_attribution.png" target="_blank" rel="noopener">
+            <img src="https://raw.githubusercontent.com/kenseiAmit/clinical-ai-governance-fairness-audit/main/images/treeshap_global_and_local_attribution.png" alt="TreeSHAP Global &amp; Local Attribution" loading="lazy" />
+          </a>
+          <figcaption class="gallery-caption mono">TreeSHAP Global &amp; Local Attribution (Full-Res ↗)</figcaption>
+        </figure>
+        
+
+        <figure class="gallery-figure">
+          <a href="https://raw.githubusercontent.com/kenseiAmit/clinical-ai-governance-fairness-audit/main/data/data_flow_diagram.png" target="_blank" rel="noopener">
+            <img src="https://raw.githubusercontent.com/kenseiAmit/clinical-ai-governance-fairness-audit/main/data/data_flow_diagram.png" alt="System Architecture &amp; Compliance Data Flow" loading="lazy" />
+          </a>
+          <figcaption class="gallery-caption mono">System Architecture &amp; Compliance Data Flow (Full-Res ↗)</figcaption>
+        </figure>
+        
+        </div>
+
+        
+      </section>
+
+      <!-- 06. Runbook, Quick Start & CI Gates -->
+      <section class="cs-section" id="runbook">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker mono">06 · Reproduction &amp; Verification Gates</div>
+          <h2 class="cs-sec-title">Local Quick Start &amp; Continuous Integration</h2>
+          <p class="cs-sec-desc">GitHub Actions (<code class="inline-code">ci.yml</code>) executes all <code class="inline-code">34/34</code> <code class="inline-code">pytest</code> assertions across <code class="inline-code">test_audit.py</code>, <code class="inline-code">test_fairness_metrics.py</code>, <code class="inline-code">test_kri.py</code>, and <code class="inline-code">test_shap_analysis.py</code>.</p>
+        </div>
+
+        <div class="raw-json-panel">
+          <div class="raw-json-bar mono">
+            <span>Clone, Seed &amp; Run Verification Suite</span>
+            <button type="button" class="icon-btn mono" style="height:26px;font-size:0.72rem;" data-copy-target="qsPre" data-copy-label="Copied setup commands">Copy Commands</button>
+          </div>
+          <pre class="raw-json-pre mono" id="qsPre" style="max-height:280px;">python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+pytest lab/tests/ -v</pre>
+        </div>
+
+        <nav class="cs-pager" aria-label="Flagship Case Study Pagination">
+          <a href="../bedrock-rag-threat-modeling-guardrails/" class="cs-pager-card">
+            <span class="cs-pager-dir mono">← Previous Flagship (#5)</span>
+            <span class="cs-pager-name">AWS Bedrock RAG Threat Modeling &amp; Guardrails</span>
+          </a>
+          <a href="../claude-extraction-eval-observability/" class="cs-pager-card" style="text-align:right;">
+            <span class="cs-pager-dir mono">Next Flagship (#7) →</span>
+            <span class="cs-pager-name">Claude Extraction Eval &amp; Confidence Calibration</span>
+          </a>
+        </nav>
+      </section>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <div style="font-weight:800;font-size:1.02rem;">Amit Kumar Koshta (@kenseiAmit)</div>
+        <div class="mono" style="font-size:0.78rem;color:var(--text-muted);margin-top:4px;">
+          Data, MLOps &amp; Agentic AI Engineer · IIT Kanpur · Stockholm, Sweden
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <a href="../../" class="btn btn-secondary btn-sm">← Portfolio Home (All 28 Systems)</a>
+        <a href="https://github.com/kenseiAmit/clinical-ai-governance-fairness-audit" target="_blank" rel="noopener" class="btn btn-primary btn-sm">GitHub Repository ↗</a>
+        <a href="mailto:kenseiamit@gmail.com" class="btn btn-ghost btn-sm mono">kenseiamit@gmail.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toastContainer" aria-live="polite"></div>
+  <script type="module" src="../../js/case-study.js"></script>
+</body>
+</html>

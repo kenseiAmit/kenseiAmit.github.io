@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Production RAG Gateway &amp; Cost Controls — Production Architecture Case Study | Amit Kumar Koshta</title>
+  <meta name="description" content="Production FastAPI SSE RAG Gateway Achieving 61.9% Tiered-Routing Cost Savings, 1.4 ms Semantic Cache Hits, 1.000 RAGAS Recall &amp; Arize Phoenix OTel Tracing" />
+  <meta name="author" content="Amit Kumar Koshta" />
+  <link rel="canonical" href="https://kenseiamit.github.io/projects/rag-gateway-eval-cost-controls/" />
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://kenseiamit.github.io/projects/rag-gateway-eval-cost-controls/" />
+  <meta property="og:title" content="Production RAG Gateway &amp; Cost Controls — Production Case Study (@kenseiAmit)" />
+  <meta property="og:description" content="Production FastAPI SSE RAG Gateway Achieving 61.9% Tiered-Routing Cost Savings, 1.4 ms Semantic Cache Hits, 1.000 RAGAS Recall &amp; Arize Phoenix OTel Tracing" />
+  <meta property="og:image" content="https://kenseiamit.github.io/assets/og/rag-gateway-eval-cost-controls.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Production RAG Gateway &amp; Cost Controls — Amit Kumar Koshta" />
+  <meta name="twitter:description" content="Production FastAPI SSE RAG Gateway Achieving 61.9% Tiered-Routing Cost Savings, 1.4 ms Semantic Cache Hits, 1.000 RAGAS Recall &amp; Arize Phoenix OTel Tracing" />
+  <meta name="twitter:image" content="https://kenseiamit.github.io/assets/og/rag-gateway-eval-cost-controls.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../../css/styles.css" />
+  <link rel="stylesheet" href="../../css/case-study.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-inner">
+      <div class="cs-breadcrumb">
+        <a href="../../" class="brand" style="gap:10px;">
+          <span class="brand-mark mono" style="width:32px;height:32px;font-size:0.8rem;">AK</span>
+          <span>← Portfolio</span>
+        </a>
+        <span>/</span>
+        <span class="mono" style="color:var(--text-faint);">projects</span>
+        <span>/</span>
+        <strong class="mono" style="color:var(--text-primary);">rag-gateway-eval-cost-controls</strong>
+      </div>
+
+      <div class="nav-actions">
+        <div class="cs-switcher">
+          <select id="flagshipSelect" class="cs-select mono" aria-label="Switch Flagship Case Study">
+            <option value="../guarded-salesops-agent-runtime/" >#1 · Guarded SalesOps Agent Runtime</option>
+<option value="../rag-gateway-eval-cost-controls/" selected>#2 · Production RAG Gateway &amp; Cost Controls</option>
+<option value="../multi-agent-banking-system/" >#3 · Multi-Agent Banking System (A2A + LangGraph)</option>
+<option value="../trace-aml-sar-compliance-engine/" >#4 · TRACE: FinCEN AML &amp; SAR Compliance Engine</option>
+<option value="../bedrock-rag-threat-modeling-guardrails/" >#5 · AWS Bedrock RAG Threat Modeling &amp; Guardrails</option>
+<option value="../clinical-ai-governance-fairness-audit/" >#6 · HealthGuard: Clinical AI Governance &amp; EU AI Act Audit</option>
+<option value="../claude-extraction-eval-observability/" >#7 · Claude Extraction Eval &amp; Confidence Calibration</option>
+          </select>
+        </div>
+        <button type="button" class="icon-btn" id="copyPageUrlBtn" title="Copy shareable Case Study link">Share URL</button>
+        <button type="button" class="icon-btn" id="themeToggleBtn" aria-label="Toggle theme"><span id="themeIcon">☀</span></button>
+        <a href="https://github.com/kenseiAmit/rag-gateway-eval-cost-controls" target="_blank" rel="noopener" class="btn btn-primary btn-sm">GitHub Repo ↗</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="cs-hero">
+    <div class="container">
+      <div class="cs-badge-row">
+        <span class="cs-rank-pill mono">FLAGSHIP #2 · LLMOPS, EVALUATION &amp; FINOPS</span>
+        <span class="pill pill-ci mono">✓ Verified v1.0 Release</span>
+        <span class="pill mono" style="background:var(--bg-subtle);border:1px solid var(--border-subtle);color:var(--text-secondary);">MIT License · Python</span>
+      </div>
+
+      <h1 class="cs-title">Production RAG Gateway &amp; Cost Controls</h1>
+      <p class="cs-subtitle">Production FastAPI SSE RAG Gateway Achieving 61.9% Tiered-Routing Cost Savings, 1.4 ms Semantic Cache Hits, 1.000 RAGAS Recall &amp; Arize Phoenix OTel Tracing</p>
+
+      <div class="hero-ctas" style="margin-bottom:18px;">
+        <a href="https://github.com/kenseiAmit/rag-gateway-eval-cost-controls" target="_blank" rel="noopener" class="btn btn-primary">Inspect Source Code on GitHub ↗</a>
+        
+        <a href="#features" class="btn btn-ghost">6 Production Features ↓</a>
+        <a href="#telemetry" class="btn btn-ghost">Empirical Telemetry ↓</a>
+      </div>
+
+      <div class="stack-row" style="margin-bottom:0;">
+        <span class="stack-chip mono">FastAPI</span><span class="stack-chip mono">ChromaDB</span><span class="stack-chip mono">OpenAI</span><span class="stack-chip mono">RAGAS</span><span class="stack-chip mono">Arize Phoenix</span><span class="stack-chip mono">OpenTelemetry</span><span class="stack-chip mono">LLM Guard</span><span class="stack-chip mono">Python</span>
+      </div>
+
+      <div class="cs-kpi-grid">
+        
+        <div class="cs-kpi-card">
+          <div class="cs-kpi-val mono">61.9%</div>
+          <div class="cs-kpi-lbl">LLM Cost Reduction</div>
+          <div class="cs-kpi-sub mono">gpt-4o-mini vs gpt-4o Routing</div>
+        </div>
+        
+
+        <div class="cs-kpi-card">
+          <div class="cs-kpi-val mono">1.4 ms</div>
+          <div class="cs-kpi-lbl">Semantic Cache Hit p50</div>
+          <div class="cs-kpi-sub mono">1,468x Faster · $0 Token Spend</div>
+        </div>
+        
+
+        <div class="cs-kpi-card">
+          <div class="cs-kpi-val mono">1.000</div>
+          <div class="cs-kpi-lbl">RAGAS Faithfulness &amp; Recall</div>
+          <div class="cs-kpi-sub mono">Golden Set Verified (v0.4.3)</div>
+        </div>
+        
+
+        <div class="cs-kpi-card">
+          <div class="cs-kpi-val mono">235 Passed</div>
+          <div class="cs-kpi-lbl">Pytest + AST Architecture Gates</div>
+          <div class="cs-kpi-sub mono">Forward-Only DAG Verified</div>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+
+  <div class="container cs-layout">
+    <aside class="cs-toc" aria-label="Case Study Sections">
+      <div class="cs-toc-title mono">On This Page</div>
+      <nav class="cs-toc-nav">
+        <a href="#readiness" class="active">01 · Production Readiness</a>
+        <a href="#topology">02 · Topology &amp; Lifecycles</a>
+        <a href="#features">03 · Technical Features (6)</a>
+        <a href="#adrs">04 · Architectural Decisions</a>
+        <a href="#telemetry">05 · Telemetry &amp; Traces</a>
+        <a href="#runbook">06 · Quick Start &amp; CI Gates</a>
+      </nav>
+      <div class="cs-toc-links">
+        <a href="https://github.com/kenseiAmit/rag-gateway-eval-cost-controls" target="_blank" rel="noopener" class="btn btn-secondary btn-sm" style="justify-content:center;">View Repository ↗</a>
+        <a href="../../#flagships" class="btn btn-ghost btn-sm" style="justify-content:center;">← All 7 Flagships</a>
+        <a href="../../#catalog" class="btn btn-ghost btn-sm" style="justify-content:center;">All 28 Systems</a>
+      </div>
+    </aside>
+
+    <main class="cs-main">
+      <!-- 01. Production Readiness Scorecard -->
+      <section class="cs-section" id="readiness">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker mono">01 · Production Engineering Scorecard</div>
+          <h2 class="cs-sec-title">Six-Pillar Production Readiness Matrix</h2>
+          <p class="cs-sec-desc">How this system enforces security, observability, fault isolation, unit economics, and automated verification beyond notebook prototypes.</p>
+        </div>
+        <div class="readiness-grid">
+          
+        <div class="readiness-card">
+          <div class="readiness-top">
+            <span class="readiness-pillar mono">FinOps &amp; Unit Economics</span>
+            <span class="readiness-status mono">✓ 61.9% SAVED</span>
+          </div>
+          <p class="readiness-detail">Complexity router dispatches factual lookups to <code class="inline-code">gpt-4o-mini</code> (<code class="inline-code">$0.00020</code>) and reserves <code class="inline-code">gpt-4o</code> (<code class="inline-code">$0.00594</code>) for multi-item synthesis, logged in <code class="inline-code">cost_log.jsonl</code>.</p>
+        </div>
+        
+
+        <div class="readiness-card">
+          <div class="readiness-top">
+            <span class="readiness-pillar mono">Sub-2ms Semantic Cache</span>
+            <span class="readiness-status mono">✓ 1.4 ms HIT</span>
+          </div>
+          <p class="readiness-detail">Embedded Chroma cosine-similarity cache (<code class="inline-code">&gt;= 0.92</code> threshold + TTL) serves repeat/paraphrased queries in <code class="inline-code">1.4 ms</code> at <code class="inline-code">$0.00</code> API cost.</p>
+        </div>
+        
+
+        <div class="readiness-card">
+          <div class="readiness-top">
+            <span class="readiness-pillar mono">OpenTelemetry Tracing</span>
+            <span class="readiness-status mono">✓ PHOENIX OTEL</span>
+          </div>
+          <p class="readiness-detail">In-process Arize Phoenix OpenTelemetry span hierarchy captures guardrails, cache lookup, embedding, retrieval <code class="inline-code">top-k</code>, and token micro-costs.</p>
+        </div>
+        
+
+        <div class="readiness-card">
+          <div class="readiness-top">
+            <span class="readiness-pillar mono">Ingestion &amp; Quarantine</span>
+            <span class="readiness-status mono">✓ DEAD-LETTER</span>
+          </div>
+          <p class="readiness-detail">Hot-folder watcher (<code class="inline-code">src/ingestion/watcher.py</code>) validates incoming product JSON schemas, indexing valid docs and isolating malformed payloads in <code class="inline-code">quarantine/</code>.</p>
+        </div>
+        
+
+        <div class="readiness-card">
+          <div class="readiness-top">
+            <span class="readiness-pillar mono">RAG Security Perimeter</span>
+            <span class="readiness-status mono">✓ FENCED</span>
+          </div>
+          <p class="readiness-detail">Combines <code class="inline-code">LLM Guard</code> + regex PII/injection filters with <code class="inline-code">&lt;&lt;&lt;BEGIN_CONTEXT&gt;&gt;&gt;</code> untrusted chunk delimiters and post-generation factuality judging.</p>
+        </div>
+        
+
+        <div class="readiness-card">
+          <div class="readiness-top">
+            <span class="readiness-pillar mono">Architectural Integrity</span>
+            <span class="readiness-status mono">✓ 235 TESTS</span>
+          </div>
+          <p class="readiness-detail"><code class="inline-code">verify_capstone.py</code> enforces 235 unit tests, schema completeness, cross-package wiring, and an AST check proving strict forward-only package imports.</p>
+        </div>
+        
+        </div>
+      </section>
+
+      <!-- 02. System Architecture Topology & Lifecycles -->
+      <section class="cs-section" id="topology">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker mono">02 · Architecture &amp; Control Flow</div>
+          <h2 class="cs-sec-title">System Topology &amp; Failure-Mode Lifecycles</h2>
+          <p class="cs-sec-desc">End-to-end execution graph paired with nominal request flow and adversarial / degraded fault-handling paths.</p>
+        </div>
+
+        
+        <div class="mermaid-stage" data-mermaid-src="flowchart LR
+    U[&quot;Client Request&lt;br/&gt;(/query, /query/stream)&quot;] --&gt; G1[&quot;Input Guardrails&lt;br/&gt;(Injection, PII, Toxicity, Topic)&quot;]
+    G1 --&gt; SC{&quot;Chroma Semantic&lt;br/&gt;Cache (&gt;= 0.92)?&quot;}
+    SC -- &quot;Hit (1.4ms, $0)&quot; --&gt; OUT[&quot;Grounded JSON / SSE Stream&quot;]
+    SC -- &quot;Miss&quot; --&gt; CL[&quot;Complexity Router&lt;br/&gt;(gpt-4o-mini vs gpt-4o)&quot;]
+    CL --&gt; RET[&quot;ChromaDB Vector Store&lt;br/&gt;(k=3 + &lt;&lt;&lt;BEGIN_CONTEXT&gt;&gt;&gt; Fence)&quot;]
+    RET --&gt; GEN[&quot;OpenAI Generation&lt;br/&gt;+ Phoenix OTel Spans&quot;]
+    GEN --&gt; G2[&quot;Output Guardrails&lt;br/&gt;(Factuality, PII Scrub, Schema)&quot;]
+    G2 --&gt; COST[&quot;Per-Request USD Ledger&lt;br/&gt;(data/cost_log.jsonl)&quot;]
+    COST --&gt; OUT">
+          <pre class="mono" style="text-align:left;font-size:0.78rem;color:var(--text-muted);overflow:auto;">flowchart LR
+    U[&quot;Client Request&lt;br/&gt;(/query, /query/stream)&quot;] --&gt; G1[&quot;Input Guardrails&lt;br/&gt;(Injection, PII, Toxicity, Topic)&quot;]
+    G1 --&gt; SC{&quot;Chroma Semantic&lt;br/&gt;Cache (&gt;= 0.92)?&quot;}
+    SC -- &quot;Hit (1.4ms, $0)&quot; --&gt; OUT[&quot;Grounded JSON / SSE Stream&quot;]
+    SC -- &quot;Miss&quot; --&gt; CL[&quot;Complexity Router&lt;br/&gt;(gpt-4o-mini vs gpt-4o)&quot;]
+    CL --&gt; RET[&quot;ChromaDB Vector Store&lt;br/&gt;(k=3 + &lt;&lt;&lt;BEGIN_CONTEXT&gt;&gt;&gt; Fence)&quot;]
+    RET --&gt; GEN[&quot;OpenAI Generation&lt;br/&gt;+ Phoenix OTel Spans&quot;]
+    GEN --&gt; G2[&quot;Output Guardrails&lt;br/&gt;(Factuality, PII Scrub, Schema)&quot;]
+    G2 --&gt; COST[&quot;Per-Request USD Ledger&lt;br/&gt;(data/cost_log.jsonl)&quot;]
+    COST --&gt; OUT</pre>
+        </div>
+        
+
+        <div class="lifecycle-grid">
+          <div class="lifecycle-box happy">
+            <h4 class="mono" style="color:var(--accent-emerald);">✓ Nominal Production Request Path</h4>
+            <ol class="lifecycle-list">
+              <li>Client calls <code class="inline-code">POST /query</code> or SSE <code class="inline-code">/query/stream</code>; <code class="inline-code">input_guards.py</code> clears injection, toxicity, PII, and off-topic checks.</li>
+<li><code class="inline-code">semantic.py</code> checks Chroma cache (<code class="inline-code">cosine &gt;= 0.92</code>); cache hits return grounded JSON/SSE immediately in <code class="inline-code">1.4 ms</code> (<code class="inline-code">$0</code>).</li>
+<li>On cache miss, <code class="inline-code">classifier.py</code> scores query complexity (<code class="inline-code">simple</code> -&gt; <code class="inline-code">gpt-4o-mini</code>, <code class="inline-code">complex</code> -&gt; <code class="inline-code">gpt-4o</code>) and retrieves <code class="inline-code">k=3</code> fenced chunks.</li>
+<li><code class="inline-code">output_guards.py</code> verifies groundedness &amp; PII safety, emits Arize Phoenix OTel spans, and appends exact USD micro-cost to <code class="inline-code">cost_log.jsonl</code>.</li>
+            </ol>
+          </div>
+          <div class="lifecycle-box adversarial">
+            <h4 class="mono" style="color:var(--accent-red);">✕ Adversarial, Policy &amp; Fault-Handling Paths</h4>
+            <ul class="lifecycle-list">
+              <li>Malformed catalog drop (<code class="inline-code">bad_001.json</code>) fails Pydantic schema validation in <code class="inline-code">watcher.py</code> and routes to <code class="inline-code">data/quarantine/</code> with <code class="inline-code">.error.txt</code> diagnostics—zero index corruption.</li>
+<li>Prompt injection or competitor/off-topic query is rejected at <code class="inline-code">input_guards.py</code> before embedding or LLM invocation.</li>
+<li>Low-groundedness / hallucinated draft fails <code class="inline-code">output_guards.py</code> factuality threshold (<code class="inline-code">tune_factuality_threshold.py</code>) and returns a safe fallback.</li>
+<li>Circular or upward layer import introduced by a developer fails the automated <code class="inline-code">dependency-graph-forward-only</code> AST gate.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03. Production-Ready Technical Features -->
+      <section class="cs-section" id="features">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker mono">03 · Code-Grounded Implementation</div>
+          <h2 class="cs-sec-title">Production-Ready Technical Features</h2>
+          <p class="cs-sec-desc">Every capability below links directly to the verified source module, policy configuration, or CI workflow in <code class="inline-code">kenseiAmit/rag-gateway-eval-cost-controls</code>.</p>
+        </div>
+        <div class="features-grid">
+          
+        <article class="feature-card">
+          <span class="feature-cat mono">FinOps Optimization</span>
+          <h3>Complexity-Tiered Model Router &amp; Per-Request USD Ledger</h3>
+          <p>Classifies incoming queries so routine catalog lookups run on <code class="inline-code">gpt-4o-mini</code> (28.7x cheaper per call) while complex comparisons route to <code class="inline-code">gpt-4o</code>, visualized live on <code class="inline-code">/cost-dashboard</code>.</p>
+          <div class="source-links mono">
+            <a href="https://github.com/kenseiAmit/rag-gateway-eval-cost-controls/blob/main/src/gateway/classifier.py" target="_blank" rel="noopener" class="source-pill" title="View src/gateway/classifier.py on GitHub"><span>📄 src/gateway/classifier.py</span><span>↗</span></a><a href="https://github.com/kenseiAmit/rag-gateway-eval-cost-controls/blob/main/src/gateway/router.py" target="_blank" rel="noopener" class="source-pill" title="View src/gateway/router.py on GitHub"><span>📄 src/gateway/router.py</span><span>↗</span></a><a href="https://github.com/kenseiAmit/rag-gateway-eval-cost-controls/blob/main/src/cost/tracker.py" target="_blank" rel="noopener" class="source-pill" title="View src/cost/tracker.py on GitHub"><span>📄 src/cost/tracker.py</span><span>↗</span></a><a href="https://github.com/kenseiAmit/rag-gateway-eval-cost-controls/blob/main/src/cost/dashboard.py" target="_blank" rel="noopener" class="source-pill" title="View src/cost/dashboard.py on GitHub"><span>📄 src/cost/dashboard.py</span><span>↗</span></a>
+          </div>
+        </article>
+        
+
+        <article class="feature-card">
+          <span class="feature-cat mono">Low-Latency Caching</span>
+          <h3>Chroma Cosine Semantic Cache (<code class="inline-code">1.4 ms</code>, TTL-Managed)</h3>
+          <p>Eliminates external Redis container overhead by embedding a dedicated Chroma semantic cache collection (<code class="inline-code">cosine &gt;= 0.92</code>), cutting repeat latency 1,468x.</p>
+          <div class="source-links mono">
+            <a href="https://github.com/kenseiAmit/rag-gateway-eval-cost-controls/blob/main/src/cache/semantic.py" target="_blank" rel="noopener" class="source-pill" title="View src/cache/semantic.py on GitHub"><span>📄 src/cache/semantic.py</span><span>↗</span></a><a href="https://github.com/kenseiAmit/rag-gateway-eval-cost-controls/blob/main/src/cache/wrapper.py" target="_blank" rel="noopener" class="source-pill" title="View src/cache/wrapper.py on GitHub"><span>📄 src/cache/wrapper.py</span><span>↗</span></a>
+          </div>
+        </article>
+        
+
+        <article class="feature-card">
+          <span class="feature-cat mono">Streaming UX</span>
+          <h3>FastAPI Server-Sent Events (SSE) Streaming Pipeline</h3>
+          <p>Streams grounded tokens incrementally over <code class="inline-code">/query/stream</code> while still enforcing input/output guardrails and recording accurate completion token costs.</p>
+          <div class="source-links mono">
+            <a href="https://github.com/kenseiAmit/rag-gateway-eval-cost-controls/blob/main/src/gateway/app.py" target="_blank" rel="noopener" class="source-pill" title="View src/gateway/app.py on GitHub"><span>📄 src/gateway/app.py</span><span>↗</span></a><a href="https://github.com/kenseiAmit/rag-gateway-eval-cost-controls/blob/main/src/optimization/streaming.py" target="_blank" rel="noopener" class="source-pill" title="View src/optimization/streaming.py on GitHub"><span>📄 src/optimization/streaming.py</span><span>↗</span></a><a href="https://github.com/kenseiAmit/rag-gateway-eval-cost-controls/blob/main/src/gateway/routes.py" target="_blank" rel="noopener" class="source-pill" title="View src/gateway/routes.py on GitHub"><span>📄 src/gateway/routes.py</span><span>↗</span></a>
+          </div>
+        </article>
+        
+
+        <article class="feature-card">
+          <span class="feature-cat mono">Data Reliability</span>
+          <h3>Hot-Folder Ingestion Watcher with Dead-Letter Quarantine</h3>
+          <p>Monitors <code class="inline-code">data/inbox/</code> for new product JSONs, embeds valid specs via <code class="inline-code">text-embedding-3-small</code>, and isolates schema-invalid files into <code class="inline-code">quarantine/</code> with structured error logs.</p>
+          <div class="source-links mono">
+            <a href="https://github.com/kenseiAmit/rag-gateway-eval-cost-controls/blob/main/src/ingestion/watcher.py" target="_blank" rel="noopener" class="source-pill" title="View src/ingestion/watcher.py on GitHub"><span>📄 src/ingestion/watcher.py</span><span>↗</span></a><a href="https://github.com/kenseiAmit/rag-gateway-eval-cost-controls/blob/main/src/vectordb/chunker.py" target="_blank" rel="noopener" class="source-pill" title="View src/vectordb/chunker.py on GitHub"><span>📄 src/vectordb/chunker.py</span><span>↗</span></a><a href="https://github.com/kenseiAmit/rag-gateway-eval-cost-controls/blob/main/src/vectordb/store.py" target="_blank" rel="noopener" class="source-pill" title="View src/vectordb/store.py on GitHub"><span>📄 src/vectordb/store.py</span><span>↗</span></a>
+          </div>
+        </article>
+        
+
+        <article class="feature-card">
+          <span class="feature-cat mono">Observability</span>
+          <h3>Arize Phoenix OpenTelemetry Span Instrumentation</h3>
+          <p>Instruments every pipeline hop with OpenTelemetry spans (<code class="inline-code">phoenix_backend.py</code> + <code class="inline-code">noop_backend.py</code> fallback) for full latency waterfall and retrieval inspection.</p>
+          <div class="source-links mono">
+            <a href="https://github.com/kenseiAmit/rag-gateway-eval-cost-controls/blob/main/src/tracing/phoenix_backend.py" target="_blank" rel="noopener" class="source-pill" title="View src/tracing/phoenix_backend.py on GitHub"><span>📄 src/tracing/phoenix_backend.py</span><span>↗</span></a><a href="https://github.com/kenseiAmit/rag-gateway-eval-cost-controls/blob/main/src/tracing/trace_export.py" target="_blank" rel="noopener" class="source-pill" title="View src/tracing/trace_export.py on GitHub"><span>📄 src/tracing/trace_export.py</span><span>↗</span></a>
+          </div>
+        </article>
+        
+
+        <article class="feature-card">
+          <span class="feature-cat mono">Quantitative RAG Eval</span>
+          <h3>RAGAS v0.4.3 Top-K Sweeps &amp; Forward-Only AST Gate</h3>
+          <p>Sweeps chunk retrieval <code class="inline-code">k</code> against a golden Q&amp;A benchmark (<code class="inline-code">1.000</code> faithfulness, <code class="inline-code">1.000</code> context recall, <code class="inline-code">0.922</code> relevancy) alongside <code class="inline-code">235</code> automated <code class="inline-code">pytest</code> assertions.</p>
+          <div class="source-links mono">
+            <a href="https://github.com/kenseiAmit/rag-gateway-eval-cost-controls/blob/main/src/evaluation/run_eval.py" target="_blank" rel="noopener" class="source-pill" title="View src/evaluation/run_eval.py on GitHub"><span>📄 src/evaluation/run_eval.py</span><span>↗</span></a><a href="https://github.com/kenseiAmit/rag-gateway-eval-cost-controls/blob/main/scripts/eval_topk_sweep.py" target="_blank" rel="noopener" class="source-pill" title="View scripts/eval_topk_sweep.py on GitHub"><span>📄 scripts/eval_topk_sweep.py</span><span>↗</span></a><a href="https://github.com/kenseiAmit/rag-gateway-eval-cost-controls/blob/main/scripts/verify_capstone.py" target="_blank" rel="noopener" class="source-pill" title="View scripts/verify_capstone.py on GitHub"><span>📄 scripts/verify_capstone.py</span><span>↗</span></a>
+          </div>
+        </article>
+        
+        </div>
+      </section>
+
+      <!-- 04. Architecture Decision Records -->
+      <section class="cs-section" id="adrs">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker mono">04 · Engineering Trade-Offs (ADRs)</div>
+          <h2 class="cs-sec-title">Why This Architecture Over Naive Prototypes?</h2>
+          <p class="cs-sec-desc">Key architectural decisions balancing determinism, latency, cost, privacy, and operational maintainability.</p>
+        </div>
+        <div class="adr-wrap">
+          <table class="adr-table">
+            <thead>
+              <tr>
+                <th>Architectural Decision</th>
+                <th>Naive Prototype Anti-Pattern</th>
+                <th>Production Engineering Choice &amp; Outcome</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+        <tr>
+          <td class="mono" style="font-weight:700;min-width:210px;">Embedded Chroma Semantic Cache vs. External Redis Stack</td>
+          <td class="adr-anti">Requiring a separate Redis Stack cluster just for vector caching, adding operational infra overhead and network hop latency.</td>
+          <td class="adr-prod">In-process Chroma cosine cache (<code class="inline-code">&gt;= 0.92</code>) with TTL expiration: zero extra containers and <code class="inline-code">1.4 ms</code> cache hits.</td>
+        </tr>
+        
+
+        <tr>
+          <td class="mono" style="font-weight:700;min-width:210px;">Tiered Complexity Routing vs. Single Frontier Model</td>
+          <td class="adr-anti">Sending 100% of FAQ traffic to <code class="inline-code">gpt-4o</code>, burning <code class="inline-code">$0.0059+</code> on single-attribute weight/price questions.</td>
+          <td class="adr-prod">Pre-retrieval complexity routing to <code class="inline-code">gpt-4o-mini</code> saves <code class="inline-code">61.9%</code> USD while preserving <code class="inline-code">1.000</code> golden-set faithfulness.</td>
+        </tr>
+        
+
+        <tr>
+          <td class="mono" style="font-weight:700;min-width:210px;">Hybrid Lexical/Regex + LLM Judge Guardrails</td>
+          <td class="adr-anti">Downloading multi-hundred-MB transformer guardrail weights at startup, causing cold-start timeouts and corporate proxy failures.</td>
+          <td class="adr-prod">Zero-latency deterministic regex/PII guards paired with configurable LLM factuality judging.</td>
+        </tr>
+        
+
+        <tr>
+          <td class="mono" style="font-weight:700;min-width:210px;">Dead-Letter Quarantine on Hot-Folder Ingestion</td>
+          <td class="adr-anti">Crashing the ingestion worker or silently indexing partial <code class="inline-code">null</code> fields when upstream catalog JSONs are malformed.</td>
+          <td class="adr-prod">Atomic schema check moving bad payloads to <code class="inline-code">data/quarantine/*.error.txt</code> while keeping the live index clean.</td>
+        </tr>
+        
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 05. Empirical Telemetry & Execution Traces -->
+      <section class="cs-section" id="telemetry">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker mono">05 · Verified Execution Evidence</div>
+          <h2 class="cs-sec-title">Empirical Telemetry, Dashboards &amp; Runtime Traces</h2>
+          <p class="cs-sec-desc">Recorded execution traces, benchmark sweeps, and raw repository JSON artifacts.</p>
+        </div>
+
+        
+        <figure class="gallery-figure" style="margin-bottom:20px;">
+          <img src="../../assets/demos/rag-gateway-eval-cost-controls.svg" alt="Production RAG Gateway &amp; Cost Controls live execution trace" />
+          <figcaption class="gallery-caption mono">Recorded Terminal Execution Trace · rag-gateway-eval-cost-controls</figcaption>
+        </figure>
+        
+
+        <div class="gallery-grid">
+          
+        <figure class="gallery-figure">
+          <a href="../../assets/telemetry/rag-gateway-eval-cost-controls.png" target="_blank" rel="noopener">
+            <img src="../../assets/telemetry/rag-gateway-eval-cost-controls.png" alt="RAGAS Sweep &amp; Cost Telemetry" loading="lazy" />
+          </a>
+          <figcaption class="gallery-caption mono">RAGAS Sweep &amp; Cost Telemetry (Full-Res ↗)</figcaption>
+        </figure>
+        
+
+        <figure class="gallery-figure">
+          <a href="https://raw.githubusercontent.com/kenseiAmit/rag-gateway-eval-cost-controls/main/docs/evidence/cost-dashboard.png" target="_blank" rel="noopener">
+            <img src="https://raw.githubusercontent.com/kenseiAmit/rag-gateway-eval-cost-controls/main/docs/evidence/cost-dashboard.png" alt="Cost Dashboard" loading="lazy" />
+          </a>
+          <figcaption class="gallery-caption mono">Cost Dashboard (Full-Res ↗)</figcaption>
+        </figure>
+        
+
+        <figure class="gallery-figure">
+          <a href="https://raw.githubusercontent.com/kenseiAmit/rag-gateway-eval-cost-controls/main/docs/evidence/phoenix-trace.png" target="_blank" rel="noopener">
+            <img src="https://raw.githubusercontent.com/kenseiAmit/rag-gateway-eval-cost-controls/main/docs/evidence/phoenix-trace.png" alt="Phoenix Trace" loading="lazy" />
+          </a>
+          <figcaption class="gallery-caption mono">Phoenix Trace (Full-Res ↗)</figcaption>
+        </figure>
+        
+        </div>
+
+        
+        <div class="raw-json-panel" style="margin-top:20px;">
+          <div class="raw-json-bar mono">
+            <span>Verified Runtime Artifact · rag-gateway-eval-cost-controls · RAGAS 0.4.3 + OTel Cost Ledger</span>
+            <button type="button" class="icon-btn mono" style="height:26px;font-size:0.72rem;" data-copy-target="traceJsonPre" data-copy-label="Copied verified JSON artifact">Copy JSON</button>
+          </div>
+          <pre class="raw-json-pre mono" id="traceJsonPre" style="max-height:300px;">{
+  &quot;ragas_aggregate&quot;: {
+    &quot;faithfulness&quot;: 1.0,
+    &quot;answer_relevancy&quot;: 0.9221873611954298,
+    &quot;context_recall&quot;: 1.0,
+    &quot;context_precision&quot;: 0.7499999999425
+  },
+  &quot;sample_eval_question&quot;: &quot;What is the weight of the Selkirk AMPED S2?&quot;,
+  &quot;sample_eval_response&quot;: &quot;The Selkirk AMPED S2 weighs 7.8 oz.&quot;,
+  &quot;cost_ledger_excerpt&quot;: [
+    {
+      &quot;timestamp&quot;: &quot;2026-10-04T15:23:43.305924+00:00&quot;,
+      &quot;model&quot;: &quot;gpt-4o-mini&quot;,
+      &quot;prompt_tokens&quot;: 905,
+      &quot;completion_tokens&quot;: 118,
+      &quot;cost_usd&quot;: 0.00020655,
+      &quot;query_type&quot;: &quot;hallucination_check&quot;
+    },
+    {
+      &quot;timestamp&quot;: &quot;2026-10-04T15:55:30.305924+00:00&quot;,
+      &quot;model&quot;: &quot;gpt-4o-mini&quot;,
+      &quot;prompt_tokens&quot;: 1138,
+      &quot;completion_tokens&quot;: 55,
+      &quot;cost_usd&quot;: 0.0002037,
+      &quot;query_type&quot;: &quot;simple&quot;
+    },
+    {
+      &quot;timestamp&quot;: &quot;2026-10-04T16:20:49.305924+00:00&quot;,
+      &quot;model&quot;: &quot;gpt-4o-mini&quot;,
+      &quot;prompt_tokens&quot;: 1050,
+      &quot;completion_tokens&quot;: 73,
+      &quot;cost_usd&quot;: 0.00020130000000000001,
+      &quot;query_type&quot;: &quot;simple&quot;
+    },
+    {
+      &quot;timestamp&quot;: &quot;2026-10-04T16:52:13.305924+00:00&quot;,
+      &quot;model&quot;: &quot;gpt-4o&quot;,
+      &quot;prompt_tokens&quot;: 1248,
+      &quot;completion_tokens&quot;: 282,
+      &quot;cost_usd&quot;: 0.00594,
+      &quot;query_type&quot;: &quot;complex&quot;
+    }
+  ]
+}</pre>
+        </div>
+        
+      </section>
+
+      <!-- 06. Runbook, Quick Start & CI Gates -->
+      <section class="cs-section" id="runbook">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker mono">06 · Reproduction &amp; Verification Gates</div>
+          <h2 class="cs-sec-title">Local Quick Start &amp; Continuous Integration</h2>
+          <p class="cs-sec-desc"><code class="inline-code">make verify</code> (<code class="inline-code">scripts/verify_capstone.py</code>) validates <code class="inline-code">235 passed</code> unit tests, forward-only package dependency DAG (<code class="inline-code">4 passed</code>), <code class="inline-code">QueryResponse</code> contract (<code class="inline-code">5 passed</code>), and end-to-end gateway wiring (<code class="inline-code">6 passed</code>).</p>
+        </div>
+
+        <div class="raw-json-panel">
+          <div class="raw-json-bar mono">
+            <span>Clone, Seed &amp; Run Verification Suite</span>
+            <button type="button" class="icon-btn mono" style="height:26px;font-size:0.72rem;" data-copy-target="qsPre" data-copy-label="Copied setup commands">Copy Commands</button>
+          </div>
+          <pre class="raw-json-pre mono" id="qsPre" style="max-height:280px;">cp .env.example .env
+uv sync
+
+# Seed ChromaDB product catalog (30 items) &amp; run all 235 unit/integration tests
+uv run python scripts/load_data.py
+uv run pytest
+
+# Start FastAPI RAG Gateway (SSE streaming + /cost-dashboard)
+uv run uvicorn src.gateway.app:app --reload --port 8000</pre>
+        </div>
+
+        <nav class="cs-pager" aria-label="Flagship Case Study Pagination">
+          <a href="../guarded-salesops-agent-runtime/" class="cs-pager-card">
+            <span class="cs-pager-dir mono">← Previous Flagship (#1)</span>
+            <span class="cs-pager-name">Guarded SalesOps Agent Runtime</span>
+          </a>
+          <a href="../multi-agent-banking-system/" class="cs-pager-card" style="text-align:right;">
+            <span class="cs-pager-dir mono">Next Flagship (#3) →</span>
+            <span class="cs-pager-name">Multi-Agent Banking System (A2A + LangGraph)</span>
+          </a>
+        </nav>
+      </section>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <div style="font-weight:800;font-size:1.02rem;">Amit Kumar Koshta (@kenseiAmit)</div>
+        <div class="mono" style="font-size:0.78rem;color:var(--text-muted);margin-top:4px;">
+          Data, MLOps &amp; Agentic AI Engineer · IIT Kanpur · Stockholm, Sweden
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <a href="../../" class="btn btn-secondary btn-sm">← Portfolio Home (All 28 Systems)</a>
+        <a href="https://github.com/kenseiAmit/rag-gateway-eval-cost-controls" target="_blank" rel="noopener" class="btn btn-primary btn-sm">GitHub Repository ↗</a>
+        <a href="mailto:kenseiamit@gmail.com" class="btn btn-ghost btn-sm mono">kenseiamit@gmail.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toastContainer" aria-live="polite"></div>
+  <script type="module" src="../../js/case-study.js"></script>
+</body>
+</html>

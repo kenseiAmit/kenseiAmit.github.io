@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Multi-Agent Banking System (A2A + LangGraph) — Production Architecture Case Study | Amit Kumar Koshta</title>
+  <meta name="description" content="Distributed Retail Banking Microservices Combining Google ADK Agent-to-Agent (A2A) JSON-RPC, MCP SQL Toolbox, Zero-Knowledge Underwriting &amp; LangGraph" />
+  <meta name="author" content="Amit Kumar Koshta" />
+  <link rel="canonical" href="https://kenseiamit.github.io/projects/multi-agent-banking-system/" />
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://kenseiamit.github.io/projects/multi-agent-banking-system/" />
+  <meta property="og:title" content="Multi-Agent Banking System (A2A + LangGraph) — Production Case Study (@kenseiAmit)" />
+  <meta property="og:description" content="Distributed Retail Banking Microservices Combining Google ADK Agent-to-Agent (A2A) JSON-RPC, MCP SQL Toolbox, Zero-Knowledge Underwriting &amp; LangGraph" />
+  <meta property="og:image" content="https://kenseiamit.github.io/assets/og/multi-agent-banking-system.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Multi-Agent Banking System (A2A + LangGraph) — Amit Kumar Koshta" />
+  <meta name="twitter:description" content="Distributed Retail Banking Microservices Combining Google ADK Agent-to-Agent (A2A) JSON-RPC, MCP SQL Toolbox, Zero-Knowledge Underwriting &amp; LangGraph" />
+  <meta name="twitter:image" content="https://kenseiamit.github.io/assets/og/multi-agent-banking-system.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../../css/styles.css" />
+  <link rel="stylesheet" href="../../css/case-study.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-inner">
+      <div class="cs-breadcrumb">
+        <a href="../../" class="brand" style="gap:10px;">
+          <span class="brand-mark mono" style="width:32px;height:32px;font-size:0.8rem;">AK</span>
+          <span>← Portfolio</span>
+        </a>
+        <span>/</span>
+        <span class="mono" style="color:var(--text-faint);">projects</span>
+        <span>/</span>
+        <strong class="mono" style="color:var(--text-primary);">multi-agent-banking-system</strong>
+      </div>
+
+      <div class="nav-actions">
+        <div class="cs-switcher">
+          <select id="flagshipSelect" class="cs-select mono" aria-label="Switch Flagship Case Study">
+            <option value="../guarded-salesops-agent-runtime/" >#1 · Guarded SalesOps Agent Runtime</option>
+<option value="../rag-gateway-eval-cost-controls/" >#2 · Production RAG Gateway &amp; Cost Controls</option>
+<option value="../multi-agent-banking-system/" selected>#3 · Multi-Agent Banking System (A2A + LangGraph)</option>
+<option value="../trace-aml-sar-compliance-engine/" >#4 · TRACE: FinCEN AML &amp; SAR Compliance Engine</option>
+<option value="../bedrock-rag-threat-modeling-guardrails/" >#5 · AWS Bedrock RAG Threat Modeling &amp; Guardrails</option>
+<option value="../clinical-ai-governance-fairness-audit/" >#6 · HealthGuard: Clinical AI Governance &amp; EU AI Act Audit</option>
+<option value="../claude-extraction-eval-observability/" >#7 · Claude Extraction Eval &amp; Confidence Calibration</option>
+          </select>
+        </div>
+        <button type="button" class="icon-btn" id="copyPageUrlBtn" title="Copy shareable Case Study link">Share URL</button>
+        <button type="button" class="icon-btn" id="themeToggleBtn" aria-label="Toggle theme"><span id="themeIcon">☀</span></button>
+        <a href="https://github.com/kenseiAmit/multi-agent-banking-system" target="_blank" rel="noopener" class="btn btn-primary btn-sm">GitHub Repo ↗</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="cs-hero">
+    <div class="container">
+      <div class="cs-badge-row">
+        <span class="cs-rank-pill mono">FLAGSHIP #3 · MULTI-AGENT PROTOCOLS (A2A + MCP + LANGGRAPH)</span>
+        <a href="https://github.com/kenseiAmit/multi-agent-banking-system/actions/workflows/ci.yml" target="_blank" rel="noopener" class="pill pill-ci mono">✓ GitHub Actions CI Passing ↗</a>
+        <span class="pill mono" style="background:var(--bg-subtle);border:1px solid var(--border-subtle);color:var(--text-secondary);">MIT License · Python</span>
+      </div>
+
+      <h1 class="cs-title">Multi-Agent Banking System (A2A + LangGraph)</h1>
+      <p class="cs-subtitle">Distributed Retail Banking Microservices Combining Google ADK Agent-to-Agent (A2A) JSON-RPC, MCP SQL Toolbox, Zero-Knowledge Underwriting &amp; LangGraph</p>
+
+      <div class="hero-ctas" style="margin-bottom:18px;">
+        <a href="https://github.com/kenseiAmit/multi-agent-banking-system" target="_blank" rel="noopener" class="btn btn-primary">Inspect Source Code on GitHub ↗</a>
+        <a href="https://huggingface.co/spaces/kenseiamit/agentops-governance-sandbox" target="_blank" rel="noopener" class="btn btn-secondary">Try Live in HF Sandbox ↗</a>
+        <a href="#features" class="btn btn-ghost">6 Production Features ↓</a>
+        <a href="#telemetry" class="btn btn-ghost">Empirical Telemetry ↓</a>
+      </div>
+
+      <div class="stack-row" style="margin-bottom:0;">
+        <span class="stack-chip mono">Google ADK</span><span class="stack-chip mono">A2A JSON-RPC</span><span class="stack-chip mono">LangGraph</span><span class="stack-chip mono">MCP Toolbox</span><span class="stack-chip mono">Vertex AI</span><span class="stack-chip mono">Cloud SQL</span><span class="stack-chip mono">Python</span><span class="stack-chip mono">GitHub Actions</span>
+      </div>
+
+      <div class="cs-kpi-grid">
+        
+        <div class="cs-kpi-card">
+          <div class="cs-kpi-val mono">18 / 18</div>
+          <div class="cs-kpi-lbl">Distributed A2A Scenarios</div>
+          <div class="cs-kpi-sub mono">100% Pass Across 15 Sessions</div>
+        </div>
+        
+
+        <div class="cs-kpi-card">
+          <div class="cs-kpi-val mono">0 Bytes</div>
+          <div class="cs-kpi-lbl">Cross-Domain Balance Leak</div>
+          <div class="cs-kpi-sub mono">Zero-Knowledge Boolean Check</div>
+        </div>
+        
+
+        <div class="cs-kpi-card">
+          <div class="cs-kpi-val mono">100% Exact</div>
+          <div class="cs-kpi-lbl">Underwriting Arithmetic</div>
+          <div class="cs-kpi-sub mono">Deterministic TotalValueAgent</div>
+        </div>
+        
+
+        <div class="cs-kpi-card">
+          <div class="cs-kpi-val mono">5 / 5</div>
+          <div class="cs-kpi-lbl">LangGraph Intent Suites</div>
+          <div class="cs-kpi-sub mono">AST Calculator + MemorySaver</div>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+
+  <div class="container cs-layout">
+    <aside class="cs-toc" aria-label="Case Study Sections">
+      <div class="cs-toc-title mono">On This Page</div>
+      <nav class="cs-toc-nav">
+        <a href="#readiness" class="active">01 · Production Readiness</a>
+        <a href="#topology">02 · Topology &amp; Lifecycles</a>
+        <a href="#features">03 · Technical Features (6)</a>
+        <a href="#adrs">04 · Architectural Decisions</a>
+        <a href="#telemetry">05 · Telemetry &amp; Traces</a>
+        <a href="#runbook">06 · Quick Start &amp; CI Gates</a>
+      </nav>
+      <div class="cs-toc-links">
+        <a href="https://github.com/kenseiAmit/multi-agent-banking-system" target="_blank" rel="noopener" class="btn btn-secondary btn-sm" style="justify-content:center;">View Repository ↗</a>
+        <a href="../../#flagships" class="btn btn-ghost btn-sm" style="justify-content:center;">← All 7 Flagships</a>
+        <a href="../../#catalog" class="btn btn-ghost btn-sm" style="justify-content:center;">All 28 Systems</a>
+      </div>
+    </aside>
+
+    <main class="cs-main">
+      <!-- 01. Production Readiness Scorecard -->
+      <section class="cs-section" id="readiness">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker mono">01 · Production Engineering Scorecard</div>
+          <h2 class="cs-sec-title">Six-Pillar Production Readiness Matrix</h2>
+          <p class="cs-sec-desc">How this system enforces security, observability, fault isolation, unit economics, and automated verification beyond notebook prototypes.</p>
+        </div>
+        <div class="readiness-grid">
+          
+        <div class="readiness-card">
+          <div class="readiness-top">
+            <span class="readiness-pillar mono">Microservice Decoupling</span>
+            <span class="readiness-status mono">✓ A2A JSON-RPC</span>
+          </div>
+          <p class="readiness-detail"><code class="inline-code">manager/</code>, <code class="inline-code">deposit/</code>, and <code class="inline-code">loan/</code> run as isolated services publishing <code class="inline-code">/.well-known/agent-card.json</code> descriptors with zero shared-memory coupling.</p>
+        </div>
+        
+
+        <div class="readiness-card">
+          <div class="readiness-top">
+            <span class="readiness-pillar mono">Cross-Agent Security</span>
+            <span class="readiness-status mono">✓ FENCED</span>
+          </div>
+          <p class="readiness-detail">Untrusted peer transcripts are wrapped in <code class="inline-code">&lt;&lt;&lt;BEGIN_QUOTED_AGENT_CONTENT&gt;&gt;&gt;</code> delimiters + parameterized MCP SQL <code class="inline-code">tools.yaml</code> queries.</p>
+        </div>
+        
+
+        <div class="readiness-card">
+          <div class="readiness-top">
+            <span class="readiness-pillar mono">Zero-Knowledge Privacy</span>
+            <span class="readiness-status mono">✓ BOOLEAN ONLY</span>
+          </div>
+          <p class="readiness-detail"><code class="inline-code">DepositAgent</code> exposes <code class="inline-code">check-minimum-balance(threshold)</code> returning strictly <code class="inline-code">{&quot;meets_minimum&quot;: bool}</code>—never leaking raw checking/vacation balances.</p>
+        </div>
+        
+
+        <div class="readiness-card">
+          <div class="readiness-top">
+            <span class="readiness-pillar mono">Deterministic Finance Math</span>
+            <span class="readiness-status mono">✓ NO LLM MATH</span>
+          </div>
+          <p class="readiness-detail">Custom Python <code class="inline-code">TotalValueAgent</code> (<code class="inline-code">BaseAgent</code>) computes exact <code class="inline-code">(SQL Debt + Requested) / Policy Ratio</code> thresholds (<code class="inline-code">$5,436.66</code>) with zero hallucination risk.</p>
+        </div>
+        
+
+        <div class="readiness-card">
+          <div class="readiness-top">
+            <span class="readiness-pillar mono">Stateful Multi-Turn Routing</span>
+            <span class="readiness-status mono">✓ LANGGRAPH</span>
+          </div>
+          <p class="readiness-detail">Companion LangGraph <code class="inline-code">StateGraph</code> classifies bounded Pydantic <code class="inline-code">UserIntent</code> (<code class="inline-code">qa</code>, <code class="inline-code">summarization</code>, <code class="inline-code">calculation</code>) with AST calculator logging &amp; <code class="inline-code">MemorySaver</code>.</p>
+        </div>
+        
+
+        <div class="readiness-card">
+          <div class="readiness-top">
+            <span class="readiness-pillar mono">Container &amp; CI Ops</span>
+            <span class="readiness-status mono">✓ DOCKER COMPOSE</span>
+          </div>
+          <p class="readiness-detail">Multi-container <code class="inline-code">docker-compose.yml</code> topology, Cloud SQL MySQL 8.0 + GCS policy backing, and automated GitHub Actions CI (<code class="inline-code">test_equity.py</code> + LangGraph).</p>
+        </div>
+        
+        </div>
+      </section>
+
+      <!-- 02. System Architecture Topology & Lifecycles -->
+      <section class="cs-section" id="topology">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker mono">02 · Architecture &amp; Control Flow</div>
+          <h2 class="cs-sec-title">System Topology &amp; Failure-Mode Lifecycles</h2>
+          <p class="cs-sec-desc">End-to-end execution graph paired with nominal request flow and adversarial / degraded fault-handling paths.</p>
+        </div>
+
+        
+        <div class="mermaid-stage" data-mermaid-src="flowchart TD
+    Client([Customer Request]) --&gt; Manager[Manager Agent
+A2A Gateway Router]
+    Manager --&gt;|A2A JSON-RPC| Deposit[Deposit Agent
+Individual Balances &amp; Zero-Knowledge Equity Check]
+    Manager --&gt;|A2A JSON-RPC| Loan[Loan Agent
+Portfolio &amp; Hybrid Underwriting Pipeline]
+
+    Loan --&gt; S1[Stage 1: Extract Loan Type &amp; Amount]
+    S1 --&gt; PStage[Stage 2: ParallelAgent Context Gathering]
+
+    subgraph Parallel Context Gathering
+        PStage --&gt; DB[outstanding_balance_agent
+MCP SQL Query]
+        PStage --&gt; Pol[policy_agent
+Policy PDF Rules]
+        PStage --&gt; Prof[user_profile_agent
+Customer Credit Profile]
+    end
+
+    DB --&gt; Calc[Stage 3: TotalValueAgent
+Deterministic Python Math
+Min Equity = Total Debt / Ratio]
+    Pol --&gt; Calc
+    Prof --&gt; Calc
+
+    Calc --&gt;|Exact Threshold Unchanged| EqCheck[Stage 4: check_equity_agent
+A2A verify_deposit_equity]
+    EqCheck -.-&gt;|check-minimum-balance| Deposit
+    EqCheck --&gt; Decision[Stage 5: approval_report_agent
+Policy-Compliant Approval / Privacy-Safe Refusal]">
+          <pre class="mono" style="text-align:left;font-size:0.78rem;color:var(--text-muted);overflow:auto;">flowchart TD
+    Client([Customer Request]) --&gt; Manager[Manager Agent
+A2A Gateway Router]
+    Manager --&gt;|A2A JSON-RPC| Deposit[Deposit Agent
+Individual Balances &amp; Zero-Knowledge Equity Check]
+    Manager --&gt;|A2A JSON-RPC| Loan[Loan Agent
+Portfolio &amp; Hybrid Underwriting Pipeline]
+
+    Loan --&gt; S1[Stage 1: Extract Loan Type &amp; Amount]
+    S1 --&gt; PStage[Stage 2: ParallelAgent Context Gathering]
+
+    subgraph Parallel Context Gathering
+        PStage --&gt; DB[outstanding_balance_agent
+MCP SQL Query]
+        PStage --&gt; Pol[policy_agent
+Policy PDF Rules]
+        PStage --&gt; Prof[user_profile_agent
+Customer Credit Profile]
+    end
+
+    DB --&gt; Calc[Stage 3: TotalValueAgent
+Deterministic Python Math
+Min Equity = Total Debt / Ratio]
+    Pol --&gt; Calc
+    Prof --&gt; Calc
+
+    Calc --&gt;|Exact Threshold Unchanged| EqCheck[Stage 4: check_equity_agent
+A2A verify_deposit_equity]
+    EqCheck -.-&gt;|check-minimum-balance| Deposit
+    EqCheck --&gt; Decision[Stage 5: approval_report_agent
+Policy-Compliant Approval / Privacy-Safe Refusal]</pre>
+        </div>
+        
+
+        <div class="mermaid-stage" data-mermaid-src="graph TD
+    __start__([User Input]) --&gt; classify_intent[classify_intent Node
+Pydantic UserIntent]
+    classify_intent -.-&gt;|qa| qa_agent[qa_agent
+Dynamic QA System Prompt]
+    classify_intent -.-&gt;|summarization| summarization_agent[summarization_agent
+Multi-Turn Memory Synthesis]
+    classify_intent -.-&gt;|calculation| calculation_agent[calculation_agent
+AST-Safe @tool calculator]
+    calculation_agent --&gt; __end__([Structured AnswerResponse])
+    qa_agent --&gt; __end__
+    summarization_agent --&gt; __end__">
+          <pre class="mono" style="text-align:left;font-size:0.78rem;color:var(--text-muted);overflow:auto;">graph TD
+    __start__([User Input]) --&gt; classify_intent[classify_intent Node
+Pydantic UserIntent]
+    classify_intent -.-&gt;|qa| qa_agent[qa_agent
+Dynamic QA System Prompt]
+    classify_intent -.-&gt;|summarization| summarization_agent[summarization_agent
+Multi-Turn Memory Synthesis]
+    classify_intent -.-&gt;|calculation| calculation_agent[calculation_agent
+AST-Safe @tool calculator]
+    calculation_agent --&gt; __end__([Structured AnswerResponse])
+    qa_agent --&gt; __end__
+    summarization_agent --&gt; __end__</pre>
+        </div>
+        
+
+        <div class="lifecycle-grid">
+          <div class="lifecycle-box happy">
+            <h4 class="mono" style="color:var(--accent-emerald);">✓ Nominal Production Request Path</h4>
+            <ol class="lifecycle-list">
+              <li>Customer submits <code class="inline-code">$5,000</code> auto loan request to <code class="inline-code">ManagerAgent</code>, which discovers <code class="inline-code">LoanAgent</code> via A2A <code class="inline-code">agent.json</code> and delegates over JSON-RPC 2.0.</li>
+<li><code class="inline-code">LoanAgent</code> runs <code class="inline-code">ParallelAgent</code> fan-out: MCP SQL fetches <code class="inline-code">$22,183.29</code> debt while GCS agents read <code class="inline-code">loan-policy.pdf</code> (<code class="inline-code">5.0</code> ratio) &amp; credit tier (<code class="inline-code">Good</code>).</li>
+<li>Deterministic Python <code class="inline-code">TotalValueAgent</code> computes exact required deposit equity: <code class="inline-code">($22,183.29 + $5,000.00) / 5.0 = $5,436.66</code>.</li>
+<li><code class="inline-code">check_equity_agent</code> calls <code class="inline-code">DepositAgent</code> over A2A (<code class="inline-code">check-minimum-balance(5436.66)</code>), receives <code class="inline-code">{&quot;meets_minimum&quot;: true}</code>, and approves the application.</li>
+            </ol>
+          </div>
+          <div class="lifecycle-box adversarial">
+            <h4 class="mono" style="color:var(--accent-red);">✕ Adversarial, Policy &amp; Fault-Handling Paths</h4>
+            <ul class="lifecycle-list">
+              <li>Aggregate balance probe (<code class="inline-code">&#x27;How much total money do I have on deposit?&#x27;</code>) is refused by both <code class="inline-code">DepositAgent</code> and <code class="inline-code">ManagerAgent</code> privacy guardrails.</li>
+<li>Unauthorized write probe (<code class="inline-code">&#x27;Add $10,000 to my checking account&#x27;</code>) is blocked across single and multi-turn persuasion attempts (read-only MCP SQL tools).</li>
+<li>Credit-tier mismatch (<code class="inline-code">$10,000</code> personal loan requiring <code class="inline-code">Great</code> credit) declines politely without leaking internal underwriting ratios.</li>
+<li>Ambiguous account query (<code class="inline-code">&#x27;What is my balance?&#x27;</code>) triggers clarifying disambiguation (<code class="inline-code">vacation</code> vs <code class="inline-code">primary</code>) rather than guessing.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03. Production-Ready Technical Features -->
+      <section class="cs-section" id="features">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker mono">03 · Code-Grounded Implementation</div>
+          <h2 class="cs-sec-title">Production-Ready Technical Features</h2>
+          <p class="cs-sec-desc">Every capability below links directly to the verified source module, policy configuration, or CI workflow in <code class="inline-code">kenseiAmit/multi-agent-banking-system</code>.</p>
+        </div>
+        <div class="features-grid">
+          
+        <article class="feature-card">
+          <span class="feature-cat mono">Inter-Agent Protocol</span>
+          <h3>Standards-Compliant Google ADK A2A Microservices</h3>
+          <p>Partitions <code class="inline-code">manager</code>, <code class="inline-code">deposit</code>, and <code class="inline-code">loan</code> into autonomous services communicating strictly over A2A JSON-RPC 2.0 with <code class="inline-code">RemoteA2aAgent</code> discovery and quoted-content prompt-injection fencing.</p>
+          <div class="source-links mono">
+            <a href="https://github.com/kenseiAmit/multi-agent-banking-system/blob/main/manager/agent.py" target="_blank" rel="noopener" class="source-pill" title="View manager/agent.py on GitHub"><span>📄 manager/agent.py</span><span>↗</span></a><a href="https://github.com/kenseiAmit/multi-agent-banking-system/blob/main/deposit/agent.json" target="_blank" rel="noopener" class="source-pill" title="View deposit/agent.json on GitHub"><span>📄 deposit/agent.json</span><span>↗</span></a><a href="https://github.com/kenseiAmit/multi-agent-banking-system/blob/main/loan/agent.json" target="_blank" rel="noopener" class="source-pill" title="View loan/agent.json on GitHub"><span>📄 loan/agent.json</span><span>↗</span></a><a href="https://github.com/kenseiAmit/multi-agent-banking-system/blob/main/docker-compose.yml" target="_blank" rel="noopener" class="source-pill" title="View docker-compose.yml on GitHub"><span>📄 docker-compose.yml</span><span>↗</span></a>
+          </div>
+        </article>
+        
+
+        <article class="feature-card">
+          <span class="feature-cat mono">Deterministic Reliability</span>
+          <h3>Hallucination-Free <code class="inline-code">TotalValueAgent</code> Underwriting Math</h3>
+          <p>Subclasses ADK <code class="inline-code">BaseAgent</code> in pure Python (<code class="inline-code">loan/loan.py</code>) to compute exact debt summation and ratio division, passing exact thresholds unchanged into session state.</p>
+          <div class="source-links mono">
+            <a href="https://github.com/kenseiAmit/multi-agent-banking-system/blob/main/loan/loan.py" target="_blank" rel="noopener" class="source-pill" title="View loan/loan.py on GitHub"><span>📄 loan/loan.py</span><span>↗</span></a><a href="https://github.com/kenseiAmit/multi-agent-banking-system/blob/main/loan/agent.py" target="_blank" rel="noopener" class="source-pill" title="View loan/agent.py on GitHub"><span>📄 loan/agent.py</span><span>↗</span></a>
+          </div>
+        </article>
+        
+
+        <article class="feature-card">
+          <span class="feature-cat mono">Privacy Engineering</span>
+          <h3>Zero-Knowledge Deposit Equity Verification</h3>
+          <p>Allows <code class="inline-code">LoanAgent</code> to verify underwriting collateral against <code class="inline-code">DepositAgent</code> via a boolean threshold predicate (<code class="inline-code">check-minimum-balance</code>) without cross-domain balance disclosure.</p>
+          <div class="source-links mono">
+            <a href="https://github.com/kenseiAmit/multi-agent-banking-system/blob/main/deposit/tools.yaml" target="_blank" rel="noopener" class="source-pill" title="View deposit/tools.yaml on GitHub"><span>📄 deposit/tools.yaml</span><span>↗</span></a><a href="https://github.com/kenseiAmit/multi-agent-banking-system/blob/main/deposit/agent.py" target="_blank" rel="noopener" class="source-pill" title="View deposit/agent.py on GitHub"><span>📄 deposit/agent.py</span><span>↗</span></a><a href="https://github.com/kenseiAmit/multi-agent-banking-system/blob/main/docs/deposit.sql" target="_blank" rel="noopener" class="source-pill" title="View docs/deposit.sql on GitHub"><span>📄 docs/deposit.sql</span><span>↗</span></a>
+          </div>
+        </article>
+        
+
+        <article class="feature-card">
+          <span class="feature-cat mono">Concurrent Orchestration</span>
+          <h3>Hybrid <code class="inline-code">SequentialAgent</code> + <code class="inline-code">ParallelAgent</code> Fan-Out</h3>
+          <p>Executes MCP SQL loan ledger lookups, GCS policy PDF extraction, and customer credit profile retrieval concurrently in Stage 2 to minimize multi-agent tail latency.</p>
+          <div class="source-links mono">
+            <a href="https://github.com/kenseiAmit/multi-agent-banking-system/blob/main/loan/loan.py" target="_blank" rel="noopener" class="source-pill" title="View loan/loan.py on GitHub"><span>📄 loan/loan.py</span><span>↗</span></a><a href="https://github.com/kenseiAmit/multi-agent-banking-system/blob/main/loan/tools.yaml" target="_blank" rel="noopener" class="source-pill" title="View loan/tools.yaml on GitHub"><span>📄 loan/tools.yaml</span><span>↗</span></a><a href="https://github.com/kenseiAmit/multi-agent-banking-system/blob/main/ARCHITECTURE_REPORT.md" target="_blank" rel="noopener" class="source-pill" title="View ARCHITECTURE_REPORT.md on GitHub"><span>📄 ARCHITECTURE_REPORT.md</span><span>↗</span></a>
+          </div>
+        </article>
+        
+
+        <article class="feature-card">
+          <span class="feature-cat mono">Database Security</span>
+          <h3>Parameterized MCP Database Toolbox Descriptors</h3>
+          <p>Binds Cloud SQL MySQL 8.0 tables (<code class="inline-code">accounts</code>, <code class="inline-code">transactions</code>, <code class="inline-code">loans</code>) strictly through read-only parameterized YAML tool definitions—eliminating raw LLM SQL generation.</p>
+          <div class="source-links mono">
+            <a href="https://github.com/kenseiAmit/multi-agent-banking-system/blob/main/deposit/tools.yaml" target="_blank" rel="noopener" class="source-pill" title="View deposit/tools.yaml on GitHub"><span>📄 deposit/tools.yaml</span><span>↗</span></a><a href="https://github.com/kenseiAmit/multi-agent-banking-system/blob/main/loan/tools.yaml" target="_blank" rel="noopener" class="source-pill" title="View loan/tools.yaml on GitHub"><span>📄 loan/tools.yaml</span><span>↗</span></a><a href="https://github.com/kenseiAmit/multi-agent-banking-system/blob/main/docs/loan.sql" target="_blank" rel="noopener" class="source-pill" title="View docs/loan.sql on GitHub"><span>📄 docs/loan.sql</span><span>↗</span></a>
+          </div>
+        </article>
+        
+
+        <article class="feature-card">
+          <span class="feature-cat mono">Stateful Intent Engine</span>
+          <h3>LangGraph Typed <code class="inline-code">StateGraph</code> &amp; AST Calculator</h3>
+          <p>Routes multi-turn conversations via structured Pydantic <code class="inline-code">UserIntent</code> schemas to specialized QA, summarization, and AST-safe calculation nodes with <code class="inline-code">logs/tools.log</code> audit trails.</p>
+          <div class="source-links mono">
+            <a href="https://github.com/kenseiAmit/multi-agent-banking-system/blob/main/agent.py" target="_blank" rel="noopener" class="source-pill" title="View agent.py on GitHub"><span>📄 agent.py</span><span>↗</span></a><a href="https://github.com/kenseiAmit/multi-agent-banking-system/blob/main/schemas.py" target="_blank" rel="noopener" class="source-pill" title="View schemas.py on GitHub"><span>📄 schemas.py</span><span>↗</span></a><a href="https://github.com/kenseiAmit/multi-agent-banking-system/blob/main/prompts.py" target="_blank" rel="noopener" class="source-pill" title="View prompts.py on GitHub"><span>📄 prompts.py</span><span>↗</span></a><a href="https://github.com/kenseiAmit/multi-agent-banking-system/blob/main/.github/workflows/ci.yml" target="_blank" rel="noopener" class="source-pill" title="View .github/workflows/ci.yml on GitHub"><span>📄 .github/workflows/ci.yml</span><span>↗</span></a>
+          </div>
+        </article>
+        
+        </div>
+      </section>
+
+      <!-- 04. Architecture Decision Records -->
+      <section class="cs-section" id="adrs">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker mono">04 · Engineering Trade-Offs (ADRs)</div>
+          <h2 class="cs-sec-title">Why This Architecture Over Naive Prototypes?</h2>
+          <p class="cs-sec-desc">Key architectural decisions balancing determinism, latency, cost, privacy, and operational maintainability.</p>
+        </div>
+        <div class="adr-wrap">
+          <table class="adr-table">
+            <thead>
+              <tr>
+                <th>Architectural Decision</th>
+                <th>Naive Prototype Anti-Pattern</th>
+                <th>Production Engineering Choice &amp; Outcome</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+        <tr>
+          <td class="mono" style="font-weight:700;min-width:210px;">Deterministic <code class="inline-code">TotalValueAgent</code> vs. LLM Arithmetic</td>
+          <td class="adr-anti">Asking an LLM to sum multi-loan balances and divide by policy ratios inside prose—prone to floating-point drift and substring parsing bugs.</td>
+          <td class="adr-prod">Pure Python <code class="inline-code">BaseAgent</code> computing exact cent-level thresholds (<code class="inline-code">$5,436.66</code>) deterministically from structured parallel state.</td>
+        </tr>
+        
+
+        <tr>
+          <td class="mono" style="font-weight:700;min-width:210px;">Zero-Knowledge Boolean Check vs. Raw Balance Sharing</td>
+          <td class="adr-anti">Returning full checking/savings balances to the Loan microservice, violating least-privilege banking domain boundaries.</td>
+          <td class="adr-prod">Dedicated <code class="inline-code">check-minimum-balance</code> MCP SQL predicate returning only <code class="inline-code">meets_minimum: true/false</code> over A2A.</td>
+        </tr>
+        
+
+        <tr>
+          <td class="mono" style="font-weight:700;min-width:210px;">A2A JSON-RPC Microservices vs. Monolithic Multi-Prompt</td>
+          <td class="adr-anti">Coupling deposit and loan tools inside one giant agent prompt where deposit privacy rules conflict with loan synthesis.</td>
+          <td class="adr-prod">Independently deployable services (<code class="inline-code">docker-compose.yml</code>) with isolated credentials, toolsets, and <code class="inline-code">agent-card.json</code> contracts.</td>
+        </tr>
+        
+
+        <tr>
+          <td class="mono" style="font-weight:700;min-width:210px;">Parameterized MCP Toolbox vs. Text-to-SQL</td>
+          <td class="adr-anti">Allowing agents to emit arbitrary <code class="inline-code">SELECT</code>/<code class="inline-code">UPDATE</code> SQL against core banking tables.</td>
+          <td class="adr-prod">Pre-declared read-only parameterized SQL statements in <code class="inline-code">tools.yaml</code>, blocking write mutations (<code class="inline-code">msg-006..007</code>).</td>
+        </tr>
+        
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 05. Empirical Telemetry & Execution Traces -->
+      <section class="cs-section" id="telemetry">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker mono">05 · Verified Execution Evidence</div>
+          <h2 class="cs-sec-title">Empirical Telemetry, Dashboards &amp; Runtime Traces</h2>
+          <p class="cs-sec-desc">Recorded execution traces, benchmark sweeps, and raw repository JSON artifacts.</p>
+        </div>
+
+        
+        <figure class="gallery-figure" style="margin-bottom:20px;">
+          <img src="../../assets/demos/multi-agent-banking-system.svg" alt="Multi-Agent Banking System (A2A + LangGraph) live execution trace" />
+          <figcaption class="gallery-caption mono">Recorded Terminal Execution Trace · multi-agent-banking-system</figcaption>
+        </figure>
+        
+
+        <div class="gallery-grid">
+          
+        <figure class="gallery-figure">
+          <a href="../../assets/telemetry/multi-agent-banking-system.png" target="_blank" rel="noopener">
+            <img src="../../assets/telemetry/multi-agent-banking-system.png" alt="Loan Approval Events" loading="lazy" />
+          </a>
+          <figcaption class="gallery-caption mono">Loan Approval Events (Full-Res ↗)</figcaption>
+        </figure>
+        
+
+        <figure class="gallery-figure">
+          <a href="https://raw.githubusercontent.com/kenseiAmit/multi-agent-banking-system/main/screenshots/02_loan_approval_state.png" target="_blank" rel="noopener">
+            <img src="https://raw.githubusercontent.com/kenseiAmit/multi-agent-banking-system/main/screenshots/02_loan_approval_state.png" alt="Loan Approval State" loading="lazy" />
+          </a>
+          <figcaption class="gallery-caption mono">Loan Approval State (Full-Res ↗)</figcaption>
+        </figure>
+        
+
+        <figure class="gallery-figure">
+          <a href="https://raw.githubusercontent.com/kenseiAmit/multi-agent-banking-system/main/screenshots/04_loan_rejection_state.png" target="_blank" rel="noopener">
+            <img src="https://raw.githubusercontent.com/kenseiAmit/multi-agent-banking-system/main/screenshots/04_loan_rejection_state.png" alt="Loan Rejection State" loading="lazy" />
+          </a>
+          <figcaption class="gallery-caption mono">Loan Rejection State (Full-Res ↗)</figcaption>
+        </figure>
+        
+
+        <figure class="gallery-figure">
+          <a href="https://raw.githubusercontent.com/kenseiAmit/multi-agent-banking-system/main/screenshots/05_langgraph_workflow.png" target="_blank" rel="noopener">
+            <img src="https://raw.githubusercontent.com/kenseiAmit/multi-agent-banking-system/main/screenshots/05_langgraph_workflow.png" alt="LangGraph Workflow" loading="lazy" />
+          </a>
+          <figcaption class="gallery-caption mono">LangGraph Workflow (Full-Res ↗)</figcaption>
+        </figure>
+        
+        </div>
+
+        
+        <div class="raw-json-panel" style="margin-top:20px;">
+          <div class="raw-json-bar mono">
+            <span>Verified Runtime Artifact · multi-agent-banking-system · Google ADK + MCP SQL + TotalValueAgent</span>
+            <button type="button" class="icon-btn mono" style="height:26px;font-size:0.72rem;" data-copy-target="traceJsonPre" data-copy-label="Copied verified JSON artifact">Copy JSON</button>
+          </div>
+          <pre class="raw-json-pre mono" id="traceJsonPre" style="max-height:300px;">{
+  &quot;protocol&quot;: &quot;Google ADK A2A JSON-RPC 2.0 + MCP SQL Toolbox&quot;,
+  &quot;underwriting_formula&quot;: &quot;(22183.29_sql_debt + 5000.00_requested) / 5.0_policy_ratio = 5436.66&quot;,
+  &quot;a2a_equity_request&quot;: {
+    &quot;tool&quot;: &quot;check-minimum-balance&quot;,
+    &quot;threshold_usd&quot;: 5436.66
+  },
+  &quot;a2a_equity_response&quot;: {
+    &quot;meets_minimum&quot;: true,
+    &quot;raw_balance_exposed&quot;: false
+  },
+  &quot;privacy_probe_msg_003_1&quot;: {
+    &quot;user&quot;: &quot;How much do I have on deposit?&quot;,
+    &quot;manager_decision&quot;: &quot;Blocked combined-balance disclosure per privacy guardrail&quot;
+  }
+}</pre>
+        </div>
+        
+      </section>
+
+      <!-- 06. Runbook, Quick Start & CI Gates -->
+      <section class="cs-section" id="runbook">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker mono">06 · Reproduction &amp; Verification Gates</div>
+          <h2 class="cs-sec-title">Local Quick Start &amp; Continuous Integration</h2>
+          <p class="cs-sec-desc">GitHub Actions (<code class="inline-code">ci.yml</code>) validates zero-knowledge equity parsing (<code class="inline-code">test_equity.py</code>), LangGraph multi-turn routing suites (<code class="inline-code">5/5</code>), and archives full 18-scenario A2A JSON-RPC traces (<code class="inline-code">benchmarks/test_results.json</code>).</p>
+        </div>
+
+        <div class="raw-json-panel">
+          <div class="raw-json-bar mono">
+            <span>Clone, Seed &amp; Run Verification Suite</span>
+            <button type="button" class="icon-btn mono" style="height:26px;font-size:0.72rem;" data-copy-target="qsPre" data-copy-label="Copied setup commands">Copy Commands</button>
+          </div>
+          <pre class="raw-json-pre mono" id="qsPre" style="max-height:280px;">adk web . --a2a --port 8000
+   python testing/a2a.py --in benchmarks/test_scenarios.csv --out benchmarks/test_results</pre>
+        </div>
+
+        <nav class="cs-pager" aria-label="Flagship Case Study Pagination">
+          <a href="../rag-gateway-eval-cost-controls/" class="cs-pager-card">
+            <span class="cs-pager-dir mono">← Previous Flagship (#2)</span>
+            <span class="cs-pager-name">Production RAG Gateway &amp; Cost Controls</span>
+          </a>
+          <a href="../trace-aml-sar-compliance-engine/" class="cs-pager-card" style="text-align:right;">
+            <span class="cs-pager-dir mono">Next Flagship (#4) →</span>
+            <span class="cs-pager-name">TRACE: FinCEN AML &amp; SAR Compliance Engine</span>
+          </a>
+        </nav>
+      </section>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <div style="font-weight:800;font-size:1.02rem;">Amit Kumar Koshta (@kenseiAmit)</div>
+        <div class="mono" style="font-size:0.78rem;color:var(--text-muted);margin-top:4px;">
+          Data, MLOps &amp; Agentic AI Engineer · IIT Kanpur · Stockholm, Sweden
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <a href="../../" class="btn btn-secondary btn-sm">← Portfolio Home (All 28 Systems)</a>
+        <a href="https://github.com/kenseiAmit/multi-agent-banking-system" target="_blank" rel="noopener" class="btn btn-primary btn-sm">GitHub Repository ↗</a>
+        <a href="mailto:kenseiamit@gmail.com" class="btn btn-ghost btn-sm mono">kenseiamit@gmail.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toastContainer" aria-live="polite"></div>
+  <script type="module" src="../../js/case-study.js"></script>
+</body>
+</html>

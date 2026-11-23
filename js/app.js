@@ -224,9 +224,14 @@ function renderFlagships() {
     .map((sys, idx) => {
       const isHeroSpan = idx === 0 && featured.length % 2 === 1;
       const linkedTrace = findTraceForSystem(sys.slug);
+      const flagshipHref = sys.flagship ? `projects/${esc(sys.slug)}/` : null;
       return `
         <article class="flagship-card ${isHeroSpan ? "hero-span" : ""}">
-          <div class="card-media" data-open-system="${esc(sys.slug)}" title="Inspect ${esc(sys.title)} architecture & telemetry">
+          ${
+            flagshipHref
+              ? `<a href="${flagshipHref}" class="card-media" title="Open ${esc(sys.title)} full production case study">`
+              : `<div class="card-media" data-open-system="${esc(sys.slug)}" title="Inspect ${esc(sys.title)} architecture & telemetry">`
+          }
             <img src="${esc(sys.primaryImage)}" alt="${esc(sys.title)} empirical telemetry" loading="${idx < 2 ? "eager" : "lazy"}" />
             <div class="media-badges mono">
               <span class="pill pill-dark">${sys.flagship ? `★ FLAGSHIP #${sys.flagshipRank}` : esc(sys.domainName)}</span>
@@ -235,7 +240,7 @@ function renderFlagships() {
                 ${sys.ci ? `<span class="pill pill-ci">✓ CI Passing</span>` : ""}
               </span>
             </div>
-          </div>
+          ${flagshipHref ? `</a>` : `</div>`}
 
           <div class="card-body">
             <div class="card-meta-row">
@@ -246,7 +251,11 @@ function renderFlagships() {
               <span class="mono" style="font-size:0.72rem;color:var(--text-faint);">${esc(sys.slug)}</span>
             </div>
 
-            <h3 class="card-title" data-open-system="${esc(sys.slug)}">${esc(sys.title)}</h3>
+            ${
+              flagshipHref
+                ? `<h3 class="card-title"><a href="${flagshipHref}">${esc(sys.title)}</a></h3>`
+                : `<h3 class="card-title" data-open-system="${esc(sys.slug)}">${esc(sys.title)}</h3>`
+            }
             <p class="card-summary">${richText(sys.summary)}</p>
 
             <div class="kpi-row mono">
@@ -263,12 +272,15 @@ function renderFlagships() {
             </div>
 
             <div class="card-actions">
-              <button type="button" class="btn btn-primary btn-sm" data-open-system="${esc(sys.slug)}">
-                Case Study &amp; Topology
-              </button>
+              ${
+                flagshipHref
+                  ? `<a href="${flagshipHref}" class="btn btn-primary btn-sm">Production Case Study →</a>
+                     <button type="button" class="btn btn-secondary btn-sm" data-open-system="${esc(sys.slug)}">Quick Spec</button>`
+                  : `<button type="button" class="btn btn-primary btn-sm" data-open-system="${esc(sys.slug)}">Case Study &amp; Topology</button>`
+              }
               ${
                 linkedTrace
-                  ? `<button type="button" class="btn btn-secondary btn-sm" data-jump-trace="${esc(linkedTrace.id)}">Replay Trace</button>`
+                  ? `<button type="button" class="btn btn-ghost btn-sm" data-jump-trace="${esc(linkedTrace.id)}">Replay Trace</button>`
                   : ""
               }
               <a href="${esc(sys.repoUrl)}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">
@@ -539,7 +551,11 @@ function renderCatalog() {
                     ${sys.ci ? `<span style="color:var(--accent-emerald);font-weight:700;">PASS</span>` : `<span style="color:var(--text-faint);">v1.0</span>`}
                   </td>
                   <td style="white-space:nowrap;">
-                    <button type="button" class="btn btn-secondary btn-sm" style="padding:4px 9px;font-size:0.74rem;" data-open-system="${esc(sys.slug)}">Spec</button>
+                    ${
+                      sys.flagship
+                        ? `<a href="projects/${esc(sys.slug)}/" class="btn btn-primary btn-sm" style="padding:4px 9px;font-size:0.74rem;">Case Study →</a>`
+                        : `<button type="button" class="btn btn-secondary btn-sm" style="padding:4px 9px;font-size:0.74rem;" data-open-system="${esc(sys.slug)}">Spec</button>`
+                    }
                     <a href="${esc(sys.repoUrl)}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="padding:4px 9px;font-size:0.74rem;">Repo ↗</a>
                   </td>
                 </tr>
@@ -589,9 +605,12 @@ function renderCatalog() {
               </div>
 
               <div class="card-actions" style="margin-top:auto;">
-                <button type="button" class="btn btn-secondary btn-sm" style="flex:1;justify-content:center;" data-open-system="${esc(sys.slug)}">
-                  Architecture &amp; Evidence
-                </button>
+                ${
+                  sys.flagship
+                    ? `<a href="projects/${esc(sys.slug)}/" class="btn btn-primary btn-sm" style="flex:1;justify-content:center;">Full Case Study →</a>
+                       <button type="button" class="btn btn-secondary btn-sm" data-open-system="${esc(sys.slug)}">Spec</button>`
+                    : `<button type="button" class="btn btn-secondary btn-sm" style="flex:1;justify-content:center;" data-open-system="${esc(sys.slug)}">Architecture &amp; Evidence</button>`
+                }
                 <a href="${esc(sys.repoUrl)}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" aria-label="Open ${esc(sys.title)} on GitHub">
                   GitHub ↗
                 </a>
@@ -685,6 +704,11 @@ function openSystemModal(slug, tab = "overview") {
       ${
         sys.liveUrl
           ? `<a href="${esc(sys.liveUrl)}" target="_blank" rel="noopener" class="btn btn-secondary btn-sm mono">Live Swagger API ↗</a>`
+          : ""
+      }
+      ${
+        sys.flagship
+          ? `<a href="projects/${esc(sys.slug)}/" class="btn btn-secondary btn-sm">Full Production Case Study →</a>`
           : ""
       }
       <a href="${esc(sys.repoUrl)}" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Open GitHub Repository ↗</a>
@@ -880,6 +904,20 @@ function stepModalSystem(delta) {
 function buildCommandItems(query) {
   const q = query.trim().toLowerCase();
   const items = [];
+
+  state.data.systems
+    .filter((s) => s.flagship)
+    .forEach((sys) => {
+      items.push({
+        type: "Flagship Page",
+        title: `Case Study: ${sys.title}`,
+        sub: `/projects/${sys.slug}/ · ${sys.metrics.slice(0, 2).join(" · ")}`,
+        haystack: `${sys.slug} ${sys.stack.join(" ")} ${sys.summary} flagship case study`.toLowerCase(),
+        action: () => {
+          window.location.href = `projects/${sys.slug}/`;
+        }
+      });
+    });
 
   state.data.tracks.forEach((t) => {
     items.push({
