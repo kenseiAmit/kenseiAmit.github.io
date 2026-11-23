@@ -13,6 +13,8 @@ import re
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 
+from flagship_business_specs import BUSINESS_SPECS
+
 SHOWCASE_ROOT = Path(__file__).resolve().parents[2]
 SITE_ROOT = Path(__file__).resolve().parents[1]
 PORTFOLIO_JSON = SITE_ROOT / "data" / "portfolio.json"
@@ -659,7 +661,9 @@ def esc(val: str) -> str:
 
 
 def rich(val: str) -> str:
-    return re.sub(r"`([^`]+)`", r'<code class="inline-code">\1</code>', esc(val))
+    escaped = esc(val)
+    with_code = re.sub(r"`([^`]+)`", r'<code class="inline-code">\1</code>', escaped)
+    return re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", with_code)
 
 
 def load_font(paths: list[str], size: int):
@@ -701,7 +705,6 @@ def generate_project_og_card(sys_obj: dict, spec: dict) -> str:
 
     draw.text((72, 136), title, fill="#F8FAFC", font=f_title)
 
-    # Wrap summary cleanly across 2 lines
     words = sys_obj["summary"].split()
     lines, cur = [], ""
     for w in words:
@@ -733,36 +736,105 @@ def generate_project_og_card(sys_obj: dict, spec: dict) -> str:
     return f"assets/og/{slug}.png"
 
 
-def fix_asset_rel(url: str) -> str:
+def generate_business_og_card(sys_obj: dict, biz: dict) -> str:
+    OG_DIR.mkdir(parents=True, exist_ok=True)
+    slug = sys_obj["slug"]
+    W, H = 1200, 630
+    img = Image.new("RGB", (W, H), "#06110F")
+    draw = ImageDraw.Draw(img)
+
+    for x in range(0, W, 40):
+        draw.line([(x, 0), (x, H)], fill="#0F2420", width=1)
+    for y in range(0, H, 40):
+        draw.line([(0, y), (W, y)], fill="#0F2420", width=1)
+
+    draw.rounded_rectangle([28, 28, W - 28, H - 28], radius=24, fill="#091519", outline="#1E3A3A", width=2)
+    draw.rectangle([72, 28, 400, 34], fill="#10B981")
+    draw.rectangle([400, 28, 600, 34], fill="#06B6D4")
+
+    f_mono_xs = load_font(["/System/Library/Fonts/SFNSMono.ttf", "/System/Library/Fonts/Menlo.ttc"], 14)
+    f_mono_sm = load_font(["/System/Library/Fonts/SFNSMono.ttf", "/System/Library/Fonts/Menlo.ttc"], 15)
+    title = sys_obj["title"]
+    t_size = 35 if len(title) > 44 else 41
+    f_title = load_font(["/System/Library/Fonts/Supplemental/Arial Bold.ttf", "/System/Library/Fonts/HelveticaNeue.ttc"], t_size)
+    f_sub = load_font(["/System/Library/Fonts/HelveticaNeue.ttc", "/System/Library/Fonts/Supplemental/Arial.ttf"], 20)
+    f_kpi = load_font(["/System/Library/Fonts/Supplemental/Arial Bold.ttf", "/System/Library/Fonts/HelveticaNeue.ttc"], 26)
+
+    pill_w = int(draw.textlength(biz["bizKicker"], font=f_mono_sm)) + 44
+    draw.rounded_rectangle([72, 68, min(W - 72, 72 + pill_w), 108], radius=18, fill="#0C2D27", outline="#10B981", width=1)
+    draw.text((94, 79), biz["bizKicker"], fill="#D1FAE5", font=f_mono_sm)
+
+    draw.text((72, 136), title, fill="#F8FAFC", font=f_title)
+
+    words = biz["bizHeadline"].split()
+    lines, cur = [], ""
+    for w in words:
+        if len(cur) + len(w) + 1 <= 84:
+            cur = f"{cur} {w}".strip()
+        else:
+            lines.append(cur)
+            cur = w
+    if cur:
+        lines.append(cur)
+    for idx, ln in enumerate(lines[:2]):
+        draw.text((72, 202 + idx * 30), ln + ("…" if idx == 1 and len(lines) > 2 else ""), fill="#A7F3D0", font=f_sub)
+
+    kx = 72
+    cols = ["#10B981", "#06B6D4", "#3B82F6", "#F59E0B"]
+    for i, kpi in enumerate(biz["bizKpis"][:4]):
+        draw.rounded_rectangle([kx, 316, kx + 250, 452], radius=16, fill="#0D1D24", outline="#1E3A3A", width=2)
+        draw.rectangle([kx, 336, kx + 5, 432], fill=cols[i % 4])
+        draw.text((kx + 20, 344), kpi["val"], fill="#F8FAFC", font=f_kpi)
+        draw.text((kx + 20, 396), kpi["lbl"][:24], fill="#94A3B8", font=f_mono_xs)
+        kx += 268
+
+    draw.line([(72, 504), (W - 72, 504)], fill="#1E3A3A", width=2)
+    draw.text((72, 532), f"kenseiamit.github.io/projects/{slug}/business/", fill="#34D399", font=f_mono_sm)
+    draw.text((760, 532), "Amit Kumar Koshta · @kenseiAmit", fill="#94A3B8", font=f_mono_sm)
+
+    out_path = OG_DIR / f"{slug}-business.png"
+    img.save(out_path, "PNG", optimize=True)
+    return f"assets/og/{slug}-business.png"
+
+
+def fix_asset_rel(url: str, root_prefix: str) -> str:
     if url.startswith("http://") or url.startswith("https://"):
         return url
-    return f"../../{url.lstrip('/')}"
+    return f"{root_prefix}/{url.lstrip('/')}"
 
 
 def build_flagship_html(
     sys_obj: dict,
     spec: dict,
+    biz: dict,
     all_flagships: list[dict],
     trace_obj: dict | None,
     prev_sys: dict,
     next_sys: dict,
+    default_view: str = "tech",
 ) -> str:
     slug = sys_obj["slug"]
     repo_url = sys_obj["repoUrl"]
+    is_biz_default = default_view == "business"
+    root_prefix = "../../.." if is_biz_default else "../.."
+    proj_prefix = "../.." if is_biz_default else ".."
 
-    # Verify every source file exists in local repo clone!
+    # Verify every source file exists in local repo clone across BOTH Technical & Business matrices!
     repo_disk = SHOWCASE_ROOT / slug
     for feat in spec["features"]:
         for rel_file in feat["files"]:
-            assert (repo_disk / rel_file).exists(), f"Missing file in {slug}: {rel_file}"
+            assert (repo_disk / rel_file).exists(), f"Missing tech file in {slug}: {rel_file}"
+    for row in biz["featureValueMap"]:
+        for rel_file in row["files"]:
+            assert (repo_disk / rel_file).exists(), f"Missing biz file in {slug}: {rel_file}"
 
     options_html = "\n".join(
-        f'<option value="../{esc(f["slug"])}/" {"selected" if f["slug"] == slug else ""}>'
+        f'<option value="{esc(f["slug"])}" {"selected" if f["slug"] == slug else ""}>'
         f'#{f["flagshipRank"]} · {esc(f["title"])}</option>'
         for f in all_flagships
     )
 
-    kpis_html = "\n".join(
+    kpis_tech_html = "\n".join(
         f"""
         <div class="cs-kpi-card">
           <div class="cs-kpi-val mono">{esc(k["val"])}</div>
@@ -771,6 +843,17 @@ def build_flagship_html(
         </div>
         """
         for k in spec["kpis"]
+    )
+
+    kpis_biz_html = "\n".join(
+        f"""
+        <div class="cs-kpi-card biz-kpi-card">
+          <div class="cs-kpi-val mono">{esc(k["val"])}</div>
+          <div class="cs-kpi-lbl">{esc(k["lbl"])}</div>
+          <div class="cs-kpi-sub mono">{esc(k["sub"])}</div>
+        </div>
+        """
+        for k in biz["bizKpis"]
     )
 
     readiness_html = "\n".join(
@@ -831,7 +914,7 @@ def build_flagship_html(
     if sys_obj.get("liveDemoSvg"):
         live_svg_html = f"""
         <figure class="gallery-figure" style="margin-bottom:20px;">
-          <img src="{esc(fix_asset_rel(sys_obj["liveDemoSvg"]))}" alt="{esc(sys_obj["title"])} live execution trace" />
+          <img src="{esc(fix_asset_rel(sys_obj["liveDemoSvg"], root_prefix))}" alt="{esc(sys_obj["title"])} live execution trace" />
           <figcaption class="gallery-caption mono">Recorded Terminal Execution Trace · {esc(slug)}</figcaption>
         </figure>
         """
@@ -839,8 +922,8 @@ def build_flagship_html(
     gallery_html = "\n".join(
         f"""
         <figure class="gallery-figure">
-          <a href="{esc(fix_asset_rel(g["url"]))}" target="_blank" rel="noopener">
-            <img src="{esc(fix_asset_rel(g["url"]))}" alt="{esc(g["caption"])}" loading="lazy" />
+          <a href="{esc(fix_asset_rel(g["url"], root_prefix))}" target="_blank" rel="noopener">
+            <img src="{esc(fix_asset_rel(g["url"], root_prefix))}" alt="{esc(g["caption"])}" loading="lazy" />
           </a>
           <figcaption class="gallery-caption mono">{esc(g["caption"])} (Full-Res ↗)</figcaption>
         </figure>
@@ -861,6 +944,71 @@ def build_flagship_html(
         </div>
         """
 
+    pilot_points_html = "\n".join(f"<li>{rich(p)}</li>" for p in biz["pilotTrap"]["points"])
+    outcome_points_html = "\n".join(f"<li>{rich(p)}</li>" for p in biz["prodOutcome"]["points"])
+
+    fv_rows_html = "\n".join(
+        f"""
+        <tr>
+          <td class="fv-col-feature">
+            <div class="fv-feat-name">{rich(row["feature"])}</div>
+            <div class="fv-source-list mono">
+              {"".join(
+                  f'<a href="{esc(repo_url)}/blob/main/{esc(fp)}" target="_blank" rel="noopener" class="source-pill" title="Inspect {esc(fp)} on GitHub">'
+                  f'<span>📄 {esc(Path(fp).name)}</span><span>↗</span></a>'
+                  for fp in row["files"]
+              )}
+            </div>
+          </td>
+          <td class="fv-col-risk">{rich(row["riskEliminated"])}</td>
+          <td class="fv-col-lever">
+            <span class="lever-pill mono lever-{esc(row["leverTone"])}">{esc(row["lever"])}</span>
+          </td>
+          <td class="fv-col-impact">{rich(row["impact"])}</td>
+        </tr>
+        """
+        for row in biz["featureValueMap"]
+    )
+
+    sim_cfg = biz["simulator"]
+    sliders_html = "\n".join(
+        f"""
+        <div class="sim-control">
+          <div class="sim-control-top">
+            <label for="{esc(sl["id"])}" class="sim-label">{esc(sl["label"])}</label>
+            <span class="sim-readout mono" id="{esc(sl["id"])}_val" data-unit="{esc(sl["unit"])}">{esc(sl["default"])}</span>
+          </div>
+          <input
+            type="range"
+            id="{esc(sl["id"])}"
+            class="sim-slider"
+            min="{sl["min"]}"
+            max="{sl["max"]}"
+            step="{sl["step"]}"
+            value="{sl["default"]}"
+          />
+          <div class="sim-range-bounds mono">
+            <span>{sl["min"]:,} {esc(sl["unit"])}</span>
+            <span>{sl["max"]:,} {esc(sl["unit"])}</span>
+          </div>
+        </div>
+        """
+        for sl in sim_cfg["sliders"]
+    )
+
+    stakeholders_html = "\n".join(
+        f"""
+        <article class="stakeholder-card">
+          <div class="stakeholder-top">
+            <span class="stakeholder-role mono">{esc(st["role"])}</span>
+            <span class="stakeholder-metric mono">{esc(st["metric"])}</span>
+          </div>
+          <p class="stakeholder-pitch">{rich(st["pitch"])}</p>
+        </article>
+        """
+        for st in biz["stakeholders"]
+    )
+
     quickstart = sys_obj.get("quickStart") or f"git clone {repo_url}.git\ncd {slug}"
 
     ci_badge_html = (
@@ -877,39 +1025,61 @@ def build_flagship_html(
 
     stack_chips = "".join(f'<span class="stack-chip mono">{esc(s)}</span>' for s in sys_obj["stack"])
 
+    page_title = (
+        f"{sys_obj['title']} — Business Value, Unit Economics & ROI | Amit Kumar Koshta"
+        if is_biz_default
+        else f"{sys_obj['title']} — Production Architecture Case Study | Amit Kumar Koshta"
+    )
+    page_desc = biz["bizHeadline"] if is_biz_default else spec["tagline"]
+    canonical_url = (
+        f"https://kenseiamit.github.io/projects/{slug}/business/"
+        if is_biz_default
+        else f"https://kenseiamit.github.io/projects/{slug}/"
+    )
+    og_img = (
+        f"https://kenseiamit.github.io/assets/og/{slug}-business.png"
+        if is_biz_default
+        else f"https://kenseiamit.github.io/assets/og/{slug}.png"
+    )
+
+    tech_hidden = "hidden" if is_biz_default else ""
+    biz_hidden = "" if is_biz_default else "hidden"
+    tech_active = "" if is_biz_default else "active"
+    biz_active = "active" if is_biz_default else ""
+
     return f"""<!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{esc(sys_obj["title"])} — Production Architecture Case Study | Amit Kumar Koshta</title>
-  <meta name="description" content="{esc(spec["tagline"])}" />
+  <title>{esc(page_title)}</title>
+  <meta name="description" content="{esc(page_desc)}" />
   <meta name="author" content="Amit Kumar Koshta" />
-  <link rel="canonical" href="https://kenseiamit.github.io/projects/{esc(slug)}/" />
-  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg" />
+  <link rel="canonical" href="{esc(canonical_url)}" />
+  <link rel="icon" type="image/svg+xml" href="{root_prefix}/assets/favicon.svg" />
 
   <meta property="og:type" content="article" />
-  <meta property="og:url" content="https://kenseiamit.github.io/projects/{esc(slug)}/" />
-  <meta property="og:title" content="{esc(sys_obj["title"])} — Production Case Study (@kenseiAmit)" />
-  <meta property="og:description" content="{esc(spec["tagline"])}" />
-  <meta property="og:image" content="https://kenseiamit.github.io/assets/og/{esc(slug)}.png" />
+  <meta property="og:url" content="{esc(canonical_url)}" />
+  <meta property="og:title" content="{esc(page_title)}" />
+  <meta property="og:description" content="{esc(page_desc)}" />
+  <meta property="og:image" content="{esc(og_img)}" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="{esc(sys_obj["title"])} — Amit Kumar Koshta" />
-  <meta name="twitter:description" content="{esc(spec["tagline"])}" />
-  <meta name="twitter:image" content="https://kenseiamit.github.io/assets/og/{esc(slug)}.png" />
+  <meta name="twitter:title" content="{esc(page_title)}" />
+  <meta name="twitter:description" content="{esc(page_desc)}" />
+  <meta name="twitter:image" content="{esc(og_img)}" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="../../css/styles.css" />
-  <link rel="stylesheet" href="../../css/case-study.css" />
+  <link rel="stylesheet" href="{root_prefix}/css/styles.css" />
+  <link rel="stylesheet" href="{root_prefix}/css/case-study.css" />
 </head>
-<body>
+<body data-default-view="{esc(default_view)}" data-slug="{esc(slug)}" data-proj-prefix="{esc(proj_prefix)}">
   <header class="site-header">
     <div class="container nav-inner">
       <div class="cs-breadcrumb">
-        <a href="../../" class="brand" style="gap:10px;">
+        <a href="{root_prefix}/" class="brand" style="gap:10px;">
           <span class="brand-mark mono" style="width:32px;height:32px;font-size:0.8rem;">AK</span>
           <span>← Portfolio</span>
         </a>
@@ -925,7 +1095,7 @@ def build_flagship_html(
             {options_html}
           </select>
         </div>
-        <button type="button" class="icon-btn" id="copyPageUrlBtn" title="Copy shareable Case Study link">Share URL</button>
+        <button type="button" class="icon-btn" id="copyPageUrlBtn" title="Copy shareable link for active view">Share URL</button>
         <button type="button" class="icon-btn" id="themeToggleBtn" aria-label="Toggle theme"><span id="themeIcon">☀</span></button>
         <a href="{esc(repo_url)}" target="_blank" rel="noopener" class="btn btn-primary btn-sm">GitHub Repo ↗</a>
       </div>
@@ -935,50 +1105,112 @@ def build_flagship_html(
   <section class="cs-hero">
     <div class="container">
       <div class="cs-badge-row">
-        <span class="cs-rank-pill mono">{esc(spec["kicker"])}</span>
+        <span class="cs-rank-pill mono" data-lens-block="tech" {tech_hidden}>{esc(spec["kicker"])}</span>
+        <span class="cs-rank-pill cs-rank-pill-biz mono" data-lens-block="business" {biz_hidden}>{esc(biz["bizKicker"])}</span>
         {ci_badge_html}
         <span class="pill mono" style="background:var(--bg-subtle);border:1px solid var(--border-subtle);color:var(--text-secondary);">MIT License · {esc(sys_obj["language"])}</span>
       </div>
 
       <h1 class="cs-title">{esc(sys_obj["title"])}</h1>
-      <p class="cs-subtitle">{rich(spec["tagline"])}</p>
+      <p class="cs-subtitle" data-lens-block="tech" {tech_hidden}>{rich(spec["tagline"])}</p>
+      <p class="cs-subtitle cs-subtitle-biz" data-lens-block="business" {biz_hidden}>{rich(biz["bizHeadline"])}</p>
 
-      <div class="hero-ctas" style="margin-bottom:18px;">
+      <div class="lens-tabs-bar" role="tablist" aria-label="Case Study Perspective">
+        <button
+          type="button"
+          role="tab"
+          aria-selected="{"false" if is_biz_default else "true"}"
+          class="lens-tab-btn {tech_active}"
+          data-switch-lens="tech"
+        >
+          <span class="lens-tab-icon">⚙</span>
+          <span>
+            <strong class="lens-tab-title">Technical Architecture &amp; Code</strong>
+            <small class="lens-tab-sub mono">Topology · 6 Source-Linked Features · ADRs · Traces</small>
+          </span>
+        </button>
+        <button
+          type="button"
+          role="tab"
+          aria-selected="{"true" if is_biz_default else "false"}"
+          class="lens-tab-btn lens-tab-biz {biz_active}"
+          data-switch-lens="business"
+        >
+          <span class="lens-tab-icon">📈</span>
+          <span>
+            <strong class="lens-tab-title">Business Value &amp; Unit Economics</strong>
+            <small class="lens-tab-sub mono">Feature → ROI Matrix · Interactive Simulator · Exec Brief</small>
+          </span>
+        </button>
+      </div>
+
+      <div class="hero-ctas" style="margin-bottom:18px;" data-lens-block="tech" {tech_hidden}>
         <a href="{esc(repo_url)}" target="_blank" rel="noopener" class="btn btn-primary">Inspect Source Code on GitHub ↗</a>
         {hf_btn_html}
+        <button type="button" class="btn btn-secondary" data-switch-lens="business">View Business Value &amp; ROI →</button>
         <a href="#features" class="btn btn-ghost">6 Production Features ↓</a>
-        <a href="#telemetry" class="btn btn-ghost">Empirical Telemetry ↓</a>
+      </div>
+
+      <div class="hero-ctas" style="margin-bottom:18px;" data-lens-block="business" {biz_hidden}>
+        <a href="#biz-matrix" class="btn btn-primary">Feature → Business Value Matrix ↓</a>
+        <a href="#biz-simulator" class="btn btn-secondary">Interactive ROI Simulator ↓</a>
+        {hf_btn_html}
+        <button type="button" class="btn btn-ghost" data-switch-lens="tech">← Inspect Technical Architecture</button>
       </div>
 
       <div class="stack-row" style="margin-bottom:0;">
         {stack_chips}
       </div>
 
-      <div class="cs-kpi-grid">
-        {kpis_html}
+      <div class="cs-kpi-grid" data-lens-block="tech" {tech_hidden}>
+        {kpis_tech_html}
+      </div>
+
+      <div class="cs-kpi-grid" data-lens-block="business" {biz_hidden}>
+        {kpis_biz_html}
       </div>
     </div>
   </section>
 
   <div class="container cs-layout">
     <aside class="cs-toc" aria-label="Case Study Sections">
-      <div class="cs-toc-title mono">On This Page</div>
-      <nav class="cs-toc-nav">
-        <a href="#readiness" class="active">01 · Production Readiness</a>
-        <a href="#topology">02 · Topology &amp; Lifecycles</a>
-        <a href="#features">03 · Technical Features (6)</a>
-        <a href="#adrs">04 · Architectural Decisions</a>
-        <a href="#telemetry">05 · Telemetry &amp; Traces</a>
-        <a href="#runbook">06 · Quick Start &amp; CI Gates</a>
-      </nav>
+      <div class="toc-lens-mini mono">
+        <button type="button" class="toc-lens-chip {tech_active}" data-switch-lens="tech">⚙ Tech</button>
+        <button type="button" class="toc-lens-chip {biz_active}" data-switch-lens="business">📈 Business</button>
+      </div>
+
+      <div data-lens-block="tech" {tech_hidden}>
+        <div class="cs-toc-title mono">Technical Sections</div>
+        <nav class="cs-toc-nav" data-toc-nav="tech">
+          <a href="#readiness" class="active">01 · Production Readiness</a>
+          <a href="#topology">02 · Topology &amp; Lifecycles</a>
+          <a href="#features">03 · Technical Features (6)</a>
+          <a href="#adrs">04 · Architectural Decisions</a>
+          <a href="#telemetry">05 · Telemetry &amp; Traces</a>
+          <a href="#runbook">06 · Quick Start &amp; CI Gates</a>
+        </nav>
+      </div>
+
+      <div data-lens-block="business" {biz_hidden}>
+        <div class="cs-toc-title mono">Business &amp; ROI Sections</div>
+        <nav class="cs-toc-nav" data-toc-nav="business">
+          <a href="#biz-summary" class="active">01 · Executive Value Brief</a>
+          <a href="#biz-problem">02 · Pilot Trap vs. Production</a>
+          <a href="#biz-matrix">03 · Feature → Value Matrix</a>
+          <a href="#biz-flow">04 · Value-Chain Flow</a>
+          <a href="#biz-simulator">05 · Unit-Economics Simulator</a>
+          <a href="#biz-stakeholders">06 · Stakeholder Sign-Off</a>
+        </nav>
+      </div>
+
       <div class="cs-toc-links">
         <a href="{esc(repo_url)}" target="_blank" rel="noopener" class="btn btn-secondary btn-sm" style="justify-content:center;">View Repository ↗</a>
-        <a href="../../#flagships" class="btn btn-ghost btn-sm" style="justify-content:center;">← All 7 Flagships</a>
-        <a href="../../#catalog" class="btn btn-ghost btn-sm" style="justify-content:center;">All 28 Systems</a>
+        <a href="{root_prefix}/#flagships" class="btn btn-ghost btn-sm" style="justify-content:center;">← All 7 Flagships</a>
+        <a href="{root_prefix}/#catalog" class="btn btn-ghost btn-sm" style="justify-content:center;">All 28 Systems</a>
       </div>
     </aside>
 
-    <main class="cs-main">
+    <main class="cs-main" data-lens-panel="tech" {tech_hidden}>
       <!-- 01. Production Readiness Scorecard -->
       <section class="cs-section" id="readiness">
         <div class="cs-sec-hdr">
@@ -1086,12 +1318,144 @@ def build_flagship_html(
         </div>
 
         <nav class="cs-pager" aria-label="Flagship Case Study Pagination">
-          <a href="../{esc(prev_sys["slug"])}/" class="cs-pager-card">
+          <a href="{proj_prefix}/{esc(prev_sys["slug"])}/" class="cs-pager-card">
             <span class="cs-pager-dir mono">← Previous Flagship (#{prev_sys["flagshipRank"]})</span>
             <span class="cs-pager-name">{esc(prev_sys["title"])}</span>
           </a>
-          <a href="../{esc(next_sys["slug"])}/" class="cs-pager-card" style="text-align:right;">
+          <a href="{proj_prefix}/{esc(next_sys["slug"])}/" class="cs-pager-card" style="text-align:right;">
             <span class="cs-pager-dir mono">Next Flagship (#{next_sys["flagshipRank"]}) →</span>
+            <span class="cs-pager-name">{esc(next_sys["title"])}</span>
+          </a>
+        </nav>
+      </section>
+    </main>
+
+    <main class="cs-main" data-lens-panel="business" {biz_hidden}>
+      <!-- 01. Executive Value Summary -->
+      <section class="cs-section" id="biz-summary">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker cs-kicker-emerald mono">01 · Executive Value Brief</div>
+          <h2 class="cs-sec-title">Commercial Thesis &amp; P&amp;L Impact</h2>
+        </div>
+        <div class="exec-brief-card">
+          <p class="exec-brief-copy">{rich(biz["executiveSummary"])}</p>
+          <div class="exec-proof-bar mono">
+            <span>✓ 100% Grounded in Verified Repository Benchmarks</span>
+            <span>·</span>
+            <button type="button" class="link-btn mono" data-switch-lens="tech">Inspect Underlying Code &amp; Telemetry →</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02. Pilot Trap vs Production Outcome -->
+      <section class="cs-section" id="biz-problem">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker cs-kicker-emerald mono">02 · Commercial Risk vs. Production Unlock</div>
+          <h2 class="cs-sec-title">Why Prototype Pilots Stall — And How This Architecture Unblocks Launch</h2>
+          <p class="cs-sec-desc">Translating engineering guardrails, determinism, and cost controls into executive deployment readiness.</p>
+        </div>
+        <div class="lifecycle-grid">
+          <div class="lifecycle-box adversarial">
+            <h4 class="mono" style="color:var(--accent-red);">✕ {esc(biz["pilotTrap"]["title"])}</h4>
+            <ul class="lifecycle-list">
+              {pilot_points_html}
+            </ul>
+          </div>
+          <div class="lifecycle-box happy">
+            <h4 class="mono" style="color:var(--accent-emerald);">✓ {esc(biz["prodOutcome"]["title"])}</h4>
+            <ul class="lifecycle-list">
+              {outcome_points_html}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03. 1:1 Production Feature -> Business Value Traceability Matrix -->
+      <section class="cs-section" id="biz-matrix">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker cs-kicker-emerald mono">03 · 1:1 Feature-to-Value Traceability</div>
+          <h2 class="cs-sec-title">Production Feature → Business Value Mapping</h2>
+          <p class="cs-sec-desc">Every production engineering feature in <code class="inline-code">kenseiAmit/{esc(slug)}</code> mapped directly to the commercial risk it eliminates and the measurable value it delivers.</p>
+        </div>
+        <div class="adr-wrap fv-wrap">
+          <table class="adr-table fv-table">
+            <thead>
+              <tr>
+                <th>Production Engineering Feature (Source)</th>
+                <th>Business Risk / Bottleneck Eliminated</th>
+                <th>Value Lever</th>
+                <th>Quantified Business Outcome</th>
+              </tr>
+            </thead>
+            <tbody>
+              {fv_rows_html}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 04. Value-Chain Flow Diagram -->
+      <section class="cs-section" id="biz-flow">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker cs-kicker-emerald mono">04 · End-to-End Value Delivery Chain</div>
+          <h2 class="cs-sec-title">Engineering Control → Operational Mechanism → Business Outcome</h2>
+          <p class="cs-sec-desc">How architectural invariants convert directly into FinOps margin, SLA speed, and regulatory protection.</p>
+        </div>
+        <div class="mermaid-stage" data-mermaid-src="{esc(biz["valueMermaid"])}">
+          <pre class="mono" style="text-align:left;font-size:0.78rem;color:var(--text-muted);overflow:auto;">{esc(biz["valueMermaid"])}</pre>
+        </div>
+      </section>
+
+      <!-- 05. Interactive Unit-Economics & ROI Simulator -->
+      <section class="cs-section" id="biz-simulator">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker cs-kicker-emerald mono">05 · Interactive Scale &amp; Unit-Economics Model</div>
+          <h2 class="cs-sec-title">{esc(sim_cfg["title"])}</h2>
+          <p class="cs-sec-desc">{rich(sim_cfg["subtitle"])}</p>
+        </div>
+
+        <div class="sim-panel" data-sim-type="{esc(sim_cfg["id"])}">
+          <div class="sim-controls-grid">
+            {sliders_html}
+          </div>
+
+          <div class="sim-results-grid" id="simOutputs"></div>
+
+          <div class="sim-comparison-bar-wrap">
+            <div class="sim-bar-labels mono">
+              <span id="simBarLeftLabel">Baseline vs. Production Comparison</span>
+              <span id="simBarRightLabel"></span>
+            </div>
+            <div class="sim-bar-track">
+              <div class="sim-bar-fill" id="simBarFill" style="width:62%;"></div>
+            </div>
+          </div>
+
+          <div class="sim-footnote">
+            <strong class="mono">Benchmark Formula Basis:</strong> {rich(sim_cfg["footnote"])}
+          </div>
+        </div>
+      </section>
+
+      <!-- 06. Executive Stakeholder Sign-Off Grid -->
+      <section class="cs-section" id="biz-stakeholders">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker cs-kicker-emerald mono">06 · Cross-Functional Buyer Alignment</div>
+          <h2 class="cs-sec-title">Why Every Enterprise Stakeholder Signs Off</h2>
+          <p class="cs-sec-desc">How this single architecture aligns Engineering, Finance, Security, Legal/Compliance, and Business Operations.</p>
+        </div>
+
+        <div class="stakeholders-grid">
+          {stakeholders_html}
+        </div>
+
+        <nav class="cs-pager" aria-label="Flagship Business Case Pagination" style="margin-top:32px;">
+          <a href="{proj_prefix}/{esc(prev_sys["slug"])}/business/" class="cs-pager-card">
+            <span class="cs-pager-dir mono">← Previous Business Case (#{prev_sys["flagshipRank"]})</span>
+            <span class="cs-pager-name">{esc(prev_sys["title"])}</span>
+          </a>
+          <a href="{proj_prefix}/{esc(next_sys["slug"])}/business/" class="cs-pager-card" style="text-align:right;">
+            <span class="cs-pager-dir mono">Next Business Case (#{next_sys["flagshipRank"]}) →</span>
             <span class="cs-pager-name">{esc(next_sys["title"])}</span>
           </a>
         </nav>
@@ -1108,7 +1472,7 @@ def build_flagship_html(
         </div>
       </div>
       <div style="display:flex;gap:10px;flex-wrap:wrap;">
-        <a href="../../" class="btn btn-secondary btn-sm">← Portfolio Home (All 28 Systems)</a>
+        <a href="{root_prefix}/" class="btn btn-secondary btn-sm">← Portfolio Home (All 28 Systems)</a>
         <a href="{esc(repo_url)}" target="_blank" rel="noopener" class="btn btn-primary btn-sm">GitHub Repository ↗</a>
         <a href="https://www.linkedin.com/in/kenseiamit/" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">LinkedIn ↗</a>
       </div>
@@ -1116,7 +1480,7 @@ def build_flagship_html(
   </footer>
 
   <div id="toastContainer" aria-live="polite"></div>
-  <script type="module" src="../../js/case-study.js"></script>
+  <script type="module" src="{root_prefix}/js/case-study.js"></script>
 </body>
 </html>
 """
@@ -1133,23 +1497,44 @@ def main() -> None:
     for idx, sys_obj in enumerate(flagships):
         slug = sys_obj["slug"]
         assert slug in FLAGSHIP_SPECS, f"Missing flagship spec for {slug}"
+        assert slug in BUSINESS_SPECS, f"Missing business spec for {slug}"
         spec = FLAGSHIP_SPECS[slug]
+        biz = BUSINESS_SPECS[slug]
         prev_sys = flagships[(idx - 1) % len(flagships)]
         next_sys = flagships[(idx + 1) % len(flagships)]
 
         generate_project_og_card(sys_obj, spec)
-        page_html = build_flagship_html(
+        generate_business_og_card(sys_obj, biz)
+
+        tech_html = build_flagship_html(
             sys_obj=sys_obj,
             spec=spec,
+            biz=biz,
             all_flagships=flagships,
             trace_obj=traces_by_slug.get(slug),
             prev_sys=prev_sys,
             next_sys=next_sys,
+            default_view="tech",
         )
+        biz_html = build_flagship_html(
+            sys_obj=sys_obj,
+            spec=spec,
+            biz=biz,
+            all_flagships=flagships,
+            trace_obj=traces_by_slug.get(slug),
+            prev_sys=prev_sys,
+            next_sys=next_sys,
+            default_view="business",
+        )
+
         out_dir = PROJECTS_DIR / slug
+        biz_dir = out_dir / "business"
         out_dir.mkdir(parents=True, exist_ok=True)
-        (out_dir / "index.html").write_text(page_html, encoding="utf-8")
-        print(f"Generated /projects/{slug}/index.html + assets/og/{slug}.png")
+        biz_dir.mkdir(parents=True, exist_ok=True)
+
+        (out_dir / "index.html").write_text(tech_html, encoding="utf-8")
+        (biz_dir / "index.html").write_text(biz_html, encoding="utf-8")
+        print(f"Generated /projects/{slug}/index.html + /projects/{slug}/business/index.html + OG cards")
 
 
 if __name__ == "__main__":

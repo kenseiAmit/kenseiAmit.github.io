@@ -275,7 +275,8 @@ function renderFlagships() {
               ${
                 flagshipHref
                   ? `<a href="${flagshipHref}" class="btn btn-primary btn-sm">Production Case Study →</a>
-                     <button type="button" class="btn btn-secondary btn-sm" data-open-system="${esc(sys.slug)}">Quick Spec</button>`
+                     <a href="${flagshipHref}business/" class="btn btn-secondary btn-sm">📈 Business Value &amp; ROI →</a>
+                     <button type="button" class="btn btn-ghost btn-sm" data-open-system="${esc(sys.slug)}">Quick Spec</button>`
                   : `<button type="button" class="btn btn-primary btn-sm" data-open-system="${esc(sys.slug)}">Case Study &amp; Topology</button>`
               }
               ${
@@ -553,7 +554,8 @@ function renderCatalog() {
                   <td style="white-space:nowrap;">
                     ${
                       sys.flagship
-                        ? `<a href="projects/${esc(sys.slug)}/" class="btn btn-primary btn-sm" style="padding:4px 9px;font-size:0.74rem;">Case Study →</a>`
+                        ? `<a href="projects/${esc(sys.slug)}/" class="btn btn-primary btn-sm" style="padding:4px 9px;font-size:0.74rem;">Tech →</a>
+                           <a href="projects/${esc(sys.slug)}/business/" class="btn btn-secondary btn-sm" style="padding:4px 9px;font-size:0.74rem;">Business →</a>`
                         : `<button type="button" class="btn btn-secondary btn-sm" style="padding:4px 9px;font-size:0.74rem;" data-open-system="${esc(sys.slug)}">Spec</button>`
                     }
                     <a href="${esc(sys.repoUrl)}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="padding:4px 9px;font-size:0.74rem;">Repo ↗</a>
@@ -607,8 +609,8 @@ function renderCatalog() {
               <div class="card-actions" style="margin-top:auto;">
                 ${
                   sys.flagship
-                    ? `<a href="projects/${esc(sys.slug)}/" class="btn btn-primary btn-sm" style="flex:1;justify-content:center;">Full Case Study →</a>
-                       <button type="button" class="btn btn-secondary btn-sm" data-open-system="${esc(sys.slug)}">Spec</button>`
+                    ? `<a href="projects/${esc(sys.slug)}/" class="btn btn-primary btn-sm" style="flex:1;justify-content:center;">Case Study →</a>
+                       <a href="projects/${esc(sys.slug)}/business/" class="btn btn-secondary btn-sm" title="Business Value & ROI">📈 ROI</a>`
                     : `<button type="button" class="btn btn-secondary btn-sm" style="flex:1;justify-content:center;" data-open-system="${esc(sys.slug)}">Architecture &amp; Evidence</button>`
                 }
                 <a href="${esc(sys.repoUrl)}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" aria-label="Open ${esc(sys.title)} on GitHub">
@@ -708,7 +710,8 @@ function openSystemModal(slug, tab = "overview") {
       }
       ${
         sys.flagship
-          ? `<a href="projects/${esc(sys.slug)}/" class="btn btn-secondary btn-sm">Full Production Case Study →</a>`
+          ? `<a href="projects/${esc(sys.slug)}/" class="btn btn-secondary btn-sm">Technical Case Study →</a>
+             <a href="projects/${esc(sys.slug)}/business/" class="btn btn-secondary btn-sm">📈 Business Value &amp; ROI →</a>`
           : ""
       }
       <a href="${esc(sys.repoUrl)}" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Open GitHub Repository ↗</a>
@@ -909,12 +912,21 @@ function buildCommandItems(query) {
     .filter((s) => s.flagship)
     .forEach((sys) => {
       items.push({
-        type: "Flagship Page",
+        type: "Flagship Tech",
         title: `Case Study: ${sys.title}`,
         sub: `/projects/${sys.slug}/ · ${sys.metrics.slice(0, 2).join(" · ")}`,
-        haystack: `${sys.slug} ${sys.stack.join(" ")} ${sys.summary} flagship case study`.toLowerCase(),
+        haystack: `${sys.slug} ${sys.stack.join(" ")} ${sys.summary} flagship case study architecture`.toLowerCase(),
         action: () => {
           window.location.href = `projects/${sys.slug}/`;
+        }
+      });
+      items.push({
+        type: "Business ROI",
+        title: `Business Value & ROI: ${sys.title}`,
+        sub: `/projects/${sys.slug}/business/ · Feature-to-Value Matrix & Simulator`,
+        haystack: `${sys.slug} ${sys.title} business value roi finops unit economics executive impact`.toLowerCase(),
+        action: () => {
+          window.location.href = `projects/${sys.slug}/business/`;
         }
       });
     });

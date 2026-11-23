@@ -11,11 +11,11 @@
 
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://kenseiamit.github.io/projects/clinical-ai-governance-fairness-audit/" />
-  <meta property="og:title" content="HealthGuard: Clinical AI Governance &amp; EU AI Act Audit — Production Case Study (@kenseiAmit)" />
+  <meta property="og:title" content="HealthGuard: Clinical AI Governance &amp; EU AI Act Audit — Production Architecture Case Study | Amit Kumar Koshta" />
   <meta property="og:description" content="End-to-End Clinical ML Fairness, Mechanistic TreeSHAP Proxy Attribution, Counterfactual De-Biasing (-31.4 pp FNR Gap) &amp; EU AI Act Annex III Compliance Portfolio" />
   <meta property="og:image" content="https://kenseiamit.github.io/assets/og/clinical-ai-governance-fairness-audit.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="HealthGuard: Clinical AI Governance &amp; EU AI Act Audit — Amit Kumar Koshta" />
+  <meta name="twitter:title" content="HealthGuard: Clinical AI Governance &amp; EU AI Act Audit — Production Architecture Case Study | Amit Kumar Koshta" />
   <meta name="twitter:description" content="End-to-End Clinical ML Fairness, Mechanistic TreeSHAP Proxy Attribution, Counterfactual De-Biasing (-31.4 pp FNR Gap) &amp; EU AI Act Annex III Compliance Portfolio" />
   <meta name="twitter:image" content="https://kenseiamit.github.io/assets/og/clinical-ai-governance-fairness-audit.png" />
 
@@ -26,7 +26,7 @@
   <link rel="stylesheet" href="../../css/styles.css" />
   <link rel="stylesheet" href="../../css/case-study.css" />
 </head>
-<body>
+<body data-default-view="tech" data-slug="clinical-ai-governance-fairness-audit" data-proj-prefix="..">
   <header class="site-header">
     <div class="container nav-inner">
       <div class="cs-breadcrumb">
@@ -43,16 +43,16 @@
       <div class="nav-actions">
         <div class="cs-switcher">
           <select id="flagshipSelect" class="cs-select mono" aria-label="Switch Flagship Case Study">
-            <option value="../guarded-salesops-agent-runtime/" >#1 · Guarded SalesOps Agent Runtime</option>
-<option value="../rag-gateway-eval-cost-controls/" >#2 · Production RAG Gateway &amp; Cost Controls</option>
-<option value="../multi-agent-banking-system/" >#3 · Multi-Agent Banking System (A2A + LangGraph)</option>
-<option value="../trace-aml-sar-compliance-engine/" >#4 · TRACE: FinCEN AML &amp; SAR Compliance Engine</option>
-<option value="../bedrock-rag-threat-modeling-guardrails/" >#5 · AWS Bedrock RAG Threat Modeling &amp; Guardrails</option>
-<option value="../clinical-ai-governance-fairness-audit/" selected>#6 · HealthGuard: Clinical AI Governance &amp; EU AI Act Audit</option>
-<option value="../claude-extraction-eval-observability/" >#7 · Claude Extraction Eval &amp; Confidence Calibration</option>
+            <option value="guarded-salesops-agent-runtime" >#1 · Guarded SalesOps Agent Runtime</option>
+<option value="rag-gateway-eval-cost-controls" >#2 · Production RAG Gateway &amp; Cost Controls</option>
+<option value="multi-agent-banking-system" >#3 · Multi-Agent Banking System (A2A + LangGraph)</option>
+<option value="trace-aml-sar-compliance-engine" >#4 · TRACE: FinCEN AML &amp; SAR Compliance Engine</option>
+<option value="bedrock-rag-threat-modeling-guardrails" >#5 · AWS Bedrock RAG Threat Modeling &amp; Guardrails</option>
+<option value="clinical-ai-governance-fairness-audit" selected>#6 · HealthGuard: Clinical AI Governance &amp; EU AI Act Audit</option>
+<option value="claude-extraction-eval-observability" >#7 · Claude Extraction Eval &amp; Confidence Calibration</option>
           </select>
         </div>
-        <button type="button" class="icon-btn" id="copyPageUrlBtn" title="Copy shareable Case Study link">Share URL</button>
+        <button type="button" class="icon-btn" id="copyPageUrlBtn" title="Copy shareable link for active view">Share URL</button>
         <button type="button" class="icon-btn" id="themeToggleBtn" aria-label="Toggle theme"><span id="themeIcon">☀</span></button>
         <a href="https://github.com/kenseiAmit/clinical-ai-governance-fairness-audit" target="_blank" rel="noopener" class="btn btn-primary btn-sm">GitHub Repo ↗</a>
       </div>
@@ -62,26 +62,64 @@
   <section class="cs-hero">
     <div class="container">
       <div class="cs-badge-row">
-        <span class="cs-rank-pill mono">FLAGSHIP #6 · AI GOVERNANCE, ALGORITHMIC FAIRNESS &amp; EU AI ACT</span>
+        <span class="cs-rank-pill mono" data-lens-block="tech" >FLAGSHIP #6 · AI GOVERNANCE, ALGORITHMIC FAIRNESS &amp; EU AI ACT</span>
+        <span class="cs-rank-pill cs-rank-pill-biz mono" data-lens-block="business" hidden>BUSINESS VALUE &amp; ROI · HEALTHCARE EQUITY &amp; EU AI ACT MARKET ACCESS</span>
         <a href="https://github.com/kenseiAmit/clinical-ai-governance-fairness-audit/actions/workflows/ci.yml" target="_blank" rel="noopener" class="pill pill-ci mono">✓ GitHub Actions CI Passing ↗</a>
         <span class="pill mono" style="background:var(--bg-subtle);border:1px solid var(--border-subtle);color:var(--text-secondary);">MIT License · Python</span>
       </div>
 
       <h1 class="cs-title">HealthGuard: Clinical AI Governance &amp; EU AI Act Audit</h1>
-      <p class="cs-subtitle">End-to-End Clinical ML Fairness, Mechanistic TreeSHAP Proxy Attribution, Counterfactual De-Biasing (-31.4 pp FNR Gap) &amp; EU AI Act Annex III Compliance Portfolio</p>
+      <p class="cs-subtitle" data-lens-block="tech" >End-to-End Clinical ML Fairness, Mechanistic TreeSHAP Proxy Attribution, Counterfactual De-Biasing (-31.4 pp FNR Gap) &amp; EU AI Act Annex III Compliance Portfolio</p>
+      <p class="cs-subtitle cs-subtitle-biz" data-lens-block="business" hidden>Collapsing Clinical Under-Triage Disparity by 31.4 pp (-0.005 AUC Cost) With Full EU AI Act Annex III Conformity</p>
 
-      <div class="hero-ctas" style="margin-bottom:18px;">
+      <div class="lens-tabs-bar" role="tablist" aria-label="Case Study Perspective">
+        <button
+          type="button"
+          role="tab"
+          aria-selected="true"
+          class="lens-tab-btn active"
+          data-switch-lens="tech"
+        >
+          <span class="lens-tab-icon">⚙</span>
+          <span>
+            <strong class="lens-tab-title">Technical Architecture &amp; Code</strong>
+            <small class="lens-tab-sub mono">Topology · 6 Source-Linked Features · ADRs · Traces</small>
+          </span>
+        </button>
+        <button
+          type="button"
+          role="tab"
+          aria-selected="false"
+          class="lens-tab-btn lens-tab-biz "
+          data-switch-lens="business"
+        >
+          <span class="lens-tab-icon">📈</span>
+          <span>
+            <strong class="lens-tab-title">Business Value &amp; Unit Economics</strong>
+            <small class="lens-tab-sub mono">Feature → ROI Matrix · Interactive Simulator · Exec Brief</small>
+          </span>
+        </button>
+      </div>
+
+      <div class="hero-ctas" style="margin-bottom:18px;" data-lens-block="tech" >
         <a href="https://github.com/kenseiAmit/clinical-ai-governance-fairness-audit" target="_blank" rel="noopener" class="btn btn-primary">Inspect Source Code on GitHub ↗</a>
         <a href="https://huggingface.co/spaces/kenseiamit/agentops-governance-sandbox" target="_blank" rel="noopener" class="btn btn-secondary">Try Live in HF Sandbox ↗</a>
+        <button type="button" class="btn btn-secondary" data-switch-lens="business">View Business Value &amp; ROI →</button>
         <a href="#features" class="btn btn-ghost">6 Production Features ↓</a>
-        <a href="#telemetry" class="btn btn-ghost">Empirical Telemetry ↓</a>
+      </div>
+
+      <div class="hero-ctas" style="margin-bottom:18px;" data-lens-block="business" hidden>
+        <a href="#biz-matrix" class="btn btn-primary">Feature → Business Value Matrix ↓</a>
+        <a href="#biz-simulator" class="btn btn-secondary">Interactive ROI Simulator ↓</a>
+        <a href="https://huggingface.co/spaces/kenseiamit/agentops-governance-sandbox" target="_blank" rel="noopener" class="btn btn-secondary">Try Live in HF Sandbox ↗</a>
+        <button type="button" class="btn btn-ghost" data-switch-lens="tech">← Inspect Technical Architecture</button>
       </div>
 
       <div class="stack-row" style="margin-bottom:0;">
         <span class="stack-chip mono">Scikit-Learn</span><span class="stack-chip mono">TreeSHAP</span><span class="stack-chip mono">EU AI Act</span><span class="stack-chip mono">NIST AI RMF</span><span class="stack-chip mono">MITRE ATLAS</span><span class="stack-chip mono">Fairness AI</span><span class="stack-chip mono">Python</span><span class="stack-chip mono">GitHub Actions</span>
       </div>
 
-      <div class="cs-kpi-grid">
+      <div class="cs-kpi-grid" data-lens-block="tech" >
         
         <div class="cs-kpi-card">
           <div class="cs-kpi-val mono">-31.4 pp</div>
@@ -111,20 +149,71 @@
         </div>
         
       </div>
+
+      <div class="cs-kpi-grid" data-lens-block="business" hidden>
+        
+        <div class="cs-kpi-card biz-kpi-card">
+          <div class="cs-kpi-val mono">-31.4 pp</div>
+          <div class="cs-kpi-lbl">Disparity Gap Collapse</div>
+          <div class="cs-kpi-sub mono">Rural Medicaid–Private +37.5 -&gt; +6.2 pp</div>
+        </div>
+        
+
+        <div class="cs-kpi-card biz-kpi-card">
+          <div class="cs-kpi-val mono">0.807 AUC</div>
+          <div class="cs-kpi-lbl">Clinical Accuracy Retained</div>
+          <div class="cs-kpi-sub mono">Only -0.005 vs 0.812 Biased Baseline</div>
+        </div>
+        
+
+        <div class="cs-kpi-card biz-kpi-card">
+          <div class="cs-kpi-val mono">Annex III</div>
+          <div class="cs-kpi-lbl">EU AI Act Market Access</div>
+          <div class="cs-kpi-sub mono">8-Artifact Conformity &amp; GDPR TIA</div>
+        </div>
+        
+
+        <div class="cs-kpi-card biz-kpi-card">
+          <div class="cs-kpi-val mono">24/7 KRIs</div>
+          <div class="cs-kpi-lbl">Post-Market Surveillance</div>
+          <div class="cs-kpi-sub mono">Green/Amber/Red Override Governance</div>
+        </div>
+        
+      </div>
     </div>
   </section>
 
   <div class="container cs-layout">
     <aside class="cs-toc" aria-label="Case Study Sections">
-      <div class="cs-toc-title mono">On This Page</div>
-      <nav class="cs-toc-nav">
-        <a href="#readiness" class="active">01 · Production Readiness</a>
-        <a href="#topology">02 · Topology &amp; Lifecycles</a>
-        <a href="#features">03 · Technical Features (6)</a>
-        <a href="#adrs">04 · Architectural Decisions</a>
-        <a href="#telemetry">05 · Telemetry &amp; Traces</a>
-        <a href="#runbook">06 · Quick Start &amp; CI Gates</a>
-      </nav>
+      <div class="toc-lens-mini mono">
+        <button type="button" class="toc-lens-chip active" data-switch-lens="tech">⚙ Tech</button>
+        <button type="button" class="toc-lens-chip " data-switch-lens="business">📈 Business</button>
+      </div>
+
+      <div data-lens-block="tech" >
+        <div class="cs-toc-title mono">Technical Sections</div>
+        <nav class="cs-toc-nav" data-toc-nav="tech">
+          <a href="#readiness" class="active">01 · Production Readiness</a>
+          <a href="#topology">02 · Topology &amp; Lifecycles</a>
+          <a href="#features">03 · Technical Features (6)</a>
+          <a href="#adrs">04 · Architectural Decisions</a>
+          <a href="#telemetry">05 · Telemetry &amp; Traces</a>
+          <a href="#runbook">06 · Quick Start &amp; CI Gates</a>
+        </nav>
+      </div>
+
+      <div data-lens-block="business" hidden>
+        <div class="cs-toc-title mono">Business &amp; ROI Sections</div>
+        <nav class="cs-toc-nav" data-toc-nav="business">
+          <a href="#biz-summary" class="active">01 · Executive Value Brief</a>
+          <a href="#biz-problem">02 · Pilot Trap vs. Production</a>
+          <a href="#biz-matrix">03 · Feature → Value Matrix</a>
+          <a href="#biz-flow">04 · Value-Chain Flow</a>
+          <a href="#biz-simulator">05 · Unit-Economics Simulator</a>
+          <a href="#biz-stakeholders">06 · Stakeholder Sign-Off</a>
+        </nav>
+      </div>
+
       <div class="cs-toc-links">
         <a href="https://github.com/kenseiAmit/clinical-ai-governance-fairness-audit" target="_blank" rel="noopener" class="btn btn-secondary btn-sm" style="justify-content:center;">View Repository ↗</a>
         <a href="../../#flagships" class="btn btn-ghost btn-sm" style="justify-content:center;">← All 7 Flagships</a>
@@ -132,7 +221,7 @@
       </div>
     </aside>
 
-    <main class="cs-main">
+    <main class="cs-main" data-lens-panel="tech" >
       <!-- 01. Production Readiness Scorecard -->
       <section class="cs-section" id="readiness">
         <div class="cs-sec-hdr">
@@ -426,6 +515,353 @@ pytest lab/tests/ -v</pre>
           </a>
           <a href="../claude-extraction-eval-observability/" class="cs-pager-card" style="text-align:right;">
             <span class="cs-pager-dir mono">Next Flagship (#7) →</span>
+            <span class="cs-pager-name">Claude Extraction Eval &amp; Confidence Calibration</span>
+          </a>
+        </nav>
+      </section>
+    </main>
+
+    <main class="cs-main" data-lens-panel="business" hidden>
+      <!-- 01. Executive Value Summary -->
+      <section class="cs-section" id="biz-summary">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker cs-kicker-emerald mono">01 · Executive Value Brief</div>
+          <h2 class="cs-sec-title">Commercial Thesis &amp; P&amp;L Impact</h2>
+        </div>
+        <div class="exec-brief-card">
+          <p class="exec-brief-copy">Healthcare AI models that rely on socioeconomic proxies like <code class="inline-code">insurance_type</code> silently under-triage vulnerable patients—exposing health systems to preventable adverse clinical outcomes, civil-rights liability, and exclusion from regulated markets under the EU AI Act (where high-risk Annex III non-compliance carries fines up to <code class="inline-code">3%–7%</code> of global turnover). HealthGuard pinpoints hidden <code class="inline-code">Rural × Medicaid</code> harm via intersectional auditing + TreeSHAP attribution, collapses the false-negative gap by <code class="inline-code">31.4 pp</code> while preserving <code class="inline-code">0.807</code> AUC, and packages all 8 statutory governance deliverables.</p>
+          <div class="exec-proof-bar mono">
+            <span>✓ 100% Grounded in Verified Repository Benchmarks</span>
+            <span>·</span>
+            <button type="button" class="link-btn mono" data-switch-lens="tech">Inspect Underlying Code &amp; Telemetry →</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02. Pilot Trap vs Production Outcome -->
+      <section class="cs-section" id="biz-problem">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker cs-kicker-emerald mono">02 · Commercial Risk vs. Production Unlock</div>
+          <h2 class="cs-sec-title">Why Prototype Pilots Stall — And How This Architecture Unblocks Launch</h2>
+          <p class="cs-sec-desc">Translating engineering guardrails, determinism, and cost controls into executive deployment readiness.</p>
+        </div>
+        <div class="lifecycle-grid">
+          <div class="lifecycle-box adversarial">
+            <h4 class="mono" style="color:var(--accent-red);">✕ Why Unaudited Clinical ML Creates Patient Harm &amp; Regulatory Blocks</h4>
+            <ul class="lifecycle-list">
+              <li>Single-axis fairness checks (<code class="inline-code">Region</code> alone or <code class="inline-code">Insurance</code> alone) average <code class="inline-code">Urban × Medicaid</code> (<code class="inline-code">19.2%</code> FNR) with <code class="inline-code">Rural × Medicaid</code> (<code class="inline-code">60.6%</code> FNR), hiding severe under-triage.</li>
+<li>Naive global threshold lowering inflates false positives across every clinic without removing underlying socioeconomic proxy bias.</li>
+<li>Deploying high-risk medical triage AI without EU AI Act Annex III conformity, MITRE ATLAS threat modeling, and GDPR Schrems II TIAs blocks hospital procurement.</li>
+<li>Ignoring clinician override rates after launch lets automation bias or alert fatigue degrade real-world care silently.</li>
+            </ul>
+          </div>
+          <div class="lifecycle-box happy">
+            <h4 class="mono" style="color:var(--accent-emerald);">✓ Commercial &amp; Clinical Outcomes Delivered by This Architecture</h4>
+            <ul class="lifecycle-list">
+              <li>Rescues high-risk <code class="inline-code">Rural × Medicaid</code> patients from missed preventive intervention (<code class="inline-code">60.6% -&gt; 48.5%</code> FNR, <code class="inline-code">-12.1 pp</code> absolute drop).</li>
+<li>Resolves the executive &#x27;fairness vs. accuracy&#x27; deadlock by proving <strong><code class="inline-code">0.807</code> ROC-AUC</strong> is retained after counterfactual proxy removal.</li>
+<li>Unlocks regulated healthcare market entry with a complete <strong>EU AI Act Annex III + MITRE ATLAS + Schrems II</strong> compliance dossier.</li>
+<li>Sustains continuous post-market compliance (EU AI Act Art. 72) via automated Green/Amber/Red clinician-override KRI bands.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03. 1:1 Production Feature -> Business Value Traceability Matrix -->
+      <section class="cs-section" id="biz-matrix">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker cs-kicker-emerald mono">03 · 1:1 Feature-to-Value Traceability</div>
+          <h2 class="cs-sec-title">Production Feature → Business Value Mapping</h2>
+          <p class="cs-sec-desc">Every production engineering feature in <code class="inline-code">kenseiAmit/clinical-ai-governance-fairness-audit</code> mapped directly to the commercial risk it eliminates and the measurable value it delivers.</p>
+        </div>
+        <div class="adr-wrap fv-wrap">
+          <table class="adr-table fv-table">
+            <thead>
+              <tr>
+                <th>Production Engineering Feature (Source)</th>
+                <th>Business Risk / Bottleneck Eliminated</th>
+                <th>Value Lever</th>
+                <th>Quantified Business Outcome</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+        <tr>
+          <td class="fv-col-feature">
+            <div class="fv-feat-name">12-Cell Intersectional Subgroup Audit Engine (<code class="inline-code">Region × Insurance</code>)</div>
+            <div class="fv-source-list mono">
+              <a href="https://github.com/kenseiAmit/clinical-ai-governance-fairness-audit/blob/main/lab/audit.py" target="_blank" rel="noopener" class="source-pill" title="Inspect lab/audit.py on GitHub"><span>📄 audit.py</span><span>↗</span></a><a href="https://github.com/kenseiAmit/clinical-ai-governance-fairness-audit/blob/main/lab/fairness_metrics.py" target="_blank" rel="noopener" class="source-pill" title="Inspect lab/fairness_metrics.py on GitHub"><span>📄 fairness_metrics.py</span><span>↗</span></a>
+            </div>
+          </td>
+          <td class="fv-col-risk">Aggregate fairness dashboards masking a <code class="inline-code">60.6%</code> missed-care rate in <code class="inline-code">Rural × Medicaid</code> patients + noisy low-<code class="inline-code">n</code> false alarms.</td>
+          <td class="fv-col-lever">
+            <span class="lever-pill mono lever-emerald">Clinical Safety &amp; Liability</span>
+          </td>
+          <td class="fv-col-impact">Surfaces exact harmed cohorts (<code class="inline-code">N = 3,000</code>) while enforcing <code class="inline-code">n_positives &gt;= 20</code> statistical power gates.</td>
+        </tr>
+        
+
+        <tr>
+          <td class="fv-col-feature">
+            <div class="fv-feat-name">Mechanistic TreeSHAP Socioeconomic Proxy Attribution</div>
+            <div class="fv-source-list mono">
+              <a href="https://github.com/kenseiAmit/clinical-ai-governance-fairness-audit/blob/main/lab/shap_analysis.py" target="_blank" rel="noopener" class="source-pill" title="Inspect lab/shap_analysis.py on GitHub"><span>📄 shap_analysis.py</span><span>↗</span></a><a href="https://github.com/kenseiAmit/clinical-ai-governance-fairness-audit/blob/main/lab/tests/test_shap_analysis.py" target="_blank" rel="noopener" class="source-pill" title="Inspect lab/tests/test_shap_analysis.py on GitHub"><span>📄 test_shap_analysis.py</span><span>↗</span></a>
+            </div>
+          </td>
+          <td class="fv-col-risk">Guesswork remediation that tweaks global thresholds and overwhelms clinicians with false-positive alerts.</td>
+          <td class="fv-col-lever">
+            <span class="lever-pill mono lever-blue">Diagnostic &amp; R&amp;D Precision</span>
+          </td>
+          <td class="fv-col-impact">Proves mathematically via global + matched-pair waterfalls that <code class="inline-code">insurance_type</code> penalized Medicaid patients with identical vitals.</td>
+        </tr>
+        
+
+        <tr>
+          <td class="fv-col-feature">
+            <div class="fv-feat-name">Counterfactual Proxy Ablation Retraining</div>
+            <div class="fv-source-list mono">
+              <a href="https://github.com/kenseiAmit/clinical-ai-governance-fairness-audit/blob/main/README.md" target="_blank" rel="noopener" class="source-pill" title="Inspect README.md on GitHub"><span>📄 README.md</span><span>↗</span></a><a href="https://github.com/kenseiAmit/clinical-ai-governance-fairness-audit/blob/main/lab/tests/test_audit.py" target="_blank" rel="noopener" class="source-pill" title="Inspect lab/tests/test_audit.py on GitHub"><span>📄 test_audit.py</span><span>↗</span></a>
+            </div>
+          </td>
+          <td class="fv-col-risk">Executive hesitation that fixing algorithmic bias will ruin overall clinical predictive accuracy.</td>
+          <td class="fv-col-lever">
+            <span class="lever-pill mono lever-emerald">Equitable Care + Model ROI</span>
+          </td>
+          <td class="fv-col-impact">Collapses within-rural disparity <strong><code class="inline-code">+37.5 pp -&gt; +6.2 pp</code> (<code class="inline-code">-31.4 pp</code>)</strong> with negligible <strong><code class="inline-code">-0.005</code> AUC</strong> trade-off (<code class="inline-code">0.807</code>).</td>
+        </tr>
+        
+
+        <tr>
+          <td class="fv-col-feature">
+            <div class="fv-feat-name">Automated Clinician-Override KRI Governance Engine</div>
+            <div class="fv-source-list mono">
+              <a href="https://github.com/kenseiAmit/clinical-ai-governance-fairness-audit/blob/main/lab/kri.py" target="_blank" rel="noopener" class="source-pill" title="Inspect lab/kri.py on GitHub"><span>📄 kri.py</span><span>↗</span></a><a href="https://github.com/kenseiAmit/clinical-ai-governance-fairness-audit/blob/main/lab/tests/test_kri.py" target="_blank" rel="noopener" class="source-pill" title="Inspect lab/tests/test_kri.py on GitHub"><span>📄 test_kri.py</span><span>↗</span></a>
+            </div>
+          </td>
+          <td class="fv-col-risk">Silent post-deployment clinical drift, alert fatigue, or undocumented clinician overrides violating post-market rules.</td>
+          <td class="fv-col-lever">
+            <span class="lever-pill mono lever-amber">Continuous Operational Safety</span>
+          </td>
+          <td class="fv-col-impact">Codifies <code class="inline-code">GREEN / AMBER / RED</code> SLA triggers across override volume, structured justification share, and input anomalies.</td>
+        </tr>
+        
+
+        <tr>
+          <td class="fv-col-feature">
+            <div class="fv-feat-name">EU AI Act Annex III, MITRE ATLAS &amp; Schrems II TIA Portfolio</div>
+            <div class="fv-source-list mono">
+              <a href="https://github.com/kenseiAmit/clinical-ai-governance-fairness-audit/blob/main/README.md" target="_blank" rel="noopener" class="source-pill" title="Inspect README.md on GitHub"><span>📄 README.md</span><span>↗</span></a><a href="https://github.com/kenseiAmit/clinical-ai-governance-fairness-audit/blob/main/lab/audit.py" target="_blank" rel="noopener" class="source-pill" title="Inspect lab/audit.py on GitHub"><span>📄 audit.py</span><span>↗</span></a>
+            </div>
+          </td>
+          <td class="fv-col-risk">Blocked EU/enterprise hospital contracts and statutory penalties (<code class="inline-code">up to 3%–7%</code> global revenue) for high-risk medical AI.</td>
+          <td class="fv-col-lever">
+            <span class="lever-pill mono lever-purple">Regulated Market Access</span>
+          </td>
+          <td class="fv-col-impact">Bridges Python ML telemetry directly into all 8 legal, privacy, and adversarial-ML governance deliverables.</td>
+        </tr>
+        
+
+        <tr>
+          <td class="fv-col-feature">
+            <div class="fv-feat-name">34-Test Automated Governance CI Suite</div>
+            <div class="fv-source-list mono">
+              <a href="https://github.com/kenseiAmit/clinical-ai-governance-fairness-audit/blob/main/lab/tests/test_fairness_metrics.py" target="_blank" rel="noopener" class="source-pill" title="Inspect lab/tests/test_fairness_metrics.py on GitHub"><span>📄 test_fairness_metrics.py</span><span>↗</span></a><a href="https://github.com/kenseiAmit/clinical-ai-governance-fairness-audit/blob/main/.github/workflows/ci.yml" target="_blank" rel="noopener" class="source-pill" title="Inspect .github/workflows/ci.yml on GitHub"><span>📄 ci.yml</span><span>↗</span></a>
+            </div>
+          </td>
+          <td class="fv-col-risk">Zero-denominator subgroup edge cases or code edits corrupting board/regulator fairness filings.</td>
+          <td class="fv-col-lever">
+            <span class="lever-pill mono lever-cyan">Audit Integrity</span>
+          </td>
+          <td class="fv-col-impact"><strong><code class="inline-code">34/34</code> automated <code class="inline-code">pytest</code> assertions</strong> verifying fairness metrics, low-<code class="inline-code">n</code> guards, SHAP outputs, and KRI state transitions.</td>
+        </tr>
+        
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 04. Value-Chain Flow Diagram -->
+      <section class="cs-section" id="biz-flow">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker cs-kicker-emerald mono">04 · End-to-End Value Delivery Chain</div>
+          <h2 class="cs-sec-title">Engineering Control → Operational Mechanism → Business Outcome</h2>
+          <p class="cs-sec-desc">How architectural invariants convert directly into FinOps margin, SLA speed, and regulatory protection.</p>
+        </div>
+        <div class="mermaid-stage" data-mermaid-src="flowchart LR
+  subgraph Controls[&quot;Clinical AI Governance &amp; Fairness Controls&quot;]
+    F1[&quot;12-Cell Intersectional Audit (n&gt;=20)&quot;]
+    F2[&quot;TreeSHAP Proxy Attribution&quot;]
+    F3[&quot;Counterfactual Proxy Ablation&quot;]
+    F4[&quot;KRI Engine + EU AI Act Annex III Dossier&quot;]
+  end
+  subgraph Mech[&quot;Clinical &amp; Regulatory Mechanism&quot;]
+    M1[&quot;Unmasks 60.6% Rural x Medicaid FNR&quot;]
+    M2[&quot;Isolates insurance_type Score Suppression&quot;]
+    M3[&quot;Cuts Rural Gap +37.5pp -&gt; +6.2pp (0.807 AUC)&quot;]
+    M4[&quot;Tracks Clinician Overrides + GDPR/ATLAS Controls&quot;]
+  end
+  subgraph ROI[&quot;Health-System &amp; Commercial Value&quot;]
+    V1[&quot;Prevents Missed High-Risk Patient Care&quot;]
+    V2[&quot;Zero Guesswork Threshold Inflation&quot;]
+    V3[&quot;Equitable Triage With Full Predictive Power&quot;]
+    V4[&quot;Unlocks Regulated EU / Hospital Procurement&quot;]
+  end
+  F1 --&gt; M1 --&gt; V1
+  F2 --&gt; M2 --&gt; V2
+  F3 --&gt; M3 --&gt; V3
+  F4 --&gt; M4 --&gt; V4">
+          <pre class="mono" style="text-align:left;font-size:0.78rem;color:var(--text-muted);overflow:auto;">flowchart LR
+  subgraph Controls[&quot;Clinical AI Governance &amp; Fairness Controls&quot;]
+    F1[&quot;12-Cell Intersectional Audit (n&gt;=20)&quot;]
+    F2[&quot;TreeSHAP Proxy Attribution&quot;]
+    F3[&quot;Counterfactual Proxy Ablation&quot;]
+    F4[&quot;KRI Engine + EU AI Act Annex III Dossier&quot;]
+  end
+  subgraph Mech[&quot;Clinical &amp; Regulatory Mechanism&quot;]
+    M1[&quot;Unmasks 60.6% Rural x Medicaid FNR&quot;]
+    M2[&quot;Isolates insurance_type Score Suppression&quot;]
+    M3[&quot;Cuts Rural Gap +37.5pp -&gt; +6.2pp (0.807 AUC)&quot;]
+    M4[&quot;Tracks Clinician Overrides + GDPR/ATLAS Controls&quot;]
+  end
+  subgraph ROI[&quot;Health-System &amp; Commercial Value&quot;]
+    V1[&quot;Prevents Missed High-Risk Patient Care&quot;]
+    V2[&quot;Zero Guesswork Threshold Inflation&quot;]
+    V3[&quot;Equitable Triage With Full Predictive Power&quot;]
+    V4[&quot;Unlocks Regulated EU / Hospital Procurement&quot;]
+  end
+  F1 --&gt; M1 --&gt; V1
+  F2 --&gt; M2 --&gt; V2
+  F3 --&gt; M3 --&gt; V3
+  F4 --&gt; M4 --&gt; V4</pre>
+        </div>
+      </section>
+
+      <!-- 05. Interactive Unit-Economics & ROI Simulator -->
+      <section class="cs-section" id="biz-simulator">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker cs-kicker-emerald mono">05 · Interactive Scale &amp; Unit-Economics Model</div>
+          <h2 class="cs-sec-title">Preventive Care Equity &amp; EU AI Act Readiness Simulator</h2>
+          <p class="cs-sec-desc">Calculates additional high-risk rural Medicaid patients identified annually after reducing False Negative Rate from <code class="inline-code">60.6%</code> to <code class="inline-code">48.5%</code> (<code class="inline-code">-12.1 pp</code>).</p>
+        </div>
+
+        <div class="sim-panel" data-sim-type="clinical">
+          <div class="sim-controls-grid">
+            
+        <div class="sim-control">
+          <div class="sim-control-top">
+            <label for="simPatients" class="sim-label">Annual Rural Medicaid Patients Screened</label>
+            <span class="sim-readout mono" id="simPatients_val" data-unit="patients/yr">15000</span>
+          </div>
+          <input
+            type="range"
+            id="simPatients"
+            class="sim-slider"
+            min="1000"
+            max="100000"
+            step="1000"
+            value="15000"
+          />
+          <div class="sim-range-bounds mono">
+            <span>1,000 patients/yr</span>
+            <span>100,000 patients/yr</span>
+          </div>
+        </div>
+        
+
+        <div class="sim-control">
+          <div class="sim-control-top">
+            <label for="simPrevalence" class="sim-label">Underlying High-Risk Clinical Prevalence</label>
+            <span class="sim-readout mono" id="simPrevalence_val" data-unit="%">12</span>
+          </div>
+          <input
+            type="range"
+            id="simPrevalence"
+            class="sim-slider"
+            min="5"
+            max="25"
+            step="1"
+            value="12"
+          />
+          <div class="sim-range-bounds mono">
+            <span>5 %</span>
+            <span>25 %</span>
+          </div>
+        </div>
+        
+          </div>
+
+          <div class="sim-results-grid" id="simOutputs"></div>
+
+          <div class="sim-comparison-bar-wrap">
+            <div class="sim-bar-labels mono">
+              <span id="simBarLeftLabel">Baseline vs. Production Comparison</span>
+              <span id="simBarRightLabel"></span>
+            </div>
+            <div class="sim-bar-track">
+              <div class="sim-bar-fill" id="simBarFill" style="width:62%;"></div>
+            </div>
+          </div>
+
+          <div class="sim-footnote">
+            <strong class="mono">Benchmark Formula Basis:</strong> Grounded in repo cohort (<code class="inline-code">N = 3,000</code>, <code class="inline-code">Rural × Medicaid</code> prevalence <code class="inline-code">33/284 = 11.62%</code>): Baseline FNR <code class="inline-code">60.6%</code> vs. de-biased FNR <code class="inline-code">48.5%</code> (<code class="inline-code">12.1%</code> of true high-risk Medicaid patients rescued from missed care; within-rural gap cut <code class="inline-code">-31.4 pp</code> while holding <code class="inline-code">0.807</code> ROC-AUC).
+          </div>
+        </div>
+      </section>
+
+      <!-- 06. Executive Stakeholder Sign-Off Grid -->
+      <section class="cs-section" id="biz-stakeholders">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker cs-kicker-emerald mono">06 · Cross-Functional Buyer Alignment</div>
+          <h2 class="cs-sec-title">Why Every Enterprise Stakeholder Signs Off</h2>
+          <p class="cs-sec-desc">How this single architecture aligns Engineering, Finance, Security, Legal/Compliance, and Business Operations.</p>
+        </div>
+
+        <div class="stakeholders-grid">
+          
+        <article class="stakeholder-card">
+          <div class="stakeholder-top">
+            <span class="stakeholder-role mono">Chief Medical Officer (CMO)</span>
+            <span class="stakeholder-metric mono">-31.4 pp Disparity · 0.807 AUC</span>
+          </div>
+          <p class="stakeholder-pitch">Closes severe rural Medicaid under-triage without sacrificing overall diagnostic discrimination or flooding clinics with false alarms.</p>
+        </article>
+        
+
+        <article class="stakeholder-card">
+          <div class="stakeholder-top">
+            <span class="stakeholder-role mono">Chief Compliance / Legal</span>
+            <span class="stakeholder-metric mono">EU AI Act Annex III + GDPR TIA</span>
+          </div>
+          <p class="stakeholder-pitch">Ready-to-audit conformity assessment, Schrems II cross-border transfer controls, and post-market KRI monitoring.</p>
+        </article>
+        
+
+        <article class="stakeholder-card">
+          <div class="stakeholder-top">
+            <span class="stakeholder-role mono">Chief Information Security</span>
+            <span class="stakeholder-metric mono">MITRE ATLAS Threat Register</span>
+          </div>
+          <p class="stakeholder-pitch">Addresses adversarial clinical poisoning, model inversion, and pipeline integrity alongside demographic fairness.</p>
+        </article>
+        
+
+        <article class="stakeholder-card">
+          <div class="stakeholder-top">
+            <span class="stakeholder-role mono">VP Clinical Operations</span>
+            <span class="stakeholder-metric mono">Green/Amber/Red Override KRIs</span>
+          </div>
+          <p class="stakeholder-pitch">Tracks clinician override frequency and structured justification rates continuously to catch workflow friction early.</p>
+        </article>
+        
+        </div>
+
+        <nav class="cs-pager" aria-label="Flagship Business Case Pagination" style="margin-top:32px;">
+          <a href="../bedrock-rag-threat-modeling-guardrails/business/" class="cs-pager-card">
+            <span class="cs-pager-dir mono">← Previous Business Case (#5)</span>
+            <span class="cs-pager-name">AWS Bedrock RAG Threat Modeling &amp; Guardrails</span>
+          </a>
+          <a href="../claude-extraction-eval-observability/business/" class="cs-pager-card" style="text-align:right;">
+            <span class="cs-pager-dir mono">Next Business Case (#7) →</span>
             <span class="cs-pager-name">Claude Extraction Eval &amp; Confidence Calibration</span>
           </a>
         </nav>

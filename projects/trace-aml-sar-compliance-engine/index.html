@@ -11,11 +11,11 @@
 
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://kenseiamit.github.io/projects/trace-aml-sar-compliance-engine/" />
-  <meta property="og:title" content="TRACE: FinCEN AML &amp; SAR Compliance Engine — Production Case Study (@kenseiAmit)" />
+  <meta property="og:title" content="TRACE: FinCEN AML &amp; SAR Compliance Engine — Production Architecture Case Study | Amit Kumar Koshta" />
   <meta property="og:description" content="Two-Stage Bank Secrecy Act (BSA) AML Investigation &amp; FinCEN Form 111 SAR Filing Engine with Mandatory HITL Compute Gating &amp; Cryptographic SHA-256 Audit Trails" />
   <meta property="og:image" content="https://kenseiamit.github.io/assets/og/trace-aml-sar-compliance-engine.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="TRACE: FinCEN AML &amp; SAR Compliance Engine — Amit Kumar Koshta" />
+  <meta name="twitter:title" content="TRACE: FinCEN AML &amp; SAR Compliance Engine — Production Architecture Case Study | Amit Kumar Koshta" />
   <meta name="twitter:description" content="Two-Stage Bank Secrecy Act (BSA) AML Investigation &amp; FinCEN Form 111 SAR Filing Engine with Mandatory HITL Compute Gating &amp; Cryptographic SHA-256 Audit Trails" />
   <meta name="twitter:image" content="https://kenseiamit.github.io/assets/og/trace-aml-sar-compliance-engine.png" />
 
@@ -26,7 +26,7 @@
   <link rel="stylesheet" href="../../css/styles.css" />
   <link rel="stylesheet" href="../../css/case-study.css" />
 </head>
-<body>
+<body data-default-view="tech" data-slug="trace-aml-sar-compliance-engine" data-proj-prefix="..">
   <header class="site-header">
     <div class="container nav-inner">
       <div class="cs-breadcrumb">
@@ -43,16 +43,16 @@
       <div class="nav-actions">
         <div class="cs-switcher">
           <select id="flagshipSelect" class="cs-select mono" aria-label="Switch Flagship Case Study">
-            <option value="../guarded-salesops-agent-runtime/" >#1 · Guarded SalesOps Agent Runtime</option>
-<option value="../rag-gateway-eval-cost-controls/" >#2 · Production RAG Gateway &amp; Cost Controls</option>
-<option value="../multi-agent-banking-system/" >#3 · Multi-Agent Banking System (A2A + LangGraph)</option>
-<option value="../trace-aml-sar-compliance-engine/" selected>#4 · TRACE: FinCEN AML &amp; SAR Compliance Engine</option>
-<option value="../bedrock-rag-threat-modeling-guardrails/" >#5 · AWS Bedrock RAG Threat Modeling &amp; Guardrails</option>
-<option value="../clinical-ai-governance-fairness-audit/" >#6 · HealthGuard: Clinical AI Governance &amp; EU AI Act Audit</option>
-<option value="../claude-extraction-eval-observability/" >#7 · Claude Extraction Eval &amp; Confidence Calibration</option>
+            <option value="guarded-salesops-agent-runtime" >#1 · Guarded SalesOps Agent Runtime</option>
+<option value="rag-gateway-eval-cost-controls" >#2 · Production RAG Gateway &amp; Cost Controls</option>
+<option value="multi-agent-banking-system" >#3 · Multi-Agent Banking System (A2A + LangGraph)</option>
+<option value="trace-aml-sar-compliance-engine" selected>#4 · TRACE: FinCEN AML &amp; SAR Compliance Engine</option>
+<option value="bedrock-rag-threat-modeling-guardrails" >#5 · AWS Bedrock RAG Threat Modeling &amp; Guardrails</option>
+<option value="clinical-ai-governance-fairness-audit" >#6 · HealthGuard: Clinical AI Governance &amp; EU AI Act Audit</option>
+<option value="claude-extraction-eval-observability" >#7 · Claude Extraction Eval &amp; Confidence Calibration</option>
           </select>
         </div>
-        <button type="button" class="icon-btn" id="copyPageUrlBtn" title="Copy shareable Case Study link">Share URL</button>
+        <button type="button" class="icon-btn" id="copyPageUrlBtn" title="Copy shareable link for active view">Share URL</button>
         <button type="button" class="icon-btn" id="themeToggleBtn" aria-label="Toggle theme"><span id="themeIcon">☀</span></button>
         <a href="https://github.com/kenseiAmit/trace-aml-sar-compliance-engine" target="_blank" rel="noopener" class="btn btn-primary btn-sm">GitHub Repo ↗</a>
       </div>
@@ -62,26 +62,64 @@
   <section class="cs-hero">
     <div class="container">
       <div class="cs-badge-row">
-        <span class="cs-rank-pill mono">FLAGSHIP #4 · REGULATED FINTECH &amp; STATUTORY COMPLIANCE</span>
+        <span class="cs-rank-pill mono" data-lens-block="tech" >FLAGSHIP #4 · REGULATED FINTECH &amp; STATUTORY COMPLIANCE</span>
+        <span class="cs-rank-pill cs-rank-pill-biz mono" data-lens-block="business" hidden>BUSINESS VALUE &amp; ROI · FINANCIAL CRIME COMPLIANCE &amp; FINOPS</span>
         <a href="https://github.com/kenseiAmit/trace-aml-sar-compliance-engine/actions/workflows/ci.yml" target="_blank" rel="noopener" class="pill pill-ci mono">✓ GitHub Actions CI Passing ↗</a>
         <span class="pill mono" style="background:var(--bg-subtle);border:1px solid var(--border-subtle);color:var(--text-secondary);">MIT License · Python</span>
       </div>
 
       <h1 class="cs-title">TRACE: FinCEN AML &amp; SAR Compliance Engine</h1>
-      <p class="cs-subtitle">Two-Stage Bank Secrecy Act (BSA) AML Investigation &amp; FinCEN Form 111 SAR Filing Engine with Mandatory HITL Compute Gating &amp; Cryptographic SHA-256 Audit Trails</p>
+      <p class="cs-subtitle" data-lens-block="tech" >Two-Stage Bank Secrecy Act (BSA) AML Investigation &amp; FinCEN Form 111 SAR Filing Engine with Mandatory HITL Compute Gating &amp; Cryptographic SHA-256 Audit Trails</p>
+      <p class="cs-subtitle cs-subtitle-biz" data-lens-block="business" hidden>Cutting Stage-2 AML Narrative Compute by 50% While Enforcing 100% Human-Authorized, Examiner-Ready FinCEN SARs</p>
 
-      <div class="hero-ctas" style="margin-bottom:18px;">
+      <div class="lens-tabs-bar" role="tablist" aria-label="Case Study Perspective">
+        <button
+          type="button"
+          role="tab"
+          aria-selected="true"
+          class="lens-tab-btn active"
+          data-switch-lens="tech"
+        >
+          <span class="lens-tab-icon">⚙</span>
+          <span>
+            <strong class="lens-tab-title">Technical Architecture &amp; Code</strong>
+            <small class="lens-tab-sub mono">Topology · 6 Source-Linked Features · ADRs · Traces</small>
+          </span>
+        </button>
+        <button
+          type="button"
+          role="tab"
+          aria-selected="false"
+          class="lens-tab-btn lens-tab-biz "
+          data-switch-lens="business"
+        >
+          <span class="lens-tab-icon">📈</span>
+          <span>
+            <strong class="lens-tab-title">Business Value &amp; Unit Economics</strong>
+            <small class="lens-tab-sub mono">Feature → ROI Matrix · Interactive Simulator · Exec Brief</small>
+          </span>
+        </button>
+      </div>
+
+      <div class="hero-ctas" style="margin-bottom:18px;" data-lens-block="tech" >
         <a href="https://github.com/kenseiAmit/trace-aml-sar-compliance-engine" target="_blank" rel="noopener" class="btn btn-primary">Inspect Source Code on GitHub ↗</a>
         
+        <button type="button" class="btn btn-secondary" data-switch-lens="business">View Business Value &amp; ROI →</button>
         <a href="#features" class="btn btn-ghost">6 Production Features ↓</a>
-        <a href="#telemetry" class="btn btn-ghost">Empirical Telemetry ↓</a>
+      </div>
+
+      <div class="hero-ctas" style="margin-bottom:18px;" data-lens-block="business" hidden>
+        <a href="#biz-matrix" class="btn btn-primary">Feature → Business Value Matrix ↓</a>
+        <a href="#biz-simulator" class="btn btn-secondary">Interactive ROI Simulator ↓</a>
+        
+        <button type="button" class="btn btn-ghost" data-switch-lens="tech">← Inspect Technical Architecture</button>
       </div>
 
       <div class="stack-row" style="margin-bottom:0;">
         <span class="stack-chip mono">OpenAI</span><span class="stack-chip mono">Pydantic v2</span><span class="stack-chip mono">Chain-of-Thought</span><span class="stack-chip mono">ReACT</span><span class="stack-chip mono">HITL</span><span class="stack-chip mono">SHA-256 Audit</span><span class="stack-chip mono">Python</span><span class="stack-chip mono">GitHub Actions</span>
       </div>
 
-      <div class="cs-kpi-grid">
+      <div class="cs-kpi-grid" data-lens-block="tech" >
         
         <div class="cs-kpi-card">
           <div class="cs-kpi-val mono">31 / 31</div>
@@ -111,20 +149,71 @@
         </div>
         
       </div>
+
+      <div class="cs-kpi-grid" data-lens-block="business" hidden>
+        
+        <div class="cs-kpi-card biz-kpi-card">
+          <div class="cs-kpi-val mono">50% Saved</div>
+          <div class="cs-kpi-lbl">Stage-2 LLM Compute Cut</div>
+          <div class="cs-kpi-sub mono">False Positives Halted at HITL Gate</div>
+        </div>
+        
+
+        <div class="cs-kpi-card biz-kpi-card">
+          <div class="cs-kpi-val mono">0 Unapproved</div>
+          <div class="cs-kpi-lbl">Autonomous SAR Filings</div>
+          <div class="cs-kpi-sub mono">Hard BSA `AUTH_*` Separation of Duties</div>
+        </div>
+        
+
+        <div class="cs-kpi-card biz-kpi-card">
+          <div class="cs-kpi-val mono">6-Factor Gate</div>
+          <div class="cs-kpi-lbl">Examiner Quality Check</div>
+          <div class="cs-kpi-sub mono">&lt;=120w · Exact USD · Statutory Regex</div>
+        </div>
+        
+
+        <div class="cs-kpi-card biz-kpi-card">
+          <div class="cs-kpi-val mono">SHA-256</div>
+          <div class="cs-kpi-lbl">Consent-Order Audit Shield</div>
+          <div class="cs-kpi-sub mono">Tamper-Evident JSONL + Amendments</div>
+        </div>
+        
+      </div>
     </div>
   </section>
 
   <div class="container cs-layout">
     <aside class="cs-toc" aria-label="Case Study Sections">
-      <div class="cs-toc-title mono">On This Page</div>
-      <nav class="cs-toc-nav">
-        <a href="#readiness" class="active">01 · Production Readiness</a>
-        <a href="#topology">02 · Topology &amp; Lifecycles</a>
-        <a href="#features">03 · Technical Features (6)</a>
-        <a href="#adrs">04 · Architectural Decisions</a>
-        <a href="#telemetry">05 · Telemetry &amp; Traces</a>
-        <a href="#runbook">06 · Quick Start &amp; CI Gates</a>
-      </nav>
+      <div class="toc-lens-mini mono">
+        <button type="button" class="toc-lens-chip active" data-switch-lens="tech">⚙ Tech</button>
+        <button type="button" class="toc-lens-chip " data-switch-lens="business">📈 Business</button>
+      </div>
+
+      <div data-lens-block="tech" >
+        <div class="cs-toc-title mono">Technical Sections</div>
+        <nav class="cs-toc-nav" data-toc-nav="tech">
+          <a href="#readiness" class="active">01 · Production Readiness</a>
+          <a href="#topology">02 · Topology &amp; Lifecycles</a>
+          <a href="#features">03 · Technical Features (6)</a>
+          <a href="#adrs">04 · Architectural Decisions</a>
+          <a href="#telemetry">05 · Telemetry &amp; Traces</a>
+          <a href="#runbook">06 · Quick Start &amp; CI Gates</a>
+        </nav>
+      </div>
+
+      <div data-lens-block="business" hidden>
+        <div class="cs-toc-title mono">Business &amp; ROI Sections</div>
+        <nav class="cs-toc-nav" data-toc-nav="business">
+          <a href="#biz-summary" class="active">01 · Executive Value Brief</a>
+          <a href="#biz-problem">02 · Pilot Trap vs. Production</a>
+          <a href="#biz-matrix">03 · Feature → Value Matrix</a>
+          <a href="#biz-flow">04 · Value-Chain Flow</a>
+          <a href="#biz-simulator">05 · Unit-Economics Simulator</a>
+          <a href="#biz-stakeholders">06 · Stakeholder Sign-Off</a>
+        </nav>
+      </div>
+
       <div class="cs-toc-links">
         <a href="https://github.com/kenseiAmit/trace-aml-sar-compliance-engine" target="_blank" rel="noopener" class="btn btn-secondary btn-sm" style="justify-content:center;">View Repository ↗</a>
         <a href="../../#flagships" class="btn btn-ghost btn-sm" style="justify-content:center;">← All 7 Flagships</a>
@@ -132,7 +221,7 @@
       </div>
     </aside>
 
-    <main class="cs-main">
+    <main class="cs-main" data-lens-panel="tech" >
       <!-- 01. Production Readiness Scorecard -->
       <section class="cs-section" id="readiness">
         <div class="cs-sec-hdr">
@@ -536,6 +625,353 @@ pytest tests/ -v</pre>
           </a>
           <a href="../bedrock-rag-threat-modeling-guardrails/" class="cs-pager-card" style="text-align:right;">
             <span class="cs-pager-dir mono">Next Flagship (#5) →</span>
+            <span class="cs-pager-name">AWS Bedrock RAG Threat Modeling &amp; Guardrails</span>
+          </a>
+        </nav>
+      </section>
+    </main>
+
+    <main class="cs-main" data-lens-panel="business" hidden>
+      <!-- 01. Executive Value Summary -->
+      <section class="cs-section" id="biz-summary">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker cs-kicker-emerald mono">01 · Executive Value Brief</div>
+          <h2 class="cs-sec-title">Commercial Thesis &amp; P&amp;L Impact</h2>
+        </div>
+        <div class="exec-brief-card">
+          <p class="exec-brief-copy">Financial institutions face a costly AML squeeze: high false-positive alert volumes burn senior investigator hours and LLM tokens, yet Bank Secrecy Act (BSA) rules strictly forbid autonomous Suspicious Activity Report (SAR) filing—and regulatory examiners penalize boilerplated narratives, missing dollar totals, or unverified audit trails. TRACE splits screening (<code class="inline-code">Stage 1</code>) from statutory synthesis (<code class="inline-code">Stage 2</code>) across a mandatory human <code class="inline-code">AUTH_*</code> gate, avoiding <code class="inline-code">50%</code> of Stage-2 compute while sealing every FinCEN Form 111 draft with <code class="inline-code">SHA-256</code>.</p>
+          <div class="exec-proof-bar mono">
+            <span>✓ 100% Grounded in Verified Repository Benchmarks</span>
+            <span>·</span>
+            <button type="button" class="link-btn mono" data-switch-lens="tech">Inspect Underlying Code &amp; Telemetry →</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02. Pilot Trap vs Production Outcome -->
+      <section class="cs-section" id="biz-problem">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker cs-kicker-emerald mono">02 · Commercial Risk vs. Production Unlock</div>
+          <h2 class="cs-sec-title">Why Prototype Pilots Stall — And How This Architecture Unblocks Launch</h2>
+          <p class="cs-sec-desc">Translating engineering guardrails, determinism, and cost controls into executive deployment readiness.</p>
+        </div>
+        <div class="lifecycle-grid">
+          <div class="lifecycle-box adversarial">
+            <h4 class="mono" style="color:var(--accent-red);">✕ Why End-to-End &#x27;Auto-SAR&#x27; Bots Create Regulatory Liability</h4>
+            <ul class="lifecycle-list">
+              <li>Auto-drafting SAR narratives on every flagged alert wastes <code class="inline-code">50%–85%</code> of expensive reasoning tokens on benign false positives.</li>
+<li>Unattended SAR generation violates BSA human-accountability mandates and risks unlawful/defamatory criminal accusations.</li>
+<li>Length-only checks pass defective narratives citing generic <code class="inline-code">&#x27;$10,000 threshold&#x27;</code> boilerplate instead of actual structured sums (<code class="inline-code">$37,536.45</code>).</li>
+<li>In-place file edits during compliance review destroy provenance required by OCC / FinCEN examiners.</li>
+            </ul>
+          </div>
+          <div class="lifecycle-box happy">
+            <h4 class="mono" style="color:var(--accent-emerald);">✓ Commercial Outcomes Delivered by This Architecture</h4>
+            <ul class="lifecycle-list">
+              <li><strong><code class="inline-code">50%</code> Stage-2 LLM compute eliminated</strong> in benchmark cohorts by positioning <code class="inline-code">AUTH_*</code> human review prior to ReACT synthesis.</li>
+<li>Investigators receive structured Stage-1 Chain-of-Thought typology dossiers (structuring, layering, velocity) in seconds.</li>
+<li>Every approved FinCEN Form 111 narrative passes 6 programmatic substantive checks (<code class="inline-code">31 USC 5324</code>, <code class="inline-code">31 CFR 1020.320</code>, <code class="inline-code">&lt;= 120</code> words).</li>
+<li>Immutable <code class="inline-code">amendment_history</code> + <code class="inline-code">SHA-256</code> checksums turn compliance audits from manual fire drills into instant hash verification.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03. 1:1 Production Feature -> Business Value Traceability Matrix -->
+      <section class="cs-section" id="biz-matrix">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker cs-kicker-emerald mono">03 · 1:1 Feature-to-Value Traceability</div>
+          <h2 class="cs-sec-title">Production Feature → Business Value Mapping</h2>
+          <p class="cs-sec-desc">Every production engineering feature in <code class="inline-code">kenseiAmit/trace-aml-sar-compliance-engine</code> mapped directly to the commercial risk it eliminates and the measurable value it delivers.</p>
+        </div>
+        <div class="adr-wrap fv-wrap">
+          <table class="adr-table fv-table">
+            <thead>
+              <tr>
+                <th>Production Engineering Feature (Source)</th>
+                <th>Business Risk / Bottleneck Eliminated</th>
+                <th>Value Lever</th>
+                <th>Quantified Business Outcome</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+        <tr>
+          <td class="fv-col-feature">
+            <div class="fv-feat-name">Two-Stage CoT Risk Triage + ReACT Statutory Synthesis</div>
+            <div class="fv-source-list mono">
+              <a href="https://github.com/kenseiAmit/trace-aml-sar-compliance-engine/blob/main/src/risk_analyst_agent.py" target="_blank" rel="noopener" class="source-pill" title="Inspect src/risk_analyst_agent.py on GitHub"><span>📄 risk_analyst_agent.py</span><span>↗</span></a><a href="https://github.com/kenseiAmit/trace-aml-sar-compliance-engine/blob/main/src/compliance_officer_agent.py" target="_blank" rel="noopener" class="source-pill" title="Inspect src/compliance_officer_agent.py on GitHub"><span>📄 compliance_officer_agent.py</span><span>↗</span></a>
+            </div>
+          </td>
+          <td class="fv-col-risk">Senior BSA analysts spending 45–90 minutes manually stitching multi-branch cash ledgers (<code class="inline-code">$37,536.45</code>) into prose.</td>
+          <td class="fv-col-lever">
+            <span class="lever-pill mono lever-blue">Investigator Leverage</span>
+          </td>
+          <td class="fv-col-impact">Automates typology detection and <code class="inline-code">&lt;= 120</code>-word FinCEN Form 111 narrative drafting across <code class="inline-code">10</code> verified statutory cases.</td>
+        </tr>
+        
+
+        <tr>
+          <td class="fv-col-feature">
+            <div class="fv-feat-name">Mandatory Pre-Stage-2 <code class="inline-code">AUTH_*</code> Human Gate</div>
+            <div class="fv-source-list mono">
+              <a href="https://github.com/kenseiAmit/trace-aml-sar-compliance-engine/blob/main/src/foundation_sar.py" target="_blank" rel="noopener" class="source-pill" title="Inspect src/foundation_sar.py on GitHub"><span>📄 foundation_sar.py</span><span>↗</span></a><a href="https://github.com/kenseiAmit/trace-aml-sar-compliance-engine/blob/main/docs/system_architecture.md" target="_blank" rel="noopener" class="source-pill" title="Inspect docs/system_architecture.md on GitHub"><span>📄 system_architecture.md</span><span>↗</span></a>
+            </div>
+          </td>
+          <td class="fv-col-risk">BSA regulatory non-compliance from unreviewed filings AND paying Stage-2 ReACT token costs on non-escalated alerts.</td>
+          <td class="fv-col-lever">
+            <span class="lever-pill mono lever-emerald">FinOps &amp; BSA Compliance</span>
+          </td>
+          <td class="fv-col-impact"><strong><code class="inline-code">50%</code> Stage-2 compute avoided</strong> + **<code class="inline-code">100%</code> cryptographic <code class="inline-code">AUTH_*</code> officer accountability** before narrative generation.</td>
+        </tr>
+        
+
+        <tr>
+          <td class="fv-col-feature">
+            <div class="fv-feat-name">6-Point Substantive FinCEN Form 111 Validator</div>
+            <div class="fv-source-list mono">
+              <a href="https://github.com/kenseiAmit/trace-aml-sar-compliance-engine/blob/main/src/foundation_sar.py" target="_blank" rel="noopener" class="source-pill" title="Inspect src/foundation_sar.py on GitHub"><span>📄 foundation_sar.py</span><span>↗</span></a><a href="https://github.com/kenseiAmit/trace-aml-sar-compliance-engine/blob/main/docs/compliance_guide.md" target="_blank" rel="noopener" class="source-pill" title="Inspect docs/compliance_guide.md on GitHub"><span>📄 compliance_guide.md</span><span>↗</span></a><a href="https://github.com/kenseiAmit/trace-aml-sar-compliance-engine/blob/main/tests/test_compliance_officer.py" target="_blank" rel="noopener" class="source-pill" title="Inspect tests/test_compliance_officer.py on GitHub"><span>📄 test_compliance_officer.py</span><span>↗</span></a>
+            </div>
+          </td>
+          <td class="fv-col-risk">Defective filings rejected during regulatory exams due to missing Who/What/When/Where/Why, boilerplate amounts, or unqualified accusations.</td>
+          <td class="fv-col-lever">
+            <span class="lever-pill mono lever-purple">Regulatory Penalty Shield</span>
+          </td>
+          <td class="fv-col-impact">Enforces exact source transaction sums, dates, conduct-matched statutes (<code class="inline-code">31 USC 5324</code>), qualified language, and <code class="inline-code">&lt;= 120</code> words.</td>
+        </tr>
+        
+
+        <tr>
+          <td class="fv-col-feature">
+            <div class="fv-feat-name">SHA-256 Checksums &amp; Append-Only <code class="inline-code">amendment_history</code></div>
+            <div class="fv-source-list mono">
+              <a href="https://github.com/kenseiAmit/trace-aml-sar-compliance-engine/blob/main/src/foundation_sar.py" target="_blank" rel="noopener" class="source-pill" title="Inspect src/foundation_sar.py on GitHub"><span>📄 foundation_sar.py</span><span>↗</span></a><a href="https://github.com/kenseiAmit/trace-aml-sar-compliance-engine/blob/main/tests/test_foundation.py" target="_blank" rel="noopener" class="source-pill" title="Inspect tests/test_foundation.py on GitHub"><span>📄 test_foundation.py</span><span>↗</span></a>
+            </div>
+          </td>
+          <td class="fv-col-risk">Audit trail tampering or unlogged post-filing edits triggering MRA / Consent Order findings.</td>
+          <td class="fv-col-lever">
+            <span class="lever-pill mono lever-amber">Examiner Audit Readiness</span>
+          </td>
+          <td class="fv-col-impact">Every triage, approval, filing, and senior-officer correction is hash-sealed with full <code class="inline-code">prior_value -&gt; new_value</code> lineage.</td>
+        </tr>
+        
+
+        <tr>
+          <td class="fv-col-feature">
+            <div class="fv-feat-name">Bounded Schema Repair Without Risk Fabrication</div>
+            <div class="fv-source-list mono">
+              <a href="https://github.com/kenseiAmit/trace-aml-sar-compliance-engine/blob/main/src/risk_analyst_agent.py" target="_blank" rel="noopener" class="source-pill" title="Inspect src/risk_analyst_agent.py on GitHub"><span>📄 risk_analyst_agent.py</span><span>↗</span></a><a href="https://github.com/kenseiAmit/trace-aml-sar-compliance-engine/blob/main/tests/test_risk_analyst.py" target="_blank" rel="noopener" class="source-pill" title="Inspect tests/test_risk_analyst.py on GitHub"><span>📄 test_risk_analyst.py</span><span>↗</span></a>
+            </div>
+          </td>
+          <td class="fv-col-risk">Malformed LLM JSON crashing overnight alert batches or fallback logic silently inventing risk scores.</td>
+          <td class="fv-col-lever">
+            <span class="lever-pill mono lever-cyan">Batch SLA Reliability</span>
+          </td>
+          <td class="fv-col-impact">Self-heals formatting glitches within strict bounds and halts explicitly on unrecoverable payloads—zero fabricated risk scores.</td>
+        </tr>
+        
+
+        <tr>
+          <td class="fv-col-feature">
+            <div class="fv-feat-name">31-Test Automated BSA Compliance CI Suite</div>
+            <div class="fv-source-list mono">
+              <a href="https://github.com/kenseiAmit/trace-aml-sar-compliance-engine/blob/main/src/test_scenarios.py" target="_blank" rel="noopener" class="source-pill" title="Inspect src/test_scenarios.py on GitHub"><span>📄 test_scenarios.py</span><span>↗</span></a><a href="https://github.com/kenseiAmit/trace-aml-sar-compliance-engine/blob/main/.github/workflows/ci.yml" target="_blank" rel="noopener" class="source-pill" title="Inspect .github/workflows/ci.yml on GitHub"><span>📄 ci.yml</span><span>↗</span></a>
+            </div>
+          </td>
+          <td class="fv-col-risk">Model/prompt updates introducing subtle statutory citation drift or breaking <code class="inline-code">AUTH_*</code> gating.</td>
+          <td class="fv-col-lever">
+            <span class="lever-pill mono lever-blue">Continuous Assurance</span>
+          </td>
+          <td class="fv-col-impact"><strong><code class="inline-code">31/31</code> automated tests</strong> verifying statutory regexes, hash integrity, and HITL gating on every pull request.</td>
+        </tr>
+        
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 04. Value-Chain Flow Diagram -->
+      <section class="cs-section" id="biz-flow">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker cs-kicker-emerald mono">04 · End-to-End Value Delivery Chain</div>
+          <h2 class="cs-sec-title">Engineering Control → Operational Mechanism → Business Outcome</h2>
+          <p class="cs-sec-desc">How architectural invariants convert directly into FinOps margin, SLA speed, and regulatory protection.</p>
+        </div>
+        <div class="mermaid-stage" data-mermaid-src="flowchart LR
+  subgraph Controls[&quot;Regulated FinCrime Engineering Controls&quot;]
+    T1[&quot;Stage-1 CoT Alert Screening&quot;]
+    T2[&quot;Mandatory Pre-Stage-2 AUTH_* Gate&quot;]
+    T3[&quot;6-Factor FinCEN Form 111 Validator&quot;]
+    T4[&quot;SHA-256 Seal + Amendment Lineage&quot;]
+  end
+  subgraph Mech[&quot;Compliance &amp; Cost Mechanism&quot;]
+    M1[&quot;Correlates Multi-Branch Structuring &amp; Velocity&quot;]
+    M2[&quot;Drops Cleared Alerts Before ReACT Drafting&quot;]
+    M3[&quot;Checks Exact USD, Dates, &lt;=120w &amp; Statutes&quot;]
+    M4[&quot;Appends Immutable Officer Edits &amp; Checksums&quot;]
+  end
+  subgraph ROI[&quot;Bank Compliance &amp; P&amp;L Value&quot;]
+    V1[&quot;Faster Alert Triage Throughput&quot;]
+    V2[&quot;50%+ Stage-2 Compute Saved + BSA Duty Split&quot;]
+    V3[&quot;Zero Boilerplate / Defective SAR Rejections&quot;]
+    V4[&quot;Turnkey OCC / FinCEN Examination Proof&quot;]
+  end
+  T1 --&gt; M1 --&gt; V1
+  T2 --&gt; M2 --&gt; V2
+  T3 --&gt; M3 --&gt; V3
+  T4 --&gt; M4 --&gt; V4">
+          <pre class="mono" style="text-align:left;font-size:0.78rem;color:var(--text-muted);overflow:auto;">flowchart LR
+  subgraph Controls[&quot;Regulated FinCrime Engineering Controls&quot;]
+    T1[&quot;Stage-1 CoT Alert Screening&quot;]
+    T2[&quot;Mandatory Pre-Stage-2 AUTH_* Gate&quot;]
+    T3[&quot;6-Factor FinCEN Form 111 Validator&quot;]
+    T4[&quot;SHA-256 Seal + Amendment Lineage&quot;]
+  end
+  subgraph Mech[&quot;Compliance &amp; Cost Mechanism&quot;]
+    M1[&quot;Correlates Multi-Branch Structuring &amp; Velocity&quot;]
+    M2[&quot;Drops Cleared Alerts Before ReACT Drafting&quot;]
+    M3[&quot;Checks Exact USD, Dates, &lt;=120w &amp; Statutes&quot;]
+    M4[&quot;Appends Immutable Officer Edits &amp; Checksums&quot;]
+  end
+  subgraph ROI[&quot;Bank Compliance &amp; P&amp;L Value&quot;]
+    V1[&quot;Faster Alert Triage Throughput&quot;]
+    V2[&quot;50%+ Stage-2 Compute Saved + BSA Duty Split&quot;]
+    V3[&quot;Zero Boilerplate / Defective SAR Rejections&quot;]
+    V4[&quot;Turnkey OCC / FinCEN Examination Proof&quot;]
+  end
+  T1 --&gt; M1 --&gt; V1
+  T2 --&gt; M2 --&gt; V2
+  T3 --&gt; M3 --&gt; V3
+  T4 --&gt; M4 --&gt; V4</pre>
+        </div>
+      </section>
+
+      <!-- 05. Interactive Unit-Economics & ROI Simulator -->
+      <section class="cs-section" id="biz-simulator">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker cs-kicker-emerald mono">05 · Interactive Scale &amp; Unit-Economics Model</div>
+          <h2 class="cs-sec-title">BSA Investigation Capacity &amp; Stage-2 Compute Simulator</h2>
+          <p class="cs-sec-desc">Models annual Stage-2 ReACT runs avoided on false-positive alerts and senior compliance officer drafting hours reclaimed.</p>
+        </div>
+
+        <div class="sim-panel" data-sim-type="aml">
+          <div class="sim-controls-grid">
+            
+        <div class="sim-control">
+          <div class="sim-control-top">
+            <label for="simAlerts" class="sim-label">Monthly Flagged AML Alerts Screened</label>
+            <span class="sim-readout mono" id="simAlerts_val" data-unit="alerts/mo">2500</span>
+          </div>
+          <input
+            type="range"
+            id="simAlerts"
+            class="sim-slider"
+            min="200"
+            max="20000"
+            step="200"
+            value="2500"
+          />
+          <div class="sim-range-bounds mono">
+            <span>200 alerts/mo</span>
+            <span>20,000 alerts/mo</span>
+          </div>
+        </div>
+        
+
+        <div class="sim-control">
+          <div class="sim-control-top">
+            <label for="simDismissPct" class="sim-label">Stage-1 Cleared / Non-Escalated Share</label>
+            <span class="sim-readout mono" id="simDismissPct_val" data-unit="%">50</span>
+          </div>
+          <input
+            type="range"
+            id="simDismissPct"
+            class="sim-slider"
+            min="30"
+            max="90"
+            step="5"
+            value="50"
+          />
+          <div class="sim-range-bounds mono">
+            <span>30 %</span>
+            <span>90 %</span>
+          </div>
+        </div>
+        
+          </div>
+
+          <div class="sim-results-grid" id="simOutputs"></div>
+
+          <div class="sim-comparison-bar-wrap">
+            <div class="sim-bar-labels mono">
+              <span id="simBarLeftLabel">Baseline vs. Production Comparison</span>
+              <span id="simBarRightLabel"></span>
+            </div>
+            <div class="sim-bar-track">
+              <div class="sim-bar-fill" id="simBarFill" style="width:62%;"></div>
+            </div>
+          </div>
+
+          <div class="sim-footnote">
+            <strong class="mono">Benchmark Formula Basis:</strong> Grounded in repo benchmarks: <code class="inline-code">50%</code> Stage-2 compute avoidance verified on benchmark cohort via pre-Stage-2 <code class="inline-code">AUTH_*</code> gate (<code class="inline-code">foundation_sar.py</code>); escalated SAR drafting time savings modeled at <code class="inline-code">45 min</code> reclaimed per validated <code class="inline-code">&lt;= 120</code>-word FinCEN Form 111 filing.
+          </div>
+        </div>
+      </section>
+
+      <!-- 06. Executive Stakeholder Sign-Off Grid -->
+      <section class="cs-section" id="biz-stakeholders">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker cs-kicker-emerald mono">06 · Cross-Functional Buyer Alignment</div>
+          <h2 class="cs-sec-title">Why Every Enterprise Stakeholder Signs Off</h2>
+          <p class="cs-sec-desc">How this single architecture aligns Engineering, Finance, Security, Legal/Compliance, and Business Operations.</p>
+        </div>
+
+        <div class="stakeholders-grid">
+          
+        <article class="stakeholder-card">
+          <div class="stakeholder-top">
+            <span class="stakeholder-role mono">BSA / AML Compliance Officer</span>
+            <span class="stakeholder-metric mono">100% Human `AUTH_*` Control</span>
+          </div>
+          <p class="stakeholder-pitch">Eliminates repetitive ledger correlation and first-draft writing while keeping legal filing authority strictly in human hands.</p>
+        </article>
+        
+
+        <article class="stakeholder-card">
+          <div class="stakeholder-top">
+            <span class="stakeholder-role mono">Internal Audit &amp; Examiners</span>
+            <span class="stakeholder-metric mono">SHA-256 + Amendment History</span>
+          </div>
+          <p class="stakeholder-pitch">Every SAR package carries cryptographic tamper evidence, exact statutory citations, and non-destructive edit lineage.</p>
+        </article>
+        
+
+        <article class="stakeholder-card">
+          <div class="stakeholder-top">
+            <span class="stakeholder-role mono">Head of FinCrime Ops</span>
+            <span class="stakeholder-metric mono">50%+ Stage-2 Compute Avoided</span>
+          </div>
+          <p class="stakeholder-pitch">False-positive alerts exit cleanly after Stage-1 triage without burning multi-step Stage-2 synthesis compute.</p>
+        </article>
+        
+
+        <article class="stakeholder-card">
+          <div class="stakeholder-top">
+            <span class="stakeholder-role mono">General Counsel</span>
+            <span class="stakeholder-metric mono">Qualified Statutory Phrasing</span>
+          </div>
+          <p class="stakeholder-pitch">Automated 6-factor validation blocks accusatory legal conclusions and enforces regulatory-grade objective language.</p>
+        </article>
+        
+        </div>
+
+        <nav class="cs-pager" aria-label="Flagship Business Case Pagination" style="margin-top:32px;">
+          <a href="../multi-agent-banking-system/business/" class="cs-pager-card">
+            <span class="cs-pager-dir mono">← Previous Business Case (#3)</span>
+            <span class="cs-pager-name">Multi-Agent Banking System (A2A + LangGraph)</span>
+          </a>
+          <a href="../bedrock-rag-threat-modeling-guardrails/business/" class="cs-pager-card" style="text-align:right;">
+            <span class="cs-pager-dir mono">Next Business Case (#5) →</span>
             <span class="cs-pager-name">AWS Bedrock RAG Threat Modeling &amp; Guardrails</span>
           </a>
         </nav>

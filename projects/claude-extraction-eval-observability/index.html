@@ -11,11 +11,11 @@
 
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://kenseiamit.github.io/projects/claude-extraction-eval-observability/" />
-  <meta property="og:title" content="Claude Extraction Eval &amp; Confidence Calibration — Production Case Study (@kenseiAmit)" />
+  <meta property="og:title" content="Claude Extraction Eval &amp; Confidence Calibration — Production Architecture Case Study | Amit Kumar Koshta" />
   <meta property="og:description" content="Three-Package Anthropic Claude Evaluation &amp; Observability Monorepo: Sliced Brier Confidence Calibration, Cross-Field Math Gates, Timeout Envelopes &amp; 56.8% Context Compression" />
   <meta property="og:image" content="https://kenseiamit.github.io/assets/og/claude-extraction-eval-observability.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Claude Extraction Eval &amp; Confidence Calibration — Amit Kumar Koshta" />
+  <meta name="twitter:title" content="Claude Extraction Eval &amp; Confidence Calibration — Production Architecture Case Study | Amit Kumar Koshta" />
   <meta name="twitter:description" content="Three-Package Anthropic Claude Evaluation &amp; Observability Monorepo: Sliced Brier Confidence Calibration, Cross-Field Math Gates, Timeout Envelopes &amp; 56.8% Context Compression" />
   <meta name="twitter:image" content="https://kenseiamit.github.io/assets/og/claude-extraction-eval-observability.png" />
 
@@ -26,7 +26,7 @@
   <link rel="stylesheet" href="../../css/styles.css" />
   <link rel="stylesheet" href="../../css/case-study.css" />
 </head>
-<body>
+<body data-default-view="tech" data-slug="claude-extraction-eval-observability" data-proj-prefix="..">
   <header class="site-header">
     <div class="container nav-inner">
       <div class="cs-breadcrumb">
@@ -43,16 +43,16 @@
       <div class="nav-actions">
         <div class="cs-switcher">
           <select id="flagshipSelect" class="cs-select mono" aria-label="Switch Flagship Case Study">
-            <option value="../guarded-salesops-agent-runtime/" >#1 · Guarded SalesOps Agent Runtime</option>
-<option value="../rag-gateway-eval-cost-controls/" >#2 · Production RAG Gateway &amp; Cost Controls</option>
-<option value="../multi-agent-banking-system/" >#3 · Multi-Agent Banking System (A2A + LangGraph)</option>
-<option value="../trace-aml-sar-compliance-engine/" >#4 · TRACE: FinCEN AML &amp; SAR Compliance Engine</option>
-<option value="../bedrock-rag-threat-modeling-guardrails/" >#5 · AWS Bedrock RAG Threat Modeling &amp; Guardrails</option>
-<option value="../clinical-ai-governance-fairness-audit/" >#6 · HealthGuard: Clinical AI Governance &amp; EU AI Act Audit</option>
-<option value="../claude-extraction-eval-observability/" selected>#7 · Claude Extraction Eval &amp; Confidence Calibration</option>
+            <option value="guarded-salesops-agent-runtime" >#1 · Guarded SalesOps Agent Runtime</option>
+<option value="rag-gateway-eval-cost-controls" >#2 · Production RAG Gateway &amp; Cost Controls</option>
+<option value="multi-agent-banking-system" >#3 · Multi-Agent Banking System (A2A + LangGraph)</option>
+<option value="trace-aml-sar-compliance-engine" >#4 · TRACE: FinCEN AML &amp; SAR Compliance Engine</option>
+<option value="bedrock-rag-threat-modeling-guardrails" >#5 · AWS Bedrock RAG Threat Modeling &amp; Guardrails</option>
+<option value="clinical-ai-governance-fairness-audit" >#6 · HealthGuard: Clinical AI Governance &amp; EU AI Act Audit</option>
+<option value="claude-extraction-eval-observability" selected>#7 · Claude Extraction Eval &amp; Confidence Calibration</option>
           </select>
         </div>
-        <button type="button" class="icon-btn" id="copyPageUrlBtn" title="Copy shareable Case Study link">Share URL</button>
+        <button type="button" class="icon-btn" id="copyPageUrlBtn" title="Copy shareable link for active view">Share URL</button>
         <button type="button" class="icon-btn" id="themeToggleBtn" aria-label="Toggle theme"><span id="themeIcon">☀</span></button>
         <a href="https://github.com/kenseiAmit/claude-extraction-eval-observability" target="_blank" rel="noopener" class="btn btn-primary btn-sm">GitHub Repo ↗</a>
       </div>
@@ -62,26 +62,64 @@
   <section class="cs-hero">
     <div class="container">
       <div class="cs-badge-row">
-        <span class="cs-rank-pill mono">FLAGSHIP #7 · CLAUDE EVALUATION, CALIBRATION &amp; HARNESS ENGINEERING</span>
+        <span class="cs-rank-pill mono" data-lens-block="tech" >FLAGSHIP #7 · CLAUDE EVALUATION, CALIBRATION &amp; HARNESS ENGINEERING</span>
+        <span class="cs-rank-pill cs-rank-pill-biz mono" data-lens-block="business" hidden>BUSINESS VALUE &amp; ROI · DOCUMENT AUTOMATION SAFETY &amp; HARNESS FINOPS</span>
         <a href="https://github.com/kenseiAmit/claude-extraction-eval-observability/actions/workflows/ci.yml" target="_blank" rel="noopener" class="pill pill-ci mono">✓ GitHub Actions CI Passing ↗</a>
         <span class="pill mono" style="background:var(--bg-subtle);border:1px solid var(--border-subtle);color:var(--text-secondary);">MIT License · Python</span>
       </div>
 
       <h1 class="cs-title">Claude Extraction Eval &amp; Confidence Calibration</h1>
-      <p class="cs-subtitle">Three-Package Anthropic Claude Evaluation &amp; Observability Monorepo: Sliced Brier Confidence Calibration, Cross-Field Math Gates, Timeout Envelopes &amp; 56.8% Context Compression</p>
+      <p class="cs-subtitle" data-lens-block="tech" >Three-Package Anthropic Claude Evaluation &amp; Observability Monorepo: Sliced Brier Confidence Calibration, Cross-Field Math Gates, Timeout Envelopes &amp; 56.8% Context Compression</p>
+      <p class="cs-subtitle cs-subtitle-biz" data-lens-block="business" hidden>Preventing High-Confidence Underwriting Losses While Cutting Retry Waste 75% &amp; Harness Context Tokens 56.8%</p>
 
-      <div class="hero-ctas" style="margin-bottom:18px;">
+      <div class="lens-tabs-bar" role="tablist" aria-label="Case Study Perspective">
+        <button
+          type="button"
+          role="tab"
+          aria-selected="true"
+          class="lens-tab-btn active"
+          data-switch-lens="tech"
+        >
+          <span class="lens-tab-icon">⚙</span>
+          <span>
+            <strong class="lens-tab-title">Technical Architecture &amp; Code</strong>
+            <small class="lens-tab-sub mono">Topology · 6 Source-Linked Features · ADRs · Traces</small>
+          </span>
+        </button>
+        <button
+          type="button"
+          role="tab"
+          aria-selected="false"
+          class="lens-tab-btn lens-tab-biz "
+          data-switch-lens="business"
+        >
+          <span class="lens-tab-icon">📈</span>
+          <span>
+            <strong class="lens-tab-title">Business Value &amp; Unit Economics</strong>
+            <small class="lens-tab-sub mono">Feature → ROI Matrix · Interactive Simulator · Exec Brief</small>
+          </span>
+        </button>
+      </div>
+
+      <div class="hero-ctas" style="margin-bottom:18px;" data-lens-block="tech" >
         <a href="https://github.com/kenseiAmit/claude-extraction-eval-observability" target="_blank" rel="noopener" class="btn btn-primary">Inspect Source Code on GitHub ↗</a>
         
+        <button type="button" class="btn btn-secondary" data-switch-lens="business">View Business Value &amp; ROI →</button>
         <a href="#features" class="btn btn-ghost">6 Production Features ↓</a>
-        <a href="#telemetry" class="btn btn-ghost">Empirical Telemetry ↓</a>
+      </div>
+
+      <div class="hero-ctas" style="margin-bottom:18px;" data-lens-block="business" hidden>
+        <a href="#biz-matrix" class="btn btn-primary">Feature → Business Value Matrix ↓</a>
+        <a href="#biz-simulator" class="btn btn-secondary">Interactive ROI Simulator ↓</a>
+        
+        <button type="button" class="btn btn-ghost" data-switch-lens="tech">← Inspect Technical Architecture</button>
       </div>
 
       <div class="stack-row" style="margin-bottom:0;">
         <span class="stack-chip mono">Claude Haiku 4.5</span><span class="stack-chip mono">Brier Calibration</span><span class="stack-chip mono">Structured Outputs</span><span class="stack-chip mono">Pytest</span><span class="stack-chip mono">Mypy</span><span class="stack-chip mono">Sentence-Transformers</span><span class="stack-chip mono">Python</span><span class="stack-chip mono">GitHub Actions</span>
       </div>
 
-      <div class="cs-kpi-grid">
+      <div class="cs-kpi-grid" data-lens-block="tech" >
         
         <div class="cs-kpi-card">
           <div class="cs-kpi-val mono">104 / 104</div>
@@ -111,20 +149,71 @@
         </div>
         
       </div>
+
+      <div class="cs-kpi-grid" data-lens-block="business" hidden>
+        
+        <div class="cs-kpi-card biz-kpi-card">
+          <div class="cs-kpi-val mono">0.865 Caught</div>
+          <div class="cs-kpi-lbl">Hidden Slice Overconfidence</div>
+          <div class="cs-kpi-sub mono">Blocks Bad Umbrella Auto-Approvals</div>
+        </div>
+        
+
+        <div class="cs-kpi-card biz-kpi-card">
+          <div class="cs-kpi-val mono">-75% Retries</div>
+          <div class="cs-kpi-lbl">Missing-Source Call Cut</div>
+          <div class="cs-kpi-sub mono">1 API Call vs 4 Blind Retries</div>
+        </div>
+        
+
+        <div class="cs-kpi-card biz-kpi-card">
+          <div class="cs-kpi-val mono">-56.8%</div>
+          <div class="cs-kpi-lbl">Harness Context Token Spend</div>
+          <div class="cs-kpi-sub mono">38.7k -&gt; 16.7k (6/6 Eval Pass)</div>
+        </div>
+        
+
+        <div class="cs-kpi-card biz-kpi-card">
+          <div class="cs-kpi-val mono">100% Exact</div>
+          <div class="cs-kpi-lbl">Mortgage YTD Fraud/Math Gate</div>
+          <div class="cs-kpi-sub mono">Catches -$1,250 Paystub Mismatch</div>
+        </div>
+        
+      </div>
     </div>
   </section>
 
   <div class="container cs-layout">
     <aside class="cs-toc" aria-label="Case Study Sections">
-      <div class="cs-toc-title mono">On This Page</div>
-      <nav class="cs-toc-nav">
-        <a href="#readiness" class="active">01 · Production Readiness</a>
-        <a href="#topology">02 · Topology &amp; Lifecycles</a>
-        <a href="#features">03 · Technical Features (6)</a>
-        <a href="#adrs">04 · Architectural Decisions</a>
-        <a href="#telemetry">05 · Telemetry &amp; Traces</a>
-        <a href="#runbook">06 · Quick Start &amp; CI Gates</a>
-      </nav>
+      <div class="toc-lens-mini mono">
+        <button type="button" class="toc-lens-chip active" data-switch-lens="tech">⚙ Tech</button>
+        <button type="button" class="toc-lens-chip " data-switch-lens="business">📈 Business</button>
+      </div>
+
+      <div data-lens-block="tech" >
+        <div class="cs-toc-title mono">Technical Sections</div>
+        <nav class="cs-toc-nav" data-toc-nav="tech">
+          <a href="#readiness" class="active">01 · Production Readiness</a>
+          <a href="#topology">02 · Topology &amp; Lifecycles</a>
+          <a href="#features">03 · Technical Features (6)</a>
+          <a href="#adrs">04 · Architectural Decisions</a>
+          <a href="#telemetry">05 · Telemetry &amp; Traces</a>
+          <a href="#runbook">06 · Quick Start &amp; CI Gates</a>
+        </nav>
+      </div>
+
+      <div data-lens-block="business" hidden>
+        <div class="cs-toc-title mono">Business &amp; ROI Sections</div>
+        <nav class="cs-toc-nav" data-toc-nav="business">
+          <a href="#biz-summary" class="active">01 · Executive Value Brief</a>
+          <a href="#biz-problem">02 · Pilot Trap vs. Production</a>
+          <a href="#biz-matrix">03 · Feature → Value Matrix</a>
+          <a href="#biz-flow">04 · Value-Chain Flow</a>
+          <a href="#biz-simulator">05 · Unit-Economics Simulator</a>
+          <a href="#biz-stakeholders">06 · Stakeholder Sign-Off</a>
+        </nav>
+      </div>
+
       <div class="cs-toc-links">
         <a href="https://github.com/kenseiAmit/claude-extraction-eval-observability" target="_blank" rel="noopener" class="btn btn-secondary btn-sm" style="justify-content:center;">View Repository ↗</a>
         <a href="../../#flagships" class="btn btn-ghost btn-sm" style="justify-content:center;">← All 7 Flagships</a>
@@ -132,7 +221,7 @@
       </div>
     </aside>
 
-    <main class="cs-main">
+    <main class="cs-main" data-lens-panel="tech" >
       <!-- 01. Production Readiness Scorecard -->
       <section class="cs-section" id="readiness">
         <div class="cs-sec-hdr">
@@ -430,6 +519,353 @@ python evaluation/calibration_report.py</pre>
           </a>
           <a href="../guarded-salesops-agent-runtime/" class="cs-pager-card" style="text-align:right;">
             <span class="cs-pager-dir mono">Next Flagship (#1) →</span>
+            <span class="cs-pager-name">Guarded SalesOps Agent Runtime</span>
+          </a>
+        </nav>
+      </section>
+    </main>
+
+    <main class="cs-main" data-lens-panel="business" hidden>
+      <!-- 01. Executive Value Summary -->
+      <section class="cs-section" id="biz-summary">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker cs-kicker-emerald mono">01 · Executive Value Brief</div>
+          <h2 class="cs-sec-title">Commercial Thesis &amp; P&amp;L Impact</h2>
+        </div>
+        <div class="exec-brief-card">
+          <p class="exec-brief-copy">Insurance, mortgage, and supply-chain teams deploy LLM extraction to automate back-office document processing, only to get burned by &#x27;confident hallucinations&#x27;: an aggregate <code class="inline-code">0.291</code> Brier score looks safe for straight-through processing, yet hides catastrophic pockets like umbrella policy exclusions (<code class="inline-code">93%</code> model confidence, <code class="inline-code">0%</code> accuracy) or <code class="inline-code">-$1,250</code> paystub YTD mismatches. This 3-package monorepo makes high-speed automation financially safe—combining sliced calibration, blind 2-model review, deterministic math gates, <code class="inline-code">1</code>-call missing-source halts, and <code class="inline-code">56.8%</code> context compression.</p>
+          <div class="exec-proof-bar mono">
+            <span>✓ 100% Grounded in Verified Repository Benchmarks</span>
+            <span>·</span>
+            <button type="button" class="link-btn mono" data-switch-lens="tech">Inspect Underlying Code &amp; Telemetry →</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02. Pilot Trap vs Production Outcome -->
+      <section class="cs-section" id="biz-problem">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker cs-kicker-emerald mono">02 · Commercial Risk vs. Production Unlock</div>
+          <h2 class="cs-sec-title">Why Prototype Pilots Stall — And How This Architecture Unblocks Launch</h2>
+          <p class="cs-sec-desc">Translating engineering guardrails, determinism, and cost controls into executive deployment readiness.</p>
+        </div>
+        <div class="lifecycle-grid">
+          <div class="lifecycle-box adversarial">
+            <h4 class="mono" style="color:var(--accent-red);">✕ Why Aggregate-Tested Document AI Causes Financial &amp; Ops Losses</h4>
+            <ul class="lifecycle-list">
+              <li>Global confidence thresholds (<code class="inline-code">conf &gt;= 0.90</code>) auto-approve catastrophic edge slices (<code class="inline-code">umbrella / exclusions</code>: <code class="inline-code">conf=0.93, acc=0.00</code>).</li>
+<li>Uniform exponential backoff retries missing document sections <code class="inline-code">4x</code>—quadrupling API cost/latency and pressuring the LLM to invent fields.</li>
+<li>Single-pass non-nullable schemas hallucinate values on W-2 vs. paystub variants, and miss <code class="inline-code">-$1,250</code> cross-field arithmetic tampering.</li>
+<li>Long-horizon agent harnesses either bloat past <code class="inline-code">38.7k</code> tokens/turn or summarize away active error codes needed for resolution.</li>
+            </ul>
+          </div>
+          <div class="lifecycle-box happy">
+            <h4 class="mono" style="color:var(--accent-emerald);">✓ Commercial Outcomes Delivered by This Architecture</h4>
+            <ul class="lifecycle-list">
+              <li><strong>Safe straight-through processing (STP):</strong> well-calibrated fields auto-clear while high-Brier/disagreement slices route to targeted human review.</li>
+<li><strong><code class="inline-code">75%</code> fewer wasted retry calls</strong> on incomplete customer uploads (<code class="inline-code">missing_source</code> halts in <code class="inline-code">1</code> call; <code class="inline-code">format</code> errors self-heal).</li>
+<li><strong>Zero arithmetic mortgage leakage:</strong> Python cross-field YTD validation (<code class="inline-code">validator.py</code>) halts inconsistent paystubs deterministically.</li>
+<li><strong><code class="inline-code">56.8%</code> lower multi-turn harness token cost</strong> + <strong><code class="inline-code">100%</code> report uptime</strong> under upstream supply-chain feed timeouts (<code class="inline-code">ReaderResult</code>).</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03. 1:1 Production Feature -> Business Value Traceability Matrix -->
+      <section class="cs-section" id="biz-matrix">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker cs-kicker-emerald mono">03 · 1:1 Feature-to-Value Traceability</div>
+          <h2 class="cs-sec-title">Production Feature → Business Value Mapping</h2>
+          <p class="cs-sec-desc">Every production engineering feature in <code class="inline-code">kenseiAmit/claude-extraction-eval-observability</code> mapped directly to the commercial risk it eliminates and the measurable value it delivers.</p>
+        </div>
+        <div class="adr-wrap fv-wrap">
+          <table class="adr-table fv-table">
+            <thead>
+              <tr>
+                <th>Production Engineering Feature (Source)</th>
+                <th>Business Risk / Bottleneck Eliminated</th>
+                <th>Value Lever</th>
+                <th>Quantified Business Outcome</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+        <tr>
+          <td class="fv-col-feature">
+            <div class="fv-feat-name"><code class="inline-code">policy_type × field</code> Sliced Brier Calibration &amp; Blind 2-Model Review</div>
+            <div class="fv-source-list mono">
+              <a href="https://github.com/kenseiAmit/claude-extraction-eval-observability/blob/main/evaluation/calibration_report.py" target="_blank" rel="noopener" class="source-pill" title="Inspect evaluation/calibration_report.py on GitHub"><span>📄 calibration_report.py</span><span>↗</span></a><a href="https://github.com/kenseiAmit/claude-extraction-eval-observability/blob/main/packages/policy-extractor/policy_extractor/reviewer.py" target="_blank" rel="noopener" class="source-pill" title="Inspect packages/policy-extractor/policy_extractor/reviewer.py on GitHub"><span>📄 reviewer.py</span><span>↗</span></a><a href="https://github.com/kenseiAmit/claude-extraction-eval-observability/blob/main/packages/policy-extractor/policy_extractor/routing.py" target="_blank" rel="noopener" class="source-pill" title="Inspect packages/policy-extractor/policy_extractor/routing.py on GitHub"><span>📄 routing.py</span><span>↗</span></a>
+            </div>
+          </td>
+          <td class="fv-col-risk">Auto-approving misread insurance policy exclusions (<code class="inline-code">0.865</code> Brier) hidden behind a healthy <code class="inline-code">0.291</code> global average.</td>
+          <td class="fv-col-lever">
+            <span class="lever-pill mono lever-purple">Underwriting Loss Prevention</span>
+          </td>
+          <td class="fv-col-impact">Intercepts <code class="inline-code">conf=0.93 / acc=0.00</code> overconfident pockets via 3-signal HITL routing while keeping clean slices automated.</td>
+        </tr>
+        
+
+        <tr>
+          <td class="fv-col-feature">
+            <div class="fv-feat-name">Taxonomy-Driven Retry Controller (<code class="inline-code">missing_source</code> vs <code class="inline-code">format</code>)</div>
+            <div class="fv-source-list mono">
+              <a href="https://github.com/kenseiAmit/claude-extraction-eval-observability/blob/main/packages/policy-extractor/policy_extractor/retry.py" target="_blank" rel="noopener" class="source-pill" title="Inspect packages/policy-extractor/policy_extractor/retry.py on GitHub"><span>📄 retry.py</span><span>↗</span></a><a href="https://github.com/kenseiAmit/claude-extraction-eval-observability/blob/main/packages/policy-extractor/tests/test_us01_retry.py" target="_blank" rel="noopener" class="source-pill" title="Inspect packages/policy-extractor/tests/test_us01_retry.py on GitHub"><span>📄 test_us01_retry.py</span><span>↗</span></a>
+            </div>
+          </td>
+          <td class="fv-col-risk">Paying <code class="inline-code">4x</code> LLM API cost &amp; latency retrying documents that physically lack an endorsement page—and inducing hallucinated answers.</td>
+          <td class="fv-col-lever">
+            <span class="lever-pill mono lever-emerald">API FinOps &amp; Turnaround SLA</span>
+          </td>
+          <td class="fv-col-impact"><strong><code class="inline-code">75%</code> retry call reduction (<code class="inline-code">1</code> call vs <code class="inline-code">4</code>)</strong> on permanent omissions while preserving automated recovery on JSON format slips.</td>
+        </tr>
+        
+
+        <tr>
+          <td class="fv-col-feature">
+            <div class="fv-feat-name">Two-Pass Nullable Schema &amp; Python Mortgage YTD Validator</div>
+            <div class="fv-source-list mono">
+              <a href="https://github.com/kenseiAmit/claude-extraction-eval-observability/blob/main/packages/mortgage-extractor/mortgage_extractor/pipeline.py" target="_blank" rel="noopener" class="source-pill" title="Inspect packages/mortgage-extractor/mortgage_extractor/pipeline.py on GitHub"><span>📄 pipeline.py</span><span>↗</span></a><a href="https://github.com/kenseiAmit/claude-extraction-eval-observability/blob/main/packages/mortgage-extractor/mortgage_extractor/validator.py" target="_blank" rel="noopener" class="source-pill" title="Inspect packages/mortgage-extractor/mortgage_extractor/validator.py on GitHub"><span>📄 validator.py</span><span>↗</span></a>
+            </div>
+          </td>
+          <td class="fv-col-risk">Altered or misextracted borrower paystubs (<code class="inline-code">-$1,250.00</code> line-item vs. YTD discrepancy) slipping into loan underwriting.</td>
+          <td class="fv-col-lever">
+            <span class="lever-pill mono lever-amber">Fraud &amp; Credit QA</span>
+          </td>
+          <td class="fv-col-impact">Eliminates forced-schema hallucinations via doc-type nullable contracts and blocks <strong><code class="inline-code">100%</code> of YTD arithmetic mismatches</strong>.</td>
+        </tr>
+        
+
+        <tr>
+          <td class="fv-col-feature">
+            <div class="fv-feat-name"><code class="inline-code">ReaderResult</code> Timeout Envelopes &amp; Date-Guarded Corroboration</div>
+            <div class="fv-source-list mono">
+              <a href="https://github.com/kenseiAmit/claude-extraction-eval-observability/blob/main/packages/supply-chain-risk/supply_chain_risk/readers.py" target="_blank" rel="noopener" class="source-pill" title="Inspect packages/supply-chain-risk/supply_chain_risk/readers.py on GitHub"><span>📄 readers.py</span><span>↗</span></a><a href="https://github.com/kenseiAmit/claude-extraction-eval-observability/blob/main/packages/supply-chain-risk/supply_chain_risk/synthesis.py" target="_blank" rel="noopener" class="source-pill" title="Inspect packages/supply-chain-risk/supply_chain_risk/synthesis.py on GitHub"><span>📄 synthesis.py</span><span>↗</span></a>
+            </div>
+          </td>
+          <td class="fv-col-risk">One slow news feed crashing executive supply-chain briefings OR unverified single-source rumors triggering false <code class="inline-code">ESCALATE</code> alerts.</td>
+          <td class="fv-col-lever">
+            <span class="lever-pill mono lever-cyan">Supply-Chain Continuity</span>
+          </td>
+          <td class="fv-col-impact">Graceful timeout isolation (<code class="inline-code">exit 0</code>, clean vector memory) + mandatory multi-source corroboration before supplier escalation.</td>
+        </tr>
+        
+
+        <tr>
+          <td class="fv-col-feature">
+            <div class="fv-feat-name"><code class="inline-code">stop_reason</code> Loops, <code class="inline-code">56.8%</code> Context Compression &amp; <code class="inline-code">584B</code> State</div>
+            <div class="fv-source-list mono">
+              <a href="https://github.com/kenseiAmit/claude-extraction-eval-observability/blob/main/docs/harness_engineering_case_study.md" target="_blank" rel="noopener" class="source-pill" title="Inspect docs/harness_engineering_case_study.md on GitHub"><span>📄 harness_engineering_case_study.md</span><span>↗</span></a><a href="https://github.com/kenseiAmit/claude-extraction-eval-observability/blob/main/evaluation/perturbation-log.md" target="_blank" rel="noopener" class="source-pill" title="Inspect evaluation/perturbation-log.md on GitHub"><span>📄 perturbation-log.md</span><span>↗</span></a>
+            </div>
+          </td>
+          <td class="fv-col-risk">Multi-turn ops agents ballooning token bills (<code class="inline-code">38.7k</code> tokens) or losing exact payment error codes during context compaction.</td>
+          <td class="fv-col-lever">
+            <span class="lever-pill mono lever-emerald">Agentic Unit Economics</span>
+          </td>
+          <td class="fv-col-impact"><strong><code class="inline-code">56.8%</code> context token cut (<code class="inline-code">38.7k -&gt; 16.7k</code>)</strong> with <code class="inline-code">6/6</code> eval accuracy + <strong><code class="inline-code">O(1)</code> (<code class="inline-code">&lt; 5 KB</code>)</strong> 30-minute shift recovery.</td>
+        </tr>
+        
+
+        <tr>
+          <td class="fv-col-feature">
+            <div class="fv-feat-name">104-Test Recorded-Fixture Monorepo (<code class="inline-code">0</code> Mypy / Ruff Errors)</div>
+            <div class="fv-source-list mono">
+              <a href="https://github.com/kenseiAmit/claude-extraction-eval-observability/blob/main/.github/workflows/ci.yml" target="_blank" rel="noopener" class="source-pill" title="Inspect .github/workflows/ci.yml on GitHub"><span>📄 ci.yml</span><span>↗</span></a><a href="https://github.com/kenseiAmit/claude-extraction-eval-observability/blob/main/evaluation/reflection-brief.md" target="_blank" rel="noopener" class="source-pill" title="Inspect evaluation/reflection-brief.md on GitHub"><span>📄 reflection-brief.md</span><span>↗</span></a>
+            </div>
+          </td>
+          <td class="fv-col-risk">Slow, flaky, token-burning CI pipelines stalling engineering releases across multiple document-AI products.</td>
+          <td class="fv-col-lever">
+            <span class="lever-pill mono lever-blue">Engineering Velocity</span>
+          </td>
+          <td class="fv-col-impact"><strong><code class="inline-code">104/104</code> deterministic sub-second CI assertions</strong> across 3 packages at <strong><code class="inline-code">$0</code> CI API spend</strong>.</td>
+        </tr>
+        
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 04. Value-Chain Flow Diagram -->
+      <section class="cs-section" id="biz-flow">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker cs-kicker-emerald mono">04 · End-to-End Value Delivery Chain</div>
+          <h2 class="cs-sec-title">Engineering Control → Operational Mechanism → Business Outcome</h2>
+          <p class="cs-sec-desc">How architectural invariants convert directly into FinOps margin, SLA speed, and regulatory protection.</p>
+        </div>
+        <div class="mermaid-stage" data-mermaid-src="flowchart LR
+  subgraph Controls[&quot;Calibration, QA &amp; Harness Controls&quot;]
+    E1[&quot;Sliced Brier + Blind 2nd-Model Review&quot;]
+    E2[&quot;Error-Taxonomy Retry (missing_source Halt)&quot;]
+    E3[&quot;2-Pass Nullable Schema + Python YTD Math&quot;]
+    E4[&quot;# Case Facts Compaction + Timeout Envelopes&quot;]
+  end
+  subgraph Mech[&quot;Operational Mechanism&quot;]
+    M1[&quot;Flags 0.865 Brier Pockets Despite 0.291 Global&quot;]
+    M2[&quot;Stops in 1 Call vs 4 on Absent Doc Sections&quot;]
+    M3[&quot;Catches -$1,250 Paystub Mismatch Deterministically&quot;]
+    M4[&quot;38.7k -&gt; 16.7k Tokens + Clean Degraded Mode&quot;]
+  end
+  subgraph ROI[&quot;Commercial Underwriting &amp; FinOps Value&quot;]
+    V1[&quot;Safe Straight-Through Processing (No Silent Losses)&quot;]
+    V2[&quot;75% Retry Spend Cut + Zero Forced Hallucination&quot;]
+    V3[&quot;Automated Mortgage Income Integrity&quot;]
+    V4[&quot;56.8% Lower Harness Token Cost + 100% Uptime&quot;]
+  end
+  E1 --&gt; M1 --&gt; V1
+  E2 --&gt; M2 --&gt; V2
+  E3 --&gt; M3 --&gt; V3
+  E4 --&gt; M4 --&gt; V4">
+          <pre class="mono" style="text-align:left;font-size:0.78rem;color:var(--text-muted);overflow:auto;">flowchart LR
+  subgraph Controls[&quot;Calibration, QA &amp; Harness Controls&quot;]
+    E1[&quot;Sliced Brier + Blind 2nd-Model Review&quot;]
+    E2[&quot;Error-Taxonomy Retry (missing_source Halt)&quot;]
+    E3[&quot;2-Pass Nullable Schema + Python YTD Math&quot;]
+    E4[&quot;# Case Facts Compaction + Timeout Envelopes&quot;]
+  end
+  subgraph Mech[&quot;Operational Mechanism&quot;]
+    M1[&quot;Flags 0.865 Brier Pockets Despite 0.291 Global&quot;]
+    M2[&quot;Stops in 1 Call vs 4 on Absent Doc Sections&quot;]
+    M3[&quot;Catches -$1,250 Paystub Mismatch Deterministically&quot;]
+    M4[&quot;38.7k -&gt; 16.7k Tokens + Clean Degraded Mode&quot;]
+  end
+  subgraph ROI[&quot;Commercial Underwriting &amp; FinOps Value&quot;]
+    V1[&quot;Safe Straight-Through Processing (No Silent Losses)&quot;]
+    V2[&quot;75% Retry Spend Cut + Zero Forced Hallucination&quot;]
+    V3[&quot;Automated Mortgage Income Integrity&quot;]
+    V4[&quot;56.8% Lower Harness Token Cost + 100% Uptime&quot;]
+  end
+  E1 --&gt; M1 --&gt; V1
+  E2 --&gt; M2 --&gt; V2
+  E3 --&gt; M3 --&gt; V3
+  E4 --&gt; M4 --&gt; V4</pre>
+        </div>
+      </section>
+
+      <!-- 05. Interactive Unit-Economics & ROI Simulator -->
+      <section class="cs-section" id="biz-simulator">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker cs-kicker-emerald mono">05 · Interactive Scale &amp; Unit-Economics Model</div>
+          <h2 class="cs-sec-title">Document Processing FinOps &amp; Underwriting Safety Simulator</h2>
+          <p class="cs-sec-desc">Models annual wasted retry calls eliminated (<code class="inline-code">1</code> vs <code class="inline-code">4</code> on incomplete uploads) and high-confidence underwriting traps routed safely to HITL.</p>
+        </div>
+
+        <div class="sim-panel" data-sim-type="claude">
+          <div class="sim-controls-grid">
+            
+        <div class="sim-control">
+          <div class="sim-control-top">
+            <label for="simPackets" class="sim-label">Monthly Insurance / Mortgage Packets Processed</label>
+            <span class="sim-readout mono" id="simPackets_val" data-unit="packets/mo">30000</span>
+          </div>
+          <input
+            type="range"
+            id="simPackets"
+            class="sim-slider"
+            min="2000"
+            max="250000"
+            step="2000"
+            value="30000"
+          />
+          <div class="sim-range-bounds mono">
+            <span>2,000 packets/mo</span>
+            <span>250,000 packets/mo</span>
+          </div>
+        </div>
+        
+
+        <div class="sim-control">
+          <div class="sim-control-top">
+            <label for="simMissingPct" class="sim-label">Incomplete Upload / Missing-Section Rate</label>
+            <span class="sim-readout mono" id="simMissingPct_val" data-unit="%">15</span>
+          </div>
+          <input
+            type="range"
+            id="simMissingPct"
+            class="sim-slider"
+            min="5"
+            max="35"
+            step="1"
+            value="15"
+          />
+          <div class="sim-range-bounds mono">
+            <span>5 %</span>
+            <span>35 %</span>
+          </div>
+        </div>
+        
+          </div>
+
+          <div class="sim-results-grid" id="simOutputs"></div>
+
+          <div class="sim-comparison-bar-wrap">
+            <div class="sim-bar-labels mono">
+              <span id="simBarLeftLabel">Baseline vs. Production Comparison</span>
+              <span id="simBarRightLabel"></span>
+            </div>
+            <div class="sim-bar-track">
+              <div class="sim-bar-fill" id="simBarFill" style="width:62%;"></div>
+            </div>
+          </div>
+
+          <div class="sim-footnote">
+            <strong class="mono">Benchmark Formula Basis:</strong> Grounded in repo benchmarks: <code class="inline-code">retry.py</code> saves <code class="inline-code">3</code> futile API calls per <code class="inline-code">missing_source</code> document (<code class="inline-code">1</code> call vs <code class="inline-code">4</code>); harness engineering compresses multi-turn context <code class="inline-code">56.8%</code> (<code class="inline-code">38.7k -&gt; 16.7k</code>); sliced Brier (<code class="inline-code">0.865</code>) + Python YTD math gates intercept ~<code class="inline-code">4%</code> high-severity silent discrepancies.
+          </div>
+        </div>
+      </section>
+
+      <!-- 06. Executive Stakeholder Sign-Off Grid -->
+      <section class="cs-section" id="biz-stakeholders">
+        <div class="cs-sec-hdr">
+          <div class="cs-sec-kicker cs-kicker-emerald mono">06 · Cross-Functional Buyer Alignment</div>
+          <h2 class="cs-sec-title">Why Every Enterprise Stakeholder Signs Off</h2>
+          <p class="cs-sec-desc">How this single architecture aligns Engineering, Finance, Security, Legal/Compliance, and Business Operations.</p>
+        </div>
+
+        <div class="stakeholders-grid">
+          
+        <article class="stakeholder-card">
+          <div class="stakeholder-top">
+            <span class="stakeholder-role mono">Chief Underwriting Officer</span>
+            <span class="stakeholder-metric mono">0.865 Pocket Risk Caught</span>
+          </div>
+          <p class="stakeholder-pitch">Prevents overconfident umbrella-exclusion hallucinations and <code class="inline-code">-$1,250</code> paystub discrepancies from auto-clearing into bound risk.</p>
+        </article>
+        
+
+        <article class="stakeholder-card">
+          <div class="stakeholder-top">
+            <span class="stakeholder-role mono">VP Document Operations</span>
+            <span class="stakeholder-metric mono">Targeted 3-Signal HITL</span>
+          </div>
+          <p class="stakeholder-pitch">Focuses human underwriters strictly on miscalibrated or model-disputed fields instead of reviewing every clean document.</p>
+        </article>
+        
+
+        <article class="stakeholder-card">
+          <div class="stakeholder-top">
+            <span class="stakeholder-role mono">Head of AI Platform / FinOps</span>
+            <span class="stakeholder-metric mono">-75% Retries · -56.8% Context</span>
+          </div>
+          <p class="stakeholder-pitch">Eliminates blind retry storms on incomplete customer uploads and cuts long-running agent context token bills more than in half.</p>
+        </article>
+        
+
+        <article class="stakeholder-card">
+          <div class="stakeholder-top">
+            <span class="stakeholder-role mono">VP Supply Chain Risk</span>
+            <span class="stakeholder-metric mono">Timeout-Safe Corroboration</span>
+          </div>
+          <p class="stakeholder-pitch">Briefings never crash when a single feed times out, and supplier escalations require multi-source date-verified evidence.</p>
+        </article>
+        
+        </div>
+
+        <nav class="cs-pager" aria-label="Flagship Business Case Pagination" style="margin-top:32px;">
+          <a href="../clinical-ai-governance-fairness-audit/business/" class="cs-pager-card">
+            <span class="cs-pager-dir mono">← Previous Business Case (#6)</span>
+            <span class="cs-pager-name">HealthGuard: Clinical AI Governance &amp; EU AI Act Audit</span>
+          </a>
+          <a href="../guarded-salesops-agent-runtime/business/" class="cs-pager-card" style="text-align:right;">
+            <span class="cs-pager-dir mono">Next Business Case (#1) →</span>
             <span class="cs-pager-name">Guarded SalesOps Agent Runtime</span>
           </a>
         </nav>
