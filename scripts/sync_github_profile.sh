@@ -10,15 +10,15 @@ fi
 
 SHOWCASE_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
 
-echo "1/3 Pushing prominent Live Portfolio CTA & HF Sandbox badge in kenseiAmit/kenseiAmit..."
+echo "1/3 Pushing kenseiAmit/kenseiAmit profile README..."
 GIT_TERMINAL_PROMPT=0 git -C "$SHOWCASE_DIR/kenseiAmit" \
   -c "credential.helper=" \
-  push "https://x-access-token:${GITHUB_PAT}@github.com/kenseiAmit/kenseiAmit.git" main:main --quiet
+  push "https://x-access-token:${GITHUB_PAT}@github.com/kenseiAmit/kenseiAmit.git" main:main --force --quiet
 
-echo "2/3 Pushing latest UI polish & HF Sandbox link in kenseiAmit/kenseiAmit.github.io..."
+echo "2/3 Pushing public portfolio + encrypted /profile/ to kenseiAmit/kenseiAmit.github.io..."
 GIT_TERMINAL_PROMPT=0 git -C "$SHOWCASE_DIR/kenseiAmit.github.io" \
   -c "credential.helper=" \
-  push "https://x-access-token:${GITHUB_PAT}@github.com/kenseiAmit/kenseiAmit.github.io.git" main:main --quiet
+  push "https://x-access-token:${GITHUB_PAT}@github.com/kenseiAmit/kenseiAmit.github.io.git" main:main --force --quiet
 
 echo "3/3 Updating @kenseiAmit GitHub Bio & Website URL..."
 curl -fsSL -X PATCH "https://api.github.com/user" \

@@ -1110,7 +1110,7 @@ def build_flagship_html(
       <div style="display:flex;gap:10px;flex-wrap:wrap;">
         <a href="../../" class="btn btn-secondary btn-sm">← Portfolio Home (All 28 Systems)</a>
         <a href="{esc(repo_url)}" target="_blank" rel="noopener" class="btn btn-primary btn-sm">GitHub Repository ↗</a>
-        <a href="mailto:kenseiamit@gmail.com" class="btn btn-ghost btn-sm mono">kenseiamit@gmail.com</a>
+        <a href="https://www.linkedin.com/in/kenseiamit/" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">LinkedIn ↗</a>
       </div>
     </div>
   </footer>
