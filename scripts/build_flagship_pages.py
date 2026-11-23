@@ -1048,7 +1048,7 @@ def build_flagship_html(
     biz_active = "active" if is_biz_default else ""
 
     return f"""<!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -1096,7 +1096,7 @@ def build_flagship_html(
           </select>
         </div>
         <button type="button" class="icon-btn" id="copyPageUrlBtn" title="Copy shareable link for active view">Share URL</button>
-        <button type="button" class="icon-btn" id="themeToggleBtn" aria-label="Toggle theme"><span id="themeIcon">☀</span></button>
+        <button type="button" class="icon-btn" id="themeToggleBtn" aria-label="Toggle theme"><span id="themeIcon">☾</span></button>
         <a href="{esc(repo_url)}" target="_blank" rel="noopener" class="btn btn-primary btn-sm">GitHub Repo ↗</a>
       </div>
     </div>

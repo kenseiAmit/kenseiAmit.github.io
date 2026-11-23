@@ -77,15 +77,20 @@ async function copyText(text, label = "Copied to clipboard") {
    Theme Management
    ========================================================================== */
 
+const THEME_STORAGE_KEY = "ak_portfolio_theme_v2";
+
 function initTheme() {
-  const saved = localStorage.getItem("ak_portfolio_theme");
-  const theme = saved === "light" || saved === "dark" ? saved : "dark";
-  applyTheme(theme);
+  localStorage.removeItem("ak_portfolio_theme");
+  const saved = localStorage.getItem(THEME_STORAGE_KEY);
+  const theme = saved === "light" || saved === "dark" ? saved : "light";
+  applyTheme(theme, false);
 }
 
-function applyTheme(theme) {
+function applyTheme(theme, persist = true) {
   document.documentElement.setAttribute("data-theme", theme);
-  localStorage.setItem("ak_portfolio_theme", theme);
+  if (persist) {
+    localStorage.setItem(THEME_STORAGE_KEY, theme);
+  }
   const icon = document.getElementById("themeIcon");
   if (icon) icon.textContent = theme === "dark" ? "☀" : "☾";
   // Re-render mermaid if topology tab is currently open
@@ -1057,8 +1062,8 @@ function bindSystemTriggers(root) {
 function bindGlobalEvents() {
   // Theme Toggle
   document.getElementById("themeToggleBtn")?.addEventListener("click", () => {
-    const cur = document.documentElement.getAttribute("data-theme") || "dark";
-    applyTheme(cur === "dark" ? "light" : "dark");
+    const cur = document.documentElement.getAttribute("data-theme") || "light";
+    applyTheme(cur === "dark" ? "light" : "dark", true);
   });
 
   // Share View / Copy Track Link

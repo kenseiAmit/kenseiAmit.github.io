@@ -77,9 +77,13 @@ async function renderVisibleMermaidBlocks(forceAll = false) {
   }
 }
 
-function applyTheme(theme) {
+const THEME_STORAGE_KEY = "ak_portfolio_theme_v2";
+
+function applyTheme(theme, persist = true) {
   document.documentElement.setAttribute("data-theme", theme);
-  localStorage.setItem("ak_portfolio_theme", theme);
+  if (persist) {
+    localStorage.setItem(THEME_STORAGE_KEY, theme);
+  }
   const icon = document.getElementById("themeIcon");
   if (icon) icon.textContent = theme === "dark" ? "☀" : "☾";
   renderVisibleMermaidBlocks(true);
@@ -413,8 +417,9 @@ function initSimulator() {
    ========================================================================== */
 
 function bootCaseStudy() {
-  const saved = localStorage.getItem("ak_portfolio_theme");
-  const initialTheme = saved === "light" || saved === "dark" ? saved : "dark";
+  localStorage.removeItem("ak_portfolio_theme");
+  const saved = localStorage.getItem(THEME_STORAGE_KEY);
+  const initialTheme = saved === "light" || saved === "dark" ? saved : "light";
   document.documentElement.setAttribute("data-theme", initialTheme);
   const icon = document.getElementById("themeIcon");
   if (icon) icon.textContent = initialTheme === "dark" ? "☀" : "☾";
@@ -442,8 +447,8 @@ function bootCaseStudy() {
   });
 
   document.getElementById("themeToggleBtn")?.addEventListener("click", () => {
-    const cur = document.documentElement.getAttribute("data-theme") || "dark";
-    applyTheme(cur === "dark" ? "light" : "dark");
+    const cur = document.documentElement.getAttribute("data-theme") || "light";
+    applyTheme(cur === "dark" ? "light" : "dark", true);
   });
 
   document.getElementById("copyPageUrlBtn")?.addEventListener("click", () => {
