@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amit Kumar Koshta (@kenseiAmit) — Agentic AI, AI Security &amp; Cloud MLOps Portfolio</title>
+  <meta name="description" content="Executive engineering portfolio of Amit Kumar Koshta (IIT Kanpur · Stockholm, Sweden): 28 production systems spanning Multi-Agent Orchestration (MCP, A2A, Google ADK, LangGraph, Claude Agent SDK, Semantic Kernel), Adversarial AI Security &amp; EU AI Act GRC, and Multi-Cloud MLOps." />
+  <meta name="author" content="Amit Kumar Koshta" />
+  <link rel="canonical" href="https://kenseiamit.github.io/" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+
+  <!-- OpenGraph / LinkedIn / Slack Preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://kenseiamit.github.io/" />
+  <meta property="og:title" content="Amit Kumar Koshta — Production Agentic AI, AI Security &amp; Cloud MLOps" />
+  <meta property="og:description" content="28 public MIT systems · 61.9% tiered RAG cost reduction · 1.4ms semantic cache · 36/36 Bedrock Guardrails · Zero-Knowledge A2A &amp; MCP architectures across GCP, AWS &amp; Azure." />
+  <meta property="og:image" content="https://kenseiamit.github.io/assets/og-card.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Amit Kumar Koshta (@kenseiAmit) — Engineering Portfolio" />
+  <meta name="twitter:description" content="28 production systems across Agentic AI Protocols (MCP, A2A, ADK, LangGraph), AI Security &amp; EU AI Act GRC, and Cloud MLOps." />
+  <meta name="twitter:image" content="https://kenseiamit.github.io/assets/og-card.png" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <!-- Structured Schema for Search & Employer Indexing -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Amit Kumar Koshta",
+    "alternateName": "kenseiAmit",
+    "jobTitle": "Data, MLOps & Agentic AI Engineer",
+    "alumniOf": "Indian Institute of Technology Kanpur",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Stockholm",
+      "addressCountry": "SE"
+    },
+    "email": "mailto:kenseiamit@gmail.com",
+    "url": "https://kenseiamit.github.io/",
+    "sameAs": [
+      "https://github.com/kenseiAmit"
+    ]
+  }
+  </script>
+</head>
+<body>
+  <!-- Sticky Glass Header -->
+  <header class="site-header">
+    <div class="container nav-inner">
+      <a href="#top" class="brand" aria-label="Amit Kumar Koshta Home">
+        <div class="brand-mark mono">AK</div>
+        <div class="brand-text">
+          <span class="brand-name">Amit Kumar Koshta</span>
+          <span class="brand-sub mono">@kenseiAmit · IIT Kanpur · Stockholm</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary Navigation">
+        <a href="#flagships">Flagships</a>
+        <a href="#trace-lab">Trace Replay Lab</a>
+        <a href="#catalog">All 28 Systems</a>
+        <a href="#domains">6 Domains</a>
+        <a href="https://github.com/kenseiAmit" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button type="button" class="cmd-trigger" id="openCmdBtn" aria-label="Search systems and commands">
+          <span>Search systems…</span>
+          <span class="kbd mono">⌘K</span>
+        </button>
+        <button type="button" class="icon-btn" id="shareViewBtn" title="Copy shareable URL for current Role Lens">
+          <span>Share View</span>
+        </button>
+        <button type="button" class="icon-btn" id="themeToggleBtn" aria-label="Toggle color theme" title="Toggle Dark / Light theme">
+          <span id="themeIcon">☀</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- Executive Hero -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div>
+            <div class="eyebrow mono">
+              <span class="pulse-dot"></span>
+              <span>28 Public Production Systems · 9 Passing CI Suites</span>
+            </div>
+            <h1 class="hero-title">
+              Production <span class="gradient-text">Agentic AI, AI Security</span> &amp; Cloud MLOps
+            </h1>
+            <p class="hero-role">
+              Amit Kumar Koshta · Data, MLOps &amp; Agentic AI Engineer · IIT Kanpur · Stockholm, Sweden
+            </p>
+            <p class="hero-summary">
+              Architecting verifiable multi-agent ecosystems (<strong>MCP</strong>, <strong>A2A JSON-RPC</strong>, <strong>Google ADK</strong>, <strong>LangGraph</strong>, <strong>Claude Agent SDK</strong>, <strong>Semantic Kernel</strong>), defense-in-depth AI security &amp; EU AI Act governance, and FinOps-calibrated MLOps across <strong>GCP</strong>, <strong>AWS</strong>, and <strong>Azure</strong>.
+            </p>
+            <div class="hero-ctas">
+              <a href="#flagships" class="btn btn-primary">Explore Flagship Case Studies</a>
+              <a href="#trace-lab" class="btn btn-secondary">Interactive Trace Lab</a>
+              <a href="https://github.com/kenseiAmit?tab=repositories" target="_blank" rel="noopener" class="btn btn-ghost">GitHub (@kenseiAmit) ↗</a>
+              <a href="mailto:kenseiamit@gmail.com" class="btn btn-ghost mono">kenseiamit@gmail.com</a>
+            </div>
+          </div>
+
+          <div class="hero-terminal-card">
+            <img src="assets/portfolio-demo.svg" alt="Live Engineering Systems Execution Trace" width="1080" height="360" />
+            <div class="protocol-strip mono">
+              <span class="proto-chip">Anthropic Claude &amp; SDK</span>
+              <span class="proto-chip">Google ADK + A2A</span>
+              <span class="proto-chip">LangGraph</span>
+              <span class="proto-chip">Model Context Protocol</span>
+              <span class="proto-chip">Semantic Kernel</span>
+              <span class="proto-chip">AWS Bedrock Guardrails</span>
+              <span class="proto-chip">RAGAS + Arize OTel</span>
+              <span class="proto-chip">EU AI Act &amp; TreeSHAP</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Verified KPI Strip -->
+        <div class="stats-grid" id="heroStats">
+          <div class="stat-card">
+            <div class="stat-val mono">28</div>
+            <div class="stat-label">Public Production Systems</div>
+            <div class="stat-sub">MIT Licensed · Reproducible Docs &amp; Topologies</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val mono">61.9%</div>
+            <div class="stat-label">Verified LLM Cost Reduction</div>
+            <div class="stat-sub">Tiered Routing + 1.4 ms Semantic Cache</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val mono">500+</div>
+            <div class="stat-label">Automated Eval &amp; Security Gates</div>
+            <div class="stat-sub">Pytest · RAGAS · Sliced Brier · 36/36 Red-Team</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val mono">3 Clouds</div>
+            <div class="stat-label">Multi-Cloud AI Infrastructure</div>
+            <div class="stat-sub">GCP Vertex/ADK · AWS Bedrock/Glue · Azure AI</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Deep-Linkable Hiring Role Lens Bar -->
+    <section class="role-lens-section" aria-label="Tailor portfolio by hiring role">
+      <div class="container">
+        <div class="role-lens-shell">
+          <div class="role-lens-top">
+            <div class="role-lens-label mono">
+              <span>◈ Tailor Portfolio by Target Role / Team (Shareable URL)</span>
+            </div>
+            <button type="button" class="btn btn-ghost btn-sm mono" id="copyTrackUrlBtn">
+              Copy Role Lens Link
+            </button>
+          </div>
+          <div class="track-tabs" id="trackTabs" role="tablist"></div>
+          <div class="track-brief" id="trackBrief"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Flagship Systems Bento Showcase -->
+    <section class="section" id="flagships">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker mono" id="flagshipKicker">01 · Featured Engineering Case Studies</div>
+            <h2 class="section-title" id="flagshipHeading">Flagship Production Architectures</h2>
+            <p class="section-desc" id="flagshipSubheading">
+              Click any system to inspect its full Mermaid system topology, architectural trade-offs, empirical benchmark charts, and CI verification evidence.
+            </p>
+          </div>
+          <a href="#catalog" class="btn btn-ghost btn-sm">Jump to Full 28-System Matrix ↓</a>
+        </div>
+
+        <div class="flagship-grid" id="flagshipGrid"></div>
+      </div>
+    </section>
+
+    <!-- Zero-Cost Interactive Runtime Trace & Telemetry Replay Lab -->
+    <section class="section" id="trace-lab">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker mono">02 · Zero-Latency Execution Evidence</div>
+            <h2 class="section-title">Interactive Runtime Trace &amp; Guardrail Replay Lab</h2>
+            <p class="section-desc">
+              Inspect authentic recorded execution traces, guardrail interventions, FinOps cost ledgers, zero-knowledge A2A JSON-RPC payloads, and SHA-256 FinCEN SAR filings directly from repository test runs.
+            </p>
+          </div>
+        </div>
+
+        <div class="trace-workbench">
+          <div class="trace-rail">
+            <div class="trace-rail-hdr mono">Recorded Production Scenarios (6)</div>
+            <div id="traceRailList" style="display:flex;flex-direction:column;gap:8px;"></div>
+          </div>
+          <div class="trace-stage" id="traceStage"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Complete 28-System Searchable Engineering Catalog -->
+    <section class="section" id="catalog">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker mono">03 · Complete Engineering Index</div>
+            <h2 class="section-title">All 28 Systems — Searchable Architecture Catalog</h2>
+            <p class="section-desc">
+              Filter by engineering domain, protocol/framework stack, or GitHub Actions CI status—or switch to the compact Staff Architecture Matrix view.
+            </p>
+          </div>
+          <div class="mono" style="font-size:0.82rem;color:var(--text-muted);" id="catalogCountLabel">Showing 28 of 28 systems</div>
+        </div>
+
+        <div class="catalog-controls">
+          <div class="catalog-search-row">
+            <div class="search-input-wrap">
+              <span class="search-icon">⌕</span>
+              <input
+                type="search"
+                id="catalogSearchInput"
+                class="search-input"
+                placeholder="Filter by repo, protocol, metric, or cloud (e.g., MCP, A2A, LangGraph, RAGAS, TreeSHAP, PySpark, Bedrock)…"
+                aria-label="Filter 28 engineering systems"
+              />
+            </div>
+
+            <label class="icon-btn" style="cursor:pointer;user-select:none;">
+              <input type="checkbox" id="ciOnlyToggle" style="accent-color:var(--accent-emerald);" />
+              <span>CI Passing Only (9)</span>
+            </label>
+
+            <div class="view-toggle" role="group" aria-label="Catalog display mode">
+              <button type="button" class="view-btn active" data-view="cards" id="viewCardsBtn">Cards</button>
+              <button type="button" class="view-btn" data-view="matrix" id="viewMatrixBtn">Matrix Table</button>
+            </div>
+          </div>
+
+          <div class="filter-pills" id="domainFilterPills"></div>
+          <div class="filter-pills" id="stackFilterPills"></div>
+        </div>
+
+        <div id="catalogContainer"></div>
+      </div>
+    </section>
+
+    <!-- 6 Engineering Domains Summary -->
+    <section class="section" id="domains">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker mono">04 · Architectural Breadth &amp; Depth</div>
+            <h2 class="section-title">Six Specialized Engineering Domains</h2>
+            <p class="section-desc">Select any domain to filter the 28-system catalog directly to that architectural discipline.</p>
+          </div>
+        </div>
+        <div class="domains-grid" id="domainsGrid"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <div style="font-weight:800;font-size:1.05rem;">Amit Kumar Koshta</div>
+        <div class="mono" style="font-size:0.8rem;color:var(--text-muted);margin-top:4px;">
+          Data, MLOps &amp; Agentic AI Engineer · IIT Kanpur · Stockholm, Sweden
+        </div>
+        <div style="font-size:0.8rem;color:var(--text-faint);margin-top:6px;">
+          All 28 systems open-sourced under MIT License with reproducible benchmarks &amp; architecture documentation.
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <a href="mailto:kenseiamit@gmail.com" class="btn btn-primary btn-sm mono">kenseiamit@gmail.com</a>
+        <a href="https://github.com/kenseiAmit" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">GitHub Profile ↗</a>
+        <a href="https://github.com/kenseiAmit?tab=repositories" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">All 28 Repos ↗</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Deep-Dive System Case Study Modal -->
+  <div class="modal-backdrop" id="caseModalBackdrop" hidden role="dialog" aria-modal="true" aria-labelledby="caseModalTitle">
+    <div class="case-modal" id="caseModalDialog">
+      <div class="modal-header">
+        <div>
+          <div id="caseModalDomain" class="domain-tag mono"></div>
+          <h2 id="caseModalTitle" style="margin:4px 0 0;font-size:1.35rem;font-weight:800;"></h2>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <button type="button" class="icon-btn mono" id="copySystemLinkBtn" title="Copy direct link to this case study">Copy Link</button>
+          <button type="button" class="icon-btn" id="closeCaseModalBtn" aria-label="Close modal">✕</button>
+        </div>
+      </div>
+
+      <div class="modal-tabs" id="caseModalTabs" role="tablist">
+        <button type="button" class="modal-tab active" data-tab="overview">Overview &amp; Trade-Offs</button>
+        <button type="button" class="modal-tab" data-tab="topology">System Topology (Mermaid)</button>
+        <button type="button" class="modal-tab" data-tab="telemetry">Telemetry &amp; Traces</button>
+        <button type="button" class="modal-tab" data-tab="quickstart">Run Locally &amp; CI</button>
+      </div>
+
+      <div class="modal-content" id="caseModalBody"></div>
+
+      <div class="modal-footer">
+        <div style="display:flex;gap:8px;">
+          <button type="button" class="btn btn-ghost btn-sm" id="prevSystemBtn">← Previous</button>
+          <button type="button" class="btn btn-ghost btn-sm" id="nextSystemBtn">Next →</button>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;" id="caseModalFooterLinks"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cmd+K Instant Command Palette -->
+  <div class="modal-backdrop" id="cmdBackdrop" hidden role="dialog" aria-modal="true" aria-label="Quick Command Search">
+    <div class="cmd-modal">
+      <input
+        type="text"
+        id="cmdInput"
+        class="cmd-input"
+        placeholder="Jump to any of the 28 systems, switch Role Lens, or replay a trace…"
+        autocomplete="off"
+      />
+      <div class="cmd-list" id="cmdList"></div>
+    </div>
+  </div>
+
+  <div id="toastContainer" aria-live="polite"></div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<div align="center">
+  <img src="assets/og-card.png" alt="Amit Kumar Koshta — Engineering Portfolio" width="100%" />
+  <br/><br/>
+  <a href="https://kenseiamit.github.io"><img src="https://img.shields.io/badge/Live%20Portfolio-kenseiamit.github.io-2563EB?style=for-the-badge&logo=githubpages&logoColor=white" alt="Live Portfolio"/></a>
+  <a href="https://github.com/kenseiAmit?tab=repositories"><img src="https://img.shields.io/badge/Public%20Systems-28%20Repositories-0F172A?style=for-the-badge&logo=github&logoColor=white" alt="28 Repos"/></a>
+  <a href="mailto:kenseiamit@gmail.com"><img src="https://img.shields.io/badge/Contact-kenseiamit%40gmail.com-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email"/></a>
+</div>
+
+---
+
+# Amit Kumar Koshta — Interactive Engineering Portfolio (`kenseiamit.github.io`)
+
+Executive system-architecture showcase and interactive trace replay portfolio spanning **28 open-source production repositories** across **Multi-Agent Orchestration (MCP, A2A, Google ADK, LangGraph, Claude Agent SDK, Semantic Kernel)**, **Adversarial AI Security & EU AI Act Governance**, **Calibrated LLMOps**, and **Multi-Cloud MLOps (GCP · AWS · Azure)**.
+
+### Shareable Role-Lens Deep Links
+
+| Target Hiring Track | Direct Shareable Portfolio Link |
+| :--- | :--- |
+| **Executive Overview (All 28 Systems)** | [`https://kenseiamit.github.io/`](https://kenseiamit.github.io/) |
+| **Agentic AI & MCP Protocols (15 Systems)** | [`https://kenseiamit.github.io/?track=agentic-ai`](https://kenseiamit.github.io/?track=agentic-ai) |
+| **LLMOps, AgentOps & Calibration (8 Systems)** | [`https://kenseiamit.github.io/?track=llmops`](https://kenseiamit.github.io/?track=llmops) |
+| **FinTech, AML & Quantitative AI (10 Systems)** | [`https://kenseiamit.github.io/?track=fintech`](https://kenseiamit.github.io/?track=fintech) |
+| **AI Security, Red-Teaming & GRC (7 Systems)** | [`https://kenseiamit.github.io/?track=ai-security`](https://kenseiamit.github.io/?track=ai-security) |
+| **Production MLOps & Data (9 Systems)** | [`https://kenseiamit.github.io/?track=mlops`](https://kenseiamit.github.io/?track=mlops) |
+| **Multi-Cloud Architecture & SWE (12 Systems)** | [`https://kenseiamit.github.io/?track=cloud`](https://kenseiamit.github.io/?track=cloud) |
+
+### Local Preview & Data Sync
+
+```bash
+# Re-compile data/portfolio.json & empirical telemetry assets from sibling repositories
+python3 scripts/build_portfolio_data.py
+
+# Preview locally
+python3 -m http.server 8080
+```
+
+## License
+
+MIT License — © Amit Kumar Koshta (`@kenseiAmit`).
