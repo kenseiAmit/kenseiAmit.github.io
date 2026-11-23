@@ -1081,10 +1081,10 @@ def build_flagship_html(
       <div class="cs-breadcrumb">
         <a href="{root_prefix}/" class="brand" style="gap:10px;">
           <span class="brand-mark mono" style="width:32px;height:32px;font-size:0.8rem;">AK</span>
-          <span>← Portfolio</span>
+          <span>Home</span>
         </a>
         <span>/</span>
-        <span class="mono" style="color:var(--text-faint);">projects</span>
+        <a href="{root_prefix}/portfolio/" class="mono">portfolio</a>
         <span>/</span>
         <strong class="mono" style="color:var(--text-primary);">{esc(slug)}</strong>
       </div>
@@ -1205,8 +1205,8 @@ def build_flagship_html(
 
       <div class="cs-toc-links">
         <a href="{esc(repo_url)}" target="_blank" rel="noopener" class="btn btn-secondary btn-sm" style="justify-content:center;">View Repository ↗</a>
-        <a href="{root_prefix}/#flagships" class="btn btn-ghost btn-sm" style="justify-content:center;">← All 7 Flagships</a>
-        <a href="{root_prefix}/#catalog" class="btn btn-ghost btn-sm" style="justify-content:center;">All 28 Systems</a>
+        <a href="{root_prefix}/#flagships" class="btn btn-ghost btn-sm" style="justify-content:center;">← Home &amp; 7 Flagships</a>
+        <a href="{root_prefix}/portfolio/" class="btn btn-ghost btn-sm" style="justify-content:center;">Full Portfolio (28) →</a>
       </div>
     </aside>
 
@@ -1472,7 +1472,8 @@ def build_flagship_html(
         </div>
       </div>
       <div style="display:flex;gap:10px;flex-wrap:wrap;">
-        <a href="{root_prefix}/" class="btn btn-secondary btn-sm">← Portfolio Home (All 28 Systems)</a>
+        <a href="{root_prefix}/" class="btn btn-ghost btn-sm">← Personal Home</a>
+        <a href="{root_prefix}/portfolio/" class="btn btn-secondary btn-sm">Full Portfolio (28 Systems) →</a>
         <a href="{esc(repo_url)}" target="_blank" rel="noopener" class="btn btn-primary btn-sm">GitHub Repository ↗</a>
         <a href="https://www.linkedin.com/in/kenseiamit/" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">LinkedIn ↗</a>
       </div>

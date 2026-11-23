@@ -3,31 +3,40 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Amit Kumar Koshta (@kenseiAmit) — Agentic AI, AI Security &amp; Cloud MLOps Portfolio</title>
-  <meta name="description" content="Executive engineering portfolio of Amit Kumar Koshta (IIT Kanpur · Stockholm, Sweden): 28 production systems spanning Multi-Agent Orchestration (MCP, A2A, Google ADK, LangGraph, Claude Agent SDK, Semantic Kernel), Adversarial AI Security &amp; EU AI Act GRC, and Multi-Cloud MLOps." />
+  <title>Amit Kumar Koshta (@kenseiAmit) — AI, Data &amp; Cloud Systems Architect</title>
+  <meta name="description" content="Personal website of Amit Kumar Koshta (Stockholm, Sweden · IIT Kanpur): Architecting governed Agentic AI, AI Security &amp; EU AI Act guardrails, and Cloud MLOps platforms." />
   <meta name="author" content="Amit Kumar Koshta" />
   <link rel="canonical" href="https://kenseiamit.github.io/" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
 
+  <script>
+    // Preserve any existing shared ?track=... or ?system=... deep links seamlessly
+    (function () {
+      var q = new URLSearchParams(window.location.search);
+      if (q.has("track") || q.has("system")) {
+        window.location.replace("portfolio/" + window.location.search + window.location.hash);
+      }
+    })();
+  </script>
+
   <!-- OpenGraph / LinkedIn / Slack Preview -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://kenseiamit.github.io/" />
-  <meta property="og:title" content="Amit Kumar Koshta — Production Agentic AI, AI Security &amp; Cloud MLOps" />
-  <meta property="og:description" content="28 public MIT systems · 61.9% tiered RAG cost reduction · 1.4ms semantic cache · 36/36 Bedrock Guardrails · Zero-Knowledge A2A &amp; MCP architectures across GCP, AWS &amp; Azure." />
+  <meta property="og:title" content="Amit Kumar Koshta (@kenseiAmit) — AI, Data &amp; Cloud Architect" />
+  <meta property="og:description" content="Personal introduction, engineering craft, life outside the terminal, and 7 flagship production AI architectures." />
   <meta property="og:image" content="https://kenseiamit.github.io/assets/og-card.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Amit Kumar Koshta (@kenseiAmit) — Engineering Portfolio" />
-  <meta name="twitter:description" content="28 production systems across Agentic AI Protocols (MCP, A2A, ADK, LangGraph), AI Security &amp; EU AI Act GRC, and Cloud MLOps." />
+  <meta name="twitter:title" content="Amit Kumar Koshta (@kenseiAmit)" />
+  <meta name="twitter:description" content="Governed Agentic AI, AI Security &amp; Cloud MLOps · Stockholm, Sweden." />
   <meta name="twitter:image" content="https://kenseiamit.github.io/assets/og-card.png" />
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/home.css" />
 
-  <!-- Structured Schema for Search & Employer Indexing -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -51,299 +60,338 @@
   </script>
 </head>
 <body>
-  <!-- Sticky Glass Header -->
   <header class="site-header">
-    <div class="container nav-inner">
+    <div class="home-shell nav-inner">
       <a href="#top" class="brand" aria-label="Amit Kumar Koshta Home">
         <div class="brand-mark mono">AK</div>
         <div class="brand-text">
           <span class="brand-name">Amit Kumar Koshta</span>
-          <span class="brand-sub mono">@kenseiAmit · IIT Kanpur · Stockholm</span>
+          <span class="brand-sub mono">@kenseiAmit · Stockholm</span>
         </div>
       </a>
 
       <nav class="nav-links" aria-label="Primary Navigation">
-        <a href="#flagships">Flagships</a>
-        <a href="#trace-lab">Trace Lab</a>
-        <a href="#catalog">All 28 Systems</a>
-        <a href="#domains">6 Domains</a>
-        <a href="https://www.linkedin.com/in/kenseiamit/" target="_blank" rel="noopener">LinkedIn ↗</a>
-        <a href="https://github.com/kenseiAmit" target="_blank" rel="noopener">GitHub ↗</a>
+        <a href="#what-i-do">What I Do</a>
+        <a href="#hobbies">Hobbies</a>
+        <a href="#flagships">7 Flagships</a>
+        <a href="portfolio/">Full Portfolio (28)</a>
       </nav>
 
       <div class="nav-actions">
-        <button type="button" class="cmd-trigger" id="openCmdBtn" aria-label="Search systems and commands">
-          <span>Search systems…</span>
-          <span class="kbd mono">⌘K</span>
-        </button>
-        <button type="button" class="icon-btn" id="shareViewBtn" title="Copy shareable URL for current Role Lens">
-          <span>Share View</span>
-        </button>
-        <button type="button" class="icon-btn" id="themeToggleBtn" aria-label="Toggle color theme" title="Toggle Dark / Light theme">
+        <a href="portfolio/" class="btn btn-primary btn-sm">Full Portfolio →</a>
+        <button type="button" class="icon-btn" id="themeToggleBtn" aria-label="Toggle color theme" title="Toggle Light / Dark theme">
           <span id="themeIcon">☾</span>
         </button>
       </div>
     </div>
   </header>
 
-  <main id="top">
-    <!-- Executive Hero -->
-    <section class="hero">
-      <div class="container">
-        <div class="hero-grid">
-          <div>
-            <div class="eyebrow mono">
-              <span class="pulse-dot"></span>
-              <span>28 Public Production Systems · 9 Passing CI Suites</span>
-            </div>
-            <h1 class="hero-title">
-              Production <span class="gradient-text">Agentic AI, AI Security</span> &amp; Cloud MLOps
-            </h1>
-            <p class="hero-role">
-              Amit Kumar Koshta · Data, MLOps &amp; Agentic AI Engineer · IIT Kanpur · Stockholm, Sweden
-            </p>
-            <p class="hero-summary">
-              Architecting verifiable multi-agent ecosystems (<strong>MCP</strong>, <strong>A2A JSON-RPC</strong>, <strong>Google ADK</strong>, <strong>LangGraph</strong>, <strong>Claude Agent SDK</strong>, <strong>Semantic Kernel</strong>), defense-in-depth AI security &amp; EU AI Act governance, and FinOps-calibrated MLOps across <strong>GCP</strong>, <strong>AWS</strong>, and <strong>Azure</strong>.
-            </p>
-            <div class="hero-ctas">
-              <a href="#flagships" class="btn btn-primary">Explore Flagship Case Studies</a>
-              <a href="https://huggingface.co/spaces/kenseiamit/agentops-governance-sandbox" target="_blank" rel="noopener" class="btn btn-secondary">Live HF Sandbox ↗</a>
-              <a href="#trace-lab" class="btn btn-ghost">Trace Replay Lab</a>
-              <a href="https://www.linkedin.com/in/kenseiamit/" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn ↗</a>
-              <a href="https://github.com/kenseiAmit?tab=repositories" target="_blank" rel="noopener" class="btn btn-ghost">GitHub (@kenseiAmit) ↗</a>
-            </div>
-          </div>
+  <main id="top" class="home-shell">
+    <!-- 01. Personal Introduction -->
+    <section class="home-hero">
+      <div class="home-kicker mono">
+        <span class="pulse-dot" style="width:8px;height:8px;border-radius:50%;background:var(--accent-emerald);display:inline-block;"></span>
+        <span>Stockholm, Sweden · IIT Kanpur Dual Degree · Certified Cloud Architect</span>
+      </div>
 
-          <div class="hero-terminal-card">
-            <img src="assets/portfolio-demo.svg" alt="Live Engineering Systems Execution Trace" width="1080" height="360" />
-            <div class="protocol-strip mono">
-              <span class="proto-chip">Anthropic Claude &amp; SDK</span>
-              <span class="proto-chip">Google ADK + A2A</span>
-              <span class="proto-chip">LangGraph</span>
-              <span class="proto-chip">Model Context Protocol</span>
-              <span class="proto-chip">Semantic Kernel</span>
-              <span class="proto-chip">AWS Bedrock Guardrails</span>
-              <span class="proto-chip">RAGAS + Arize OTel</span>
-              <span class="proto-chip">EU AI Act &amp; TreeSHAP</span>
-            </div>
-          </div>
-        </div>
+      <h1 class="home-greeting">Hi, I’m Amit.</h1>
+      <p class="home-lead">
+        I design and build governed Agentic AI systems, AI security guardrails, and cloud-scale MLOps platforms that bridge engineering rigor with real business value.
+      </p>
 
-        <!-- Verified KPI Strip -->
-        <div class="stats-grid" id="heroStats">
-          <div class="stat-card">
-            <div class="stat-val mono">28</div>
-            <div class="stat-label">Public Production Systems</div>
-            <div class="stat-sub">MIT Licensed · Reproducible Docs &amp; Topologies</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-val mono">61.9%</div>
-            <div class="stat-label">Verified LLM Cost Reduction</div>
-            <div class="stat-sub">Tiered Routing + 1.4 ms Semantic Cache</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-val mono">500+</div>
-            <div class="stat-label">Automated Eval &amp; Security Gates</div>
-            <div class="stat-sub">Pytest · RAGAS · Sliced Brier · 36/36 Red-Team</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-val mono">3 Clouds</div>
-            <div class="stat-label">Multi-Cloud AI Infrastructure</div>
-            <div class="stat-sub">GCP Vertex/ADK · AWS Bedrock/Glue · Azure AI</div>
-          </div>
-        </div>
+      <div class="home-prose">
+        <p>
+          Over the past decade across distributed backend engineering, real-time data pipelines, and applied machine learning, my work has centered on one recurring challenge: <strong>turning impressive AI prototypes into deterministic, cost-controlled, and audit-ready software</strong> that teams can safely run in production.
+        </p>
+        <p>
+          I enjoy working right at the seam where architecture meets unit economics and trust—making sure multi-agent workflows know when to use pure code instead of an LLM, when to pause for human sign-off, and how every technical guardrail translates directly to the bottom line.
+        </p>
+      </div>
+
+      <div class="home-cta-row">
+        <a href="#flagships" class="btn btn-primary">Explore 7 Flagship Projects ↓</a>
+        <a href="portfolio/" class="btn btn-secondary">Open Full 28-System Portfolio →</a>
+        <a href="https://huggingface.co/spaces/kenseiamit/agentops-governance-sandbox" target="_blank" rel="noopener" class="btn btn-ghost">Try Live Sandbox ↗</a>
+      </div>
+
+      <div class="home-links-strip mono">
+        <a href="https://www.linkedin.com/in/kenseiamit/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <span>·</span>
+        <a href="https://github.com/kenseiAmit" target="_blank" rel="noopener">GitHub (@kenseiAmit) ↗</a>
+        <span>·</span>
+        <a href="mailto:kenseiamit@gmail.com">kenseiamit@gmail.com</a>
       </div>
     </section>
 
-    <!-- Deep-Linkable Hiring Role Lens Bar -->
-    <section class="role-lens-section" aria-label="Tailor portfolio by hiring role">
-      <div class="container">
-        <div class="role-lens-shell">
-          <div class="role-lens-top">
-            <div class="role-lens-label mono">
-              <span>◈ Tailor Portfolio by Target Role / Team (Shareable URL)</span>
-            </div>
-            <button type="button" class="btn btn-ghost btn-sm mono" id="copyTrackUrlBtn">
-              Copy Role Lens Link
-            </button>
-          </div>
-          <div class="track-tabs" id="trackTabs" role="tablist"></div>
-          <div class="track-brief" id="trackBrief"></div>
-        </div>
+    <!-- 02. What I Do -->
+    <section class="home-section" id="what-i-do">
+      <div class="home-sec-kicker mono">01 · What I Do</div>
+      <h2 class="home-sec-title">Engineering Focus</h2>
+      <p class="home-sec-sub">
+        Three disciplines I combine to take AI and data systems from exploratory notebooks to dependable production infrastructure.
+      </p>
+
+      <div class="pillars-grid">
+        <article class="pillar-card">
+          <span class="pillar-num mono">PILLAR 01</span>
+          <h3>Governed Agentic AI</h3>
+          <p>
+            Building multi-agent workflows (<code class="inline-code">MCP</code>, <code class="inline-code">A2A</code>, <code class="inline-code">LangGraph</code>, <code class="inline-code">Google ADK</code>, <code class="inline-code">Claude</code>) bounded by AST sandboxes, deterministic Python math, and human-in-the-loop gates.
+          </p>
+        </article>
+
+        <article class="pillar-card">
+          <span class="pillar-num mono">PILLAR 02</span>
+          <h3>AI Security, Privacy &amp; GRC</h3>
+          <p>
+            Hardening GenAI &amp; ML pipelines against prompt injection and data leaks (<code class="inline-code">STRIDE-ML</code>, <code class="inline-code">Bedrock Guardrails</code>), alongside <code class="inline-code">TreeSHAP</code> fairness audits and <code class="inline-code">EU AI Act</code> conformity.
+          </p>
+        </article>
+
+        <article class="pillar-card">
+          <span class="pillar-num mono">PILLAR 03</span>
+          <h3>FinOps LLMOps &amp; Cloud Data</h3>
+          <p>
+            Designing tiered model routers, sub-2ms semantic caches, <code class="inline-code">OpenTelemetry</code> tracing, and CI evaluation gates across <code class="inline-code">GCP</code>, <code class="inline-code">AWS</code>, and <code class="inline-code">Azure</code> to protect gross margin at scale.
+          </p>
+        </article>
       </div>
     </section>
 
-    <!-- Flagship Systems Bento Showcase -->
-    <section class="section" id="flagships">
-      <div class="container">
-        <div class="section-head">
+    <!-- 03. Hobbies & Life Outside Engineering -->
+    <section class="home-section" id="hobbies">
+      <div class="home-sec-kicker mono">02 · Beyond the Keyboard</div>
+      <h2 class="home-sec-title">Life &amp; Hobbies</h2>
+      <p class="home-sec-sub">
+        Away from system topologies and evaluation harnesses, I spend my time on practices built around movement, musicality, breath, and exploring the world.
+      </p>
+
+      <div class="hobbies-grid">
+        <article class="hobby-card">
+          <div class="hobby-icon" aria-hidden="true">🥋</div>
           <div>
-            <div class="section-kicker mono" id="flagshipKicker">01 · Featured Engineering Case Studies</div>
-            <h2 class="section-title" id="flagshipHeading">Flagship Production Architectures</h2>
-            <p class="section-desc" id="flagshipSubheading">
-              Click any system to inspect its full Mermaid system topology, architectural trade-offs, empirical benchmark charts, and CI verification evidence.
+            <h3>Martial Arts</h3>
+            <p>
+              Practicing discipline, balance, and calm precision under pressure—also the inspiration behind my <code class="inline-code">@kenseiAmit</code> handle, rooted in deliberate craft over brute force.
             </p>
           </div>
-          <a href="#catalog" class="btn btn-ghost btn-sm">Jump to Full 28-System Matrix ↓</a>
-        </div>
+        </article>
 
-        <div class="flagship-grid" id="flagshipGrid"></div>
-      </div>
-    </section>
-
-    <!-- Zero-Cost Interactive Runtime Trace & Telemetry Replay Lab -->
-    <section class="section" id="trace-lab">
-      <div class="container">
-        <div class="section-head">
+        <article class="hobby-card">
+          <div class="hobby-icon" aria-hidden="true">💃</div>
           <div>
-            <div class="section-kicker mono">02 · Zero-Latency Execution Evidence</div>
-            <h2 class="section-title">Interactive Runtime Trace &amp; Guardrail Replay Lab</h2>
-            <p class="section-desc">
-              Inspect authentic recorded execution traces, guardrail interventions, FinOps cost ledgers, zero-knowledge A2A JSON-RPC payloads, and SHA-256 FinCEN SAR filings directly from repository test runs.
+            <h3>Bachata &amp; Argentine Tango</h3>
+            <p>
+              Social partner dancing in Stockholm and at festivals—an endless study in musicality, subtle communication, and improvising cleanly within shared structure.
             </p>
           </div>
-        </div>
+        </article>
 
-        <div class="trace-workbench">
-          <div class="trace-rail">
-            <div class="trace-rail-hdr mono">Recorded Production Scenarios (6)</div>
-            <div id="traceRailList" style="display:flex;flex-direction:column;gap:8px;"></div>
-          </div>
-          <div class="trace-stage" id="traceStage"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Complete 28-System Searchable Engineering Catalog -->
-    <section class="section" id="catalog">
-      <div class="container">
-        <div class="section-head">
+        <article class="hobby-card">
+          <div class="hobby-icon" aria-hidden="true">🪈</div>
           <div>
-            <div class="section-kicker mono">03 · Complete Engineering Index</div>
-            <h2 class="section-title">All 28 Systems — Searchable Architecture Catalog</h2>
-            <p class="section-desc">
-              Filter by engineering domain, protocol/framework stack, or GitHub Actions CI status—or switch to the compact Staff Architecture Matrix view.
+            <h3>Bamboo Flute</h3>
+            <p>
+              Playing acoustic bamboo flute—a quiet, breath-centered creative counterbalance after deep sessions in distributed code and cloud infrastructure.
             </p>
           </div>
-          <div class="mono" style="font-size:0.82rem;color:var(--text-muted);" id="catalogCountLabel">Showing 28 of 28 systems</div>
-        </div>
+        </article>
 
-        <div class="catalog-controls">
-          <div class="catalog-search-row">
-            <div class="search-input-wrap">
-              <span class="search-icon">⌕</span>
-              <input
-                type="search"
-                id="catalogSearchInput"
-                class="search-input"
-                placeholder="Filter by repo, protocol, metric, or cloud (e.g., MCP, A2A, LangGraph, RAGAS, TreeSHAP, PySpark, Bedrock)…"
-                aria-label="Filter 28 engineering systems"
-              />
-            </div>
-
-            <label class="icon-btn" style="cursor:pointer;user-select:none;">
-              <input type="checkbox" id="ciOnlyToggle" style="accent-color:var(--accent-emerald);" />
-              <span>CI Passing Only (9)</span>
-            </label>
-
-            <div class="view-toggle" role="group" aria-label="Catalog display mode">
-              <button type="button" class="view-btn active" data-view="cards" id="viewCardsBtn">Cards</button>
-              <button type="button" class="view-btn" data-view="matrix" id="viewMatrixBtn">Matrix Table</button>
-            </div>
+        <article class="hobby-card">
+          <div class="hobby-icon" aria-hidden="true">✈️</div>
+          <div>
+            <h3>Travel</h3>
+            <p>
+              Exploring new cities, landscapes, local food scenes, and dance communities across Europe, Asia, and beyond whenever I get the chance to unplug.
+            </p>
           </div>
-
-          <div class="filter-pills" id="domainFilterPills"></div>
-          <div class="filter-pills" id="stackFilterPills"></div>
-        </div>
-
-        <div id="catalogContainer"></div>
+        </article>
       </div>
     </section>
 
-    <!-- 6 Engineering Domains Summary -->
-    <section class="section" id="domains">
-      <div class="container">
-        <div class="section-head">
+    <!-- 04. Choose a Flagship Project or Enter Full Portfolio -->
+    <section class="home-section" id="flagships" style="border-bottom:none;">
+      <div class="home-sec-kicker mono">03 · Selected Engineering Work</div>
+      <h2 class="home-sec-title">Explore a Flagship Project — or Open the Full Portfolio</h2>
+      <p class="home-sec-sub">
+        Each flagship pairs a code-linked <strong>Technical Architecture</strong> deep dive with a dedicated <strong>Business Value &amp; Unit Economics</strong> case study.
+      </p>
+
+      <div class="flagship-list">
+        <article class="flagship-row-card">
           <div>
-            <div class="section-kicker mono">04 · Architectural Breadth &amp; Depth</div>
-            <h2 class="section-title">Six Specialized Engineering Domains</h2>
-            <p class="section-desc">Select any domain to filter the 28-system catalog directly to that architectural discipline.</p>
+            <div class="fl-top mono">
+              <span class="fl-rank">FLAGSHIP #1</span>
+              <span class="fl-domain">AgentOps &amp; Runtime Security</span>
+            </div>
+            <h3 class="fl-title"><a href="projects/guarded-salesops-agent-runtime/">Guarded SalesOps Agent Runtime</a></h3>
+            <p class="fl-desc">B2B CRM agent runtime with 3-tier deterministic guardrails, AST-locked Python analytics, mandatory HITL outbound email gates, and pre-write PII trace scrubbing.</p>
+            <div class="fl-metrics mono">
+              <span class="fl-chip">14/14 Security Evals</span>
+              <span class="fl-chip">0 Bytes PII Leak</span>
+              <span class="fl-chip">&lt; 10 ms AST Sandbox</span>
+            </div>
           </div>
+          <div class="fl-actions">
+            <a href="projects/guarded-salesops-agent-runtime/" class="btn btn-primary btn-sm">Tech Architecture →</a>
+            <a href="projects/guarded-salesops-agent-runtime/business/" class="btn btn-secondary btn-sm">Business Value &amp; ROI →</a>
+          </div>
+        </article>
+
+        <article class="flagship-row-card">
+          <div>
+            <div class="fl-top mono">
+              <span class="fl-rank">FLAGSHIP #2</span>
+              <span class="fl-domain">LLMOps, Evaluation &amp; FinOps</span>
+            </div>
+            <h3 class="fl-title"><a href="projects/rag-gateway-eval-cost-controls/">Production RAG Gateway &amp; Cost Controls</a></h3>
+            <p class="fl-desc">FastAPI SSE RAG gateway cutting inference COGS via complexity-tiered model routing and an embedded Chroma semantic cache with Arize Phoenix OTel tracing.</p>
+            <div class="fl-metrics mono">
+              <span class="fl-chip">61.9% Cost Reduction</span>
+              <span class="fl-chip">1.4 ms Cache Hit ($0)</span>
+              <span class="fl-chip">1.000 RAGAS Recall</span>
+            </div>
+          </div>
+          <div class="fl-actions">
+            <a href="projects/rag-gateway-eval-cost-controls/" class="btn btn-primary btn-sm">Tech Architecture →</a>
+            <a href="projects/rag-gateway-eval-cost-controls/business/" class="btn btn-secondary btn-sm">Business Value &amp; ROI →</a>
+          </div>
+        </article>
+
+        <article class="flagship-row-card">
+          <div>
+            <div class="fl-top mono">
+              <span class="fl-rank">FLAGSHIP #3</span>
+              <span class="fl-domain">Multi-Agent Protocols (A2A · MCP · LangGraph)</span>
+            </div>
+            <h3 class="fl-title"><a href="projects/multi-agent-banking-system/">Multi-Agent Retail Banking Microservices</a></h3>
+            <p class="fl-desc">Distributed Deposits, Lending, and Concierge services over Google ADK A2A JSON-RPC + MCP SQL Toolbox with zero-knowledge collateral checks and exact Python underwriting math.</p>
+            <div class="fl-metrics mono">
+              <span class="fl-chip">18/18 A2A Scenarios</span>
+              <span class="fl-chip">0 B Raw Balance Leak</span>
+              <span class="fl-chip">100% Exact Math</span>
+            </div>
+          </div>
+          <div class="fl-actions">
+            <a href="projects/multi-agent-banking-system/" class="btn btn-primary btn-sm">Tech Architecture →</a>
+            <a href="projects/multi-agent-banking-system/business/" class="btn btn-secondary btn-sm">Business Value &amp; ROI →</a>
+          </div>
+        </article>
+
+        <article class="flagship-row-card">
+          <div>
+            <div class="fl-top mono">
+              <span class="fl-rank">FLAGSHIP #4</span>
+              <span class="fl-domain">Regulated FinTech &amp; Statutory Compliance</span>
+            </div>
+            <h3 class="fl-title"><a href="projects/trace-aml-sar-compliance-engine/">TRACE: BSA/AML &amp; FinCEN SAR Compliance Engine</a></h3>
+            <p class="fl-desc">Two-stage financial crime investigation and FinCEN Form 111 SAR synthesis gated by mandatory human authorization and sealed with cryptographic SHA-256 audit trails.</p>
+            <div class="fl-metrics mono">
+              <span class="fl-chip">50% Stage-2 Compute Saved</span>
+              <span class="fl-chip">31/31 Compliance Tests</span>
+              <span class="fl-chip">SHA-256 Audit Lineage</span>
+            </div>
+          </div>
+          <div class="fl-actions">
+            <a href="projects/trace-aml-sar-compliance-engine/" class="btn btn-primary btn-sm">Tech Architecture →</a>
+            <a href="projects/trace-aml-sar-compliance-engine/business/" class="btn btn-secondary btn-sm">Business Value &amp; ROI →</a>
+          </div>
+        </article>
+
+        <article class="flagship-row-card">
+          <div>
+            <div class="fl-top mono">
+              <span class="fl-rank">FLAGSHIP #5</span>
+              <span class="fl-domain">Cloud AI Security, IAM &amp; Incident Response</span>
+            </div>
+            <h3 class="fl-title"><a href="projects/bedrock-rag-threat-modeling-guardrails/">AWS Bedrock RAG Threat Modeling &amp; Guardrails</a></h3>
+            <p class="fl-desc">Enterprise security hardening for Amazon Bedrock &amp; Claude: STRIDE-ML threat matrix, SHA-256 ML-BOM, IAM Explicit-Deny lockdown, and a 15-minute CloudWatch kill-switch playbook.</p>
+            <div class="fl-metrics mono">
+              <span class="fl-chip">36/36 Red-Team Blocked</span>
+              <span class="fl-chip">IAM Explicit-Deny</span>
+              <span class="fl-chip">15-Min IR SLA</span>
+            </div>
+          </div>
+          <div class="fl-actions">
+            <a href="projects/bedrock-rag-threat-modeling-guardrails/" class="btn btn-primary btn-sm">Tech Architecture →</a>
+            <a href="projects/bedrock-rag-threat-modeling-guardrails/business/" class="btn btn-secondary btn-sm">Business Value &amp; ROI →</a>
+          </div>
+        </article>
+
+        <article class="flagship-row-card">
+          <div>
+            <div class="fl-top mono">
+              <span class="fl-rank">FLAGSHIP #6</span>
+              <span class="fl-domain">AI Governance, Fairness &amp; EU AI Act</span>
+            </div>
+            <h3 class="fl-title"><a href="projects/clinical-ai-governance-fairness-audit/">HealthGuard: Clinical AI Fairness &amp; EU AI Act Audit</a></h3>
+            <p class="fl-desc">Intersectional clinical ML audit proving socioeconomic proxy bias with TreeSHAP and collapsing rural Medicaid under-triage disparity alongside an 8-artifact EU AI Act Annex III dossier.</p>
+            <div class="fl-metrics mono">
+              <span class="fl-chip">-31.4 pp FNR Gap</span>
+              <span class="fl-chip">0.807 AUC Retained</span>
+              <span class="fl-chip">EU AI Act Annex III</span>
+            </div>
+          </div>
+          <div class="fl-actions">
+            <a href="projects/clinical-ai-governance-fairness-audit/" class="btn btn-primary btn-sm">Tech Architecture →</a>
+            <a href="projects/clinical-ai-governance-fairness-audit/business/" class="btn btn-secondary btn-sm">Business Value &amp; ROI →</a>
+          </div>
+        </article>
+
+        <article class="flagship-row-card">
+          <div>
+            <div class="fl-top mono">
+              <span class="fl-rank">FLAGSHIP #7</span>
+              <span class="fl-domain">Claude Evaluation, Calibration &amp; Harness FinOps</span>
+            </div>
+            <h3 class="fl-title"><a href="projects/claude-extraction-eval-observability/">Claude Extraction Eval, Calibration &amp; Harness Suite</a></h3>
+            <p class="fl-desc">Three-package monorepo catching overconfident hallucinations via sliced Brier calibration, deterministic mortgage YTD math gates, 1-call missing-source halts, and context compression.</p>
+            <div class="fl-metrics mono">
+              <span class="fl-chip">104/104 Pytests</span>
+              <span class="fl-chip">-75% Retry Waste</span>
+              <span class="fl-chip">-56.8% Context Tokens</span>
+            </div>
+          </div>
+          <div class="fl-actions">
+            <a href="projects/claude-extraction-eval-observability/" class="btn btn-primary btn-sm">Tech Architecture →</a>
+            <a href="projects/claude-extraction-eval-observability/business/" class="btn btn-secondary btn-sm">Business Value &amp; ROI →</a>
+          </div>
+        </article>
+      </div>
+
+      <!-- Gateway to Full 28-System Interactive Portfolio -->
+      <div class="portfolio-gateway">
+        <div>
+          <h3>Explore the Full 28-System Engineering Hub</h3>
+          <p>
+            Filter all 28 MIT-licensed systems by hiring role lens, step through recorded runtime guardrail traces, inspect Mermaid topologies, or search across protocols with <code class="inline-code">⌘K</code>.
+          </p>
         </div>
-        <div class="domains-grid" id="domainsGrid"></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <a href="portfolio/" class="btn btn-primary">Open Full Portfolio (/portfolio) →</a>
+          <a href="https://huggingface.co/spaces/kenseiamit/agentops-governance-sandbox" target="_blank" rel="noopener" class="btn btn-secondary">Live HF Sandbox ↗</a>
+        </div>
       </div>
     </section>
   </main>
 
-  <!-- Footer -->
   <footer class="site-footer">
-    <div class="container footer-inner">
+    <div class="home-shell footer-inner">
       <div>
-        <div style="font-weight:800;font-size:1.05rem;">Amit Kumar Koshta</div>
-        <div class="mono" style="font-size:0.8rem;color:var(--text-muted);margin-top:4px;">
-          Data, MLOps &amp; Agentic AI Engineer · IIT Kanpur · Stockholm, Sweden
-        </div>
-        <div style="font-size:0.8rem;color:var(--text-faint);margin-top:6px;">
-          All 28 systems open-sourced under MIT License with reproducible benchmarks &amp; architecture documentation.
+        <div style="font-weight:800;font-size:1.02rem;">Amit Kumar Koshta (@kenseiAmit)</div>
+        <div class="mono" style="font-size:0.78rem;color:var(--text-muted);margin-top:4px;">
+          Stockholm, Sweden · IIT Kanpur · AI, Data &amp; Cloud Systems
         </div>
       </div>
       <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <a href="portfolio/" class="btn btn-secondary btn-sm">Full 28-System Portfolio →</a>
         <a href="mailto:kenseiamit@gmail.com" class="btn btn-primary btn-sm mono">kenseiamit@gmail.com</a>
-        <a href="https://www.linkedin.com/in/kenseiamit/" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">LinkedIn ↗</a>
-        <a href="https://github.com/kenseiAmit" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">GitHub Profile ↗</a>
+        <a href="https://www.linkedin.com/in/kenseiamit/" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">LinkedIn ↗</a>
+        <a href="https://github.com/kenseiAmit" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">GitHub ↗</a>
       </div>
     </div>
   </footer>
 
-  <!-- Deep-Dive System Case Study Modal -->
-  <div class="modal-backdrop" id="caseModalBackdrop" hidden role="dialog" aria-modal="true" aria-labelledby="caseModalTitle">
-    <div class="case-modal" id="caseModalDialog">
-      <div class="modal-header">
-        <div>
-          <div id="caseModalDomain" class="domain-tag mono"></div>
-          <h2 id="caseModalTitle" style="margin:4px 0 0;font-size:1.35rem;font-weight:800;"></h2>
-        </div>
-        <div style="display:flex;gap:8px;align-items:center;">
-          <button type="button" class="icon-btn mono" id="copySystemLinkBtn" title="Copy direct link to this case study">Copy Link</button>
-          <button type="button" class="icon-btn" id="closeCaseModalBtn" aria-label="Close modal">✕</button>
-        </div>
-      </div>
-
-      <div class="modal-tabs" id="caseModalTabs" role="tablist">
-        <button type="button" class="modal-tab active" data-tab="overview">Overview &amp; Trade-Offs</button>
-        <button type="button" class="modal-tab" data-tab="topology">System Topology (Mermaid)</button>
-        <button type="button" class="modal-tab" data-tab="telemetry">Telemetry &amp; Traces</button>
-        <button type="button" class="modal-tab" data-tab="quickstart">Run Locally &amp; CI</button>
-      </div>
-
-      <div class="modal-content" id="caseModalBody"></div>
-
-      <div class="modal-footer">
-        <div style="display:flex;gap:8px;">
-          <button type="button" class="btn btn-ghost btn-sm" id="prevSystemBtn">← Previous</button>
-          <button type="button" class="btn btn-ghost btn-sm" id="nextSystemBtn">Next →</button>
-        </div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;" id="caseModalFooterLinks"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Cmd+K Instant Command Palette -->
-  <div class="modal-backdrop" id="cmdBackdrop" hidden role="dialog" aria-modal="true" aria-label="Quick Command Search">
-    <div class="cmd-modal">
-      <input
-        type="text"
-        id="cmdInput"
-        class="cmd-input"
-        placeholder="Jump to any of the 28 systems, switch Role Lens, or replay a trace…"
-        autocomplete="off"
-      />
-      <div class="cmd-list" id="cmdList"></div>
-    </div>
-  </div>
-
-  <div id="toastContainer" aria-live="polite"></div>
-
-  <script type="module" src="js/app.js"></script>
+  <script type="module" src="js/home.js"></script>
 </body>
 </html>

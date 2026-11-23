@@ -1,0 +1,340 @@
+/* ==========================================================================
+   Personal Minimalist Home Page (/) — Extends css/styles.css
+   ========================================================================== */
+
+.home-shell {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.home-hero {
+  padding: 84px 0 56px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.home-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+}
+
+.home-greeting {
+  margin: 0 0 14px;
+  font-size: clamp(2.1rem, 4vw, 3.1rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+  color: var(--text-primary);
+}
+
+.home-lead {
+  margin: 0 0 22px;
+  font-size: clamp(1.12rem, 2vw, 1.32rem);
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--text-secondary);
+  max-width: 64ch;
+}
+
+.home-prose {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 68ch;
+  font-size: 0.98rem;
+  line-height: 1.72;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+}
+
+.home-prose p {
+  margin: 0;
+}
+
+.home-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.home-links-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  font-size: 0.83rem;
+  color: var(--text-muted);
+}
+
+.home-links-strip a {
+  color: var(--text-secondary);
+  font-weight: 600;
+  transition: color 0.14s ease;
+}
+
+.home-links-strip a:hover {
+  color: var(--accent-blue);
+}
+
+/* Calm Editorial Sections */
+
+.home-section {
+  padding: 56px 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.home-sec-kicker {
+  font-size: 0.73rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-blue);
+  margin-bottom: 6px;
+}
+
+.home-sec-title {
+  margin: 0 0 8px;
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+
+.home-sec-sub {
+  margin: 0 0 26px;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  max-width: 64ch;
+}
+
+/* What I Do — 3 Clean Pillars */
+
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.pillar-card {
+  padding: 22px;
+  border-radius: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pillar-num {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--accent-cyan);
+  letter-spacing: 0.06em;
+}
+
+.pillar-card h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 750;
+  color: var(--text-primary);
+}
+
+.pillar-card p {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.62;
+  color: var(--text-muted);
+}
+
+/* Hobbies & Personal Life */
+
+.hobbies-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.hobby-card {
+  padding: 20px 22px;
+  border-radius: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.hobby-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-subtle);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.hobby-card h3 {
+  margin: 0 0 5px;
+  font-size: 1rem;
+  font-weight: 750;
+  color: var(--text-primary);
+}
+
+.hobby-card p {
+  margin: 0;
+  font-size: 0.87rem;
+  line-height: 1.58;
+  color: var(--text-muted);
+}
+
+/* Clean 7-Flagship Chooser */
+
+.flagship-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.flagship-row-card {
+  padding: 20px 22px;
+  border-radius: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 20px;
+  align-items: center;
+  transition: border-color 0.16s ease, transform 0.16s ease;
+}
+
+.flagship-row-card:hover {
+  border-color: var(--border-accent);
+  transform: translateY(-1px);
+}
+
+.fl-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.fl-rank {
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--bg-subtle);
+  color: var(--text-secondary);
+}
+
+.fl-domain {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+}
+
+.fl-title {
+  margin: 0 0 6px;
+  font-size: 1.08rem;
+  font-weight: 750;
+  color: var(--text-primary);
+}
+
+.fl-title a {
+  color: inherit;
+}
+
+.fl-title a:hover {
+  color: var(--accent-blue);
+}
+
+.fl-desc {
+  margin: 0 0 10px;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--text-muted);
+  max-width: 68ch;
+}
+
+.fl-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.fl-chip {
+  font-size: 0.71rem;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 6px;
+  background: var(--bg-subtle);
+  color: var(--text-secondary);
+}
+
+.fl-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 178px;
+}
+
+.fl-actions .btn {
+  justify-content: center;
+}
+
+/* Full Portfolio Gateway Banner */
+
+.portfolio-gateway {
+  margin-top: 24px;
+  padding: 26px 28px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(5, 150, 105, 0.08));
+  border: 1px solid var(--border-accent);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.portfolio-gateway h3 {
+  margin: 0 0 6px;
+  font-size: 1.18rem;
+  font-weight: 800;
+}
+
+.portfolio-gateway p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  max-width: 58ch;
+}
+
+@media (max-width: 860px) {
+  .pillars-grid {
+    grid-template-columns: 1fr;
+  }
+  .hobbies-grid {
+    grid-template-columns: 1fr;
+  }
+  .flagship-row-card {
+    grid-template-columns: 1fr;
+  }
+  .fl-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    min-width: 0;
+  }
+}

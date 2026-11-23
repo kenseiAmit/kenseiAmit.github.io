@@ -34,6 +34,12 @@ const state = {
   mermaidModule: null
 };
 
+const ROOT = document.body?.dataset?.root || ".";
+const relUrl = (u) => {
+  if (!u || /^(https?:|mailto:|data:|#)/.test(u)) return u;
+  return `${ROOT}/${u.replace(/^\/+/, "")}`;
+};
+
 const esc = (str) =>
   String(str ?? "")
     .replace(/&/g, "&amp;")
@@ -229,7 +235,7 @@ function renderFlagships() {
     .map((sys, idx) => {
       const isHeroSpan = idx === 0 && featured.length % 2 === 1;
       const linkedTrace = findTraceForSystem(sys.slug);
-      const flagshipHref = sys.flagship ? `projects/${esc(sys.slug)}/` : null;
+      const flagshipHref = sys.flagship ? relUrl(`projects/${esc(sys.slug)}/`) : null;
       return `
         <article class="flagship-card ${isHeroSpan ? "hero-span" : ""}">
           ${
@@ -237,7 +243,7 @@ function renderFlagships() {
               ? `<a href="${flagshipHref}" class="card-media" title="Open ${esc(sys.title)} full production case study">`
               : `<div class="card-media" data-open-system="${esc(sys.slug)}" title="Inspect ${esc(sys.title)} architecture & telemetry">`
           }
-            <img src="${esc(sys.primaryImage)}" alt="${esc(sys.title)} empirical telemetry" loading="${idx < 2 ? "eager" : "lazy"}" />
+            <img src="${esc(relUrl(sys.primaryImage))}" alt="${esc(sys.title)} empirical telemetry" loading="${idx < 2 ? "eager" : "lazy"}" />
             <div class="media-badges mono">
               <span class="pill pill-dark">${sys.flagship ? `★ FLAGSHIP #${sys.flagshipRank}` : esc(sys.domainName)}</span>
               <span style="display:flex;gap:6px;">
@@ -559,8 +565,8 @@ function renderCatalog() {
                   <td style="white-space:nowrap;">
                     ${
                       sys.flagship
-                        ? `<a href="projects/${esc(sys.slug)}/" class="btn btn-primary btn-sm" style="padding:4px 9px;font-size:0.74rem;">Tech →</a>
-                           <a href="projects/${esc(sys.slug)}/business/" class="btn btn-secondary btn-sm" style="padding:4px 9px;font-size:0.74rem;">Business →</a>`
+                        ? `<a href="${relUrl(`projects/${esc(sys.slug)}/`)}" class="btn btn-primary btn-sm" style="padding:4px 9px;font-size:0.74rem;">Tech →</a>
+                           <a href="${relUrl(`projects/${esc(sys.slug)}/business/`)}" class="btn btn-secondary btn-sm" style="padding:4px 9px;font-size:0.74rem;">Business →</a>`
                         : `<button type="button" class="btn btn-secondary btn-sm" style="padding:4px 9px;font-size:0.74rem;" data-open-system="${esc(sys.slug)}">Spec</button>`
                     }
                     <a href="${esc(sys.repoUrl)}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="padding:4px 9px;font-size:0.74rem;">Repo ↗</a>
@@ -614,8 +620,8 @@ function renderCatalog() {
               <div class="card-actions" style="margin-top:auto;">
                 ${
                   sys.flagship
-                    ? `<a href="projects/${esc(sys.slug)}/" class="btn btn-primary btn-sm" style="flex:1;justify-content:center;">Case Study →</a>
-                       <a href="projects/${esc(sys.slug)}/business/" class="btn btn-secondary btn-sm" title="Business Value & ROI">📈 ROI</a>`
+                    ? `<a href="${relUrl(`projects/${esc(sys.slug)}/`)}" class="btn btn-primary btn-sm" style="flex:1;justify-content:center;">Case Study →</a>
+                       <a href="${relUrl(`projects/${esc(sys.slug)}/business/`)}" class="btn btn-secondary btn-sm" title="Business Value & ROI">📈 ROI</a>`
                     : `<button type="button" class="btn btn-secondary btn-sm" style="flex:1;justify-content:center;" data-open-system="${esc(sys.slug)}">Architecture &amp; Evidence</button>`
                 }
                 <a href="${esc(sys.repoUrl)}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" aria-label="Open ${esc(sys.title)} on GitHub">
@@ -715,8 +721,8 @@ function openSystemModal(slug, tab = "overview") {
       }
       ${
         sys.flagship
-          ? `<a href="projects/${esc(sys.slug)}/" class="btn btn-secondary btn-sm">Technical Case Study →</a>
-             <a href="projects/${esc(sys.slug)}/business/" class="btn btn-secondary btn-sm">📈 Business Value &amp; ROI →</a>`
+          ? `<a href="${relUrl(`projects/${esc(sys.slug)}/`)}" class="btn btn-secondary btn-sm">Technical Case Study →</a>
+             <a href="${relUrl(`projects/${esc(sys.slug)}/business/`)}" class="btn btn-secondary btn-sm">📈 Business Value &amp; ROI →</a>`
           : ""
       }
       <a href="${esc(sys.repoUrl)}" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Open GitHub Repository ↗</a>
@@ -779,13 +785,13 @@ async function renderCaseStudyModalBody() {
 
         <div>
           <figure class="gallery-figure">
-            <img src="${esc(sys.primaryImage)}" alt="${esc(sys.title)} telemetry" />
+            <img src="${esc(relUrl(sys.primaryImage))}" alt="${esc(sys.title)} telemetry" />
             <figcaption class="gallery-caption mono">Verified Empirical Telemetry · ${esc(sys.slug)}</figcaption>
           </figure>
           ${
             sys.liveDemoSvg
               ? `<figure class="gallery-figure" style="margin-top:14px;">
-                  <img src="${esc(sys.liveDemoSvg)}" alt="${esc(sys.title)} animated execution trace" />
+                  <img src="${esc(relUrl(sys.liveDemoSvg))}" alt="${esc(sys.title)} animated execution trace" />
                   <figcaption class="gallery-caption mono">Recorded Terminal Execution Trace</figcaption>
                  </figure>`
               : ""
@@ -839,7 +845,7 @@ async function renderCaseStudyModalBody() {
           ? `<div style="margin-bottom:20px;">
               <div class="io-label mono" style="margin-bottom:8px;">Animated Terminal Execution Trace</div>
               <figure class="gallery-figure">
-                <img src="${esc(sys.liveDemoSvg)}" alt="${esc(sys.title)} live execution trace" />
+                <img src="${esc(relUrl(sys.liveDemoSvg))}" alt="${esc(sys.title)} live execution trace" />
               </figure>
              </div>`
           : ""
@@ -850,8 +856,8 @@ async function renderCaseStudyModalBody() {
           .map(
             (img) => `
             <figure class="gallery-figure">
-              <a href="${esc(img.url)}" target="_blank" rel="noopener" title="Open full-resolution image in new tab">
-                <img src="${esc(img.url)}" alt="${esc(img.caption)}" loading="lazy" />
+              <a href="${esc(relUrl(img.url))}" target="_blank" rel="noopener" title="Open full-resolution image in new tab">
+                <img src="${esc(relUrl(img.url))}" alt="${esc(img.caption)}" loading="lazy" />
               </a>
               <figcaption class="gallery-caption mono">${esc(img.caption)} (Click for full-res ↗)</figcaption>
             </figure>
@@ -913,6 +919,16 @@ function buildCommandItems(query) {
   const q = query.trim().toLowerCase();
   const items = [];
 
+  items.push({
+    type: "Navigation",
+    title: "← Back to Personal Home & Introduction",
+    sub: "/ · About Amit, What I Do, Hobbies & 7 Flagship Chooser",
+    haystack: "home about bio hobbies introduction personal".toLowerCase(),
+    action: () => {
+      window.location.href = `${ROOT}/`;
+    }
+  });
+
   state.data.systems
     .filter((s) => s.flagship)
     .forEach((sys) => {
@@ -922,7 +938,7 @@ function buildCommandItems(query) {
         sub: `/projects/${sys.slug}/ · ${sys.metrics.slice(0, 2).join(" · ")}`,
         haystack: `${sys.slug} ${sys.stack.join(" ")} ${sys.summary} flagship case study architecture`.toLowerCase(),
         action: () => {
-          window.location.href = `projects/${sys.slug}/`;
+          window.location.href = relUrl(`projects/${sys.slug}/`);
         }
       });
       items.push({
@@ -931,7 +947,7 @@ function buildCommandItems(query) {
         sub: `/projects/${sys.slug}/business/ · Feature-to-Value Matrix & Simulator`,
         haystack: `${sys.slug} ${sys.title} business value roi finops unit economics executive impact`.toLowerCase(),
         action: () => {
-          window.location.href = `projects/${sys.slug}/business/`;
+          window.location.href = relUrl(`projects/${sys.slug}/business/`);
         }
       });
     });
@@ -1171,7 +1187,7 @@ function bindGlobalEvents() {
 
 async function boot() {
   initTheme();
-  const res = await fetch("data/portfolio.json");
+  const res = await fetch(relUrl("data/portfolio.json"));
   state.data = await res.json();
 
   readUrlState();
