@@ -42,6 +42,9 @@ const esc = (str) =>
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#39;");
 
+const richText = (str) =>
+  esc(str).replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>');
+
 function showToast(msg) {
   const container = document.getElementById("toastContainer");
   if (!container) return;
@@ -244,7 +247,7 @@ function renderFlagships() {
             </div>
 
             <h3 class="card-title" data-open-system="${esc(sys.slug)}">${esc(sys.title)}</h3>
-            <p class="card-summary">${esc(sys.summary)}</p>
+            <p class="card-summary">${richText(sys.summary)}</p>
 
             <div class="kpi-row mono">
               ${sys.metrics.map((m) => `<span class="kpi-chip">${esc(m)}</span>`).join("")}
@@ -252,7 +255,7 @@ function renderFlagships() {
 
             <div class="tradeoff-box">
               <strong class="mono">Key Architectural Decision</strong>
-              ${esc(sys.tradeoff)}
+              ${richText(sys.tradeoff)}
             </div>
 
             <div class="stack-row mono">
@@ -339,7 +342,7 @@ function renderTraceLab() {
       </div>
       <div class="io-box" style="border-color:var(--border-accent);">
         <div class="io-label mono">Verified Runtime Outcome</div>
-        <div class="io-text">${esc(tr.outcome)}</div>
+        <div class="io-text">${richText(tr.outcome)}</div>
       </div>
     </div>
 
@@ -363,10 +366,10 @@ function renderTraceLab() {
           .map(
             (st) => `
             <div class="wf-step">
-              <div class="wf-stage-name mono">${esc(st.stage)}</div>
+              <div class="wf-stage-name mono">${richText(st.stage)}</div>
               <div><span class="wf-badge mono wf-${esc(st.status)}">${esc(st.status)}</span></div>
               <div class="wf-detail">
-                <span>${esc(st.detail)}</span>
+                <span>${richText(st.detail)}</span>
                 <span class="wf-latency mono">${esc(st.latency)}</span>
               </div>
             </div>
@@ -569,7 +572,7 @@ function renderCatalog() {
               </div>
 
               <h3 class="sys-card-title" data-open-system="${esc(sys.slug)}">${esc(sys.title)}</h3>
-              <p class="sys-card-desc">${esc(sys.summary)}</p>
+              <p class="sys-card-desc">${richText(sys.summary)}</p>
 
               <div class="kpi-row mono" style="margin-bottom:10px;">
                 ${sys.metrics
@@ -716,7 +719,7 @@ async function renderCaseStudyModalBody() {
     body.innerHTML = `
       <div style="display:grid;grid-template-columns:1.15fr 0.85fr;gap:22px;align-items:start;" class="hero-grid">
         <div>
-          <p style="margin:0 0 16px;font-size:0.96rem;color:var(--text-secondary);">${esc(sys.summary)}</p>
+          <p style="margin:0 0 16px;font-size:0.96rem;color:var(--text-secondary);">${richText(sys.summary)}</p>
 
           <div class="kpi-row mono" style="margin-bottom:18px;">
             ${sys.metrics.map((m) => `<span class="kpi-chip">${esc(m)}</span>`).join("")}
@@ -724,14 +727,14 @@ async function renderCaseStudyModalBody() {
 
           <div class="tradeoff-box" style="margin-bottom:20px;">
             <strong class="mono">Key Engineering Decision &amp; Trade-Off</strong>
-            ${esc(sys.tradeoff)}
+            ${richText(sys.tradeoff)}
           </div>
 
           <h4 class="mono" style="margin:0 0 10px;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);">
             Architectural Highlights
           </h4>
           <ul style="margin:0 0 20px;padding-left:18px;color:var(--text-secondary);font-size:0.87rem;display:flex;flex-direction:column;gap:8px;">
-            ${sys.highlights.map((h) => `<li>${esc(h)}</li>`).join("")}
+            ${sys.highlights.map((h) => `<li>${richText(h)}</li>`).join("")}
           </ul>
 
           <h4 class="mono" style="margin:0 0 8px;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);">

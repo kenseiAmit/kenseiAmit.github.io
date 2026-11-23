@@ -280,7 +280,7 @@
       "tradeoff": "Isolated loan debt-to-equity arithmetic inside a deterministic Python `BaseAgent` (`TotalValueAgent`) and exposed only a boolean `check-minimum-balance` A2A endpoint on `DepositAgent`\u2014eliminating LLM math hallucinations and cross-service balance disclosure.",
       "highlights": [
         "Decoupled A2A Microservices (`manager/`, `deposit/`, `loan/`): Domain agents expose standard `/.well-known/agent-card.json` descriptors and communicate strictly via A2A JSON-RPC with zero shared-memory coupling.",
-        "Deterministic Underwriting Math (`TotalValueAgent`): Debt summation and minimum required deposit equity thresholds () execute inside a deterministic Python `BaseAgent`\u2014eliminating LLM arithmetic hallucinations.",
+        "Deterministic Underwriting Math (`TotalValueAgent`): Debt summation and minimum required deposit equity thresholds execute inside a deterministic Python `BaseAgent`\u2014eliminating LLM arithmetic hallucinations.",
         "Zero-Knowledge Deposit Equity Verification: During loan underwriting, `LoanAgent` queries `DepositAgent` via A2A (`check-minimum-balance`) receiving only a strict boolean (`meets_minimum: true/false`) without ever exposing raw customer deposit balances across domains, hardened against substring parsing bugs (`test_equity.py`).",
         "LangGraph Multi-Turn Intent Engine (`workflow.py`): Classifies customer requests into bounded Pydantic `UserIntent` schemas (`qa`, `summarization`, `calculation`), dynamically selects domain system prompts, executes an AST-validated `@tool calculator` with audit logging (`logs/tools.log`), and persists multi-turn sessions via `MemorySaver`."
       ],
@@ -1172,7 +1172,7 @@
         "Live Cloud Endpoint: https://census-income-api-3hq5.onrender.com",
         "Interactive OpenAPI Docs: https://census-income-api-3hq5.onrender.com/docs",
         "Leakage-Safe Feature Pipeline (`income_classifier/ml/data.py`): Fits `OneHotEncoder(handle_unknown=\"ignore\")` and `LabelBinarizer` strictly on training splits and reuses serialized artifacts during validation and real-time API inference.",
-        "Demographic Slice Fairness Auditing (`income_classifier/ml/model.py`): Computes Precision, Recall, and  across every categorical slice (`workclass`, `education`, `marital-status`, `occupation`, `relationship`, `race`, `sex`, `native-country`)\u2014persisted in `slice_output.txt` and documented in `MODEL_CARD.md`.",
+        "Demographic Slice Fairness Auditing (`income_classifier/ml/model.py`): Computes Precision, Recall, and across every categorical slice (`workclass`, `education`, `marital-status`, `occupation`, `relationship`, `race`, `sex`, `native-country`)\u2014persisted in `slice_output.txt` and documented in `MODEL_CARD.md`.",
         "Typed FastAPI Service (`main.py`): Exposes health/greeting (`GET /`) and inference (`POST /predict`) with Pydantic field aliases matching hyphenated census attributes (`education-num`, `marital-status`, `hours-per-week`)."
       ],
       "mermaids": [

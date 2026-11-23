@@ -602,12 +602,17 @@ def extract_repo_details(slug: str) -> dict:
                 "url": f"https://github.com/{GITHUB_USER}/{slug}/actions/workflows/{wf_name}"
             }
 
-    # Copy live-demo.svg if present
+    # Copy live-demo.svg if present and ensure intrinsic width/height from viewBox for <img> rendering
     live_svg = repo_dir / "assets" / "live-demo.svg"
     if live_svg.exists():
         DEMOS_DIR.mkdir(parents=True, exist_ok=True)
         dest = DEMOS_DIR / f"{slug}.svg"
-        shutil.copy2(live_svg, dest)
+        svg_txt = live_svg.read_text(encoding="utf-8", errors="ignore")
+        vb = re.search(r'viewBox="0\s+0\s+(\d+(?:\.\d+)?)\s+(\d+(?:\.\d+)?)"', svg_txt)
+        if vb:
+            w_val, h_val = vb.group(1), vb.group(2)
+            svg_txt = re.sub(r'\swidth="100%"', f' width="{w_val}" height="{h_val}"', svg_txt, count=1)
+        dest.write_text(svg_txt, encoding="utf-8")
         details["hasLiveDemoSvg"] = True
 
     readme_path = repo_dir / "README.md"
@@ -626,7 +631,9 @@ def extract_repo_details(slug: str) -> dict:
             clean_title = b_title.strip().rstrip(":")
             clean_rest = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", b_rest).strip()
             # Strip inline latex $...$ for clean plain-text rendering
-            clean_rest = re.sub(r"\$+[^$]+\$+", "", clean_rest).strip()
+            clean_rest = re.sub(r"\$+[^$]+\$+", "", clean_rest)
+            clean_rest = re.sub(r"\(\s*\)", "", clean_rest)
+            clean_rest = re.sub(r"\s{2,}", " ", clean_rest).strip()
             if len(clean_rest) > 15:
                 details["highlights"].append(f"{clean_title}: {clean_rest}")
 
