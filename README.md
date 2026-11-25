@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="assets/og-card.png" alt="Amit Kumar Koshta — Engineering Portfolio" width="100%" />
+  <img src="assets/og-card.png" alt="Amit Kumar — Engineering Portfolio" width="100%" />
   <br/><br/>
   <a href="https://kenseiamit.github.io"><img src="https://img.shields.io/badge/Live%20Portfolio-kenseiamit.github.io-2563EB?style=for-the-badge&logo=githubpages&logoColor=white" alt="Live Portfolio"/></a>
   <a href="https://github.com/kenseiAmit?tab=repositories"><img src="https://img.shields.io/badge/Public%20Systems-28%20Repositories-0F172A?style=for-the-badge&logo=github&logoColor=white" alt="28 Repos"/></a>
@@ -8,7 +8,7 @@
 
 ---
 
-# Amit Kumar Koshta — Interactive Engineering Portfolio (`kenseiamit.github.io`)
+# Amit Kumar — Interactive Engineering Portfolio (`kenseiamit.github.io`)
 
 Executive system-architecture showcase and interactive trace replay portfolio spanning **28 open-source production repositories** across **Multi-Agent Orchestration (MCP, A2A, Google ADK, LangGraph, Claude Agent SDK, Semantic Kernel)**, **Adversarial AI Security & EU AI Act Governance**, **Calibrated LLMOps**, and **Multi-Cloud MLOps (GCP · AWS · Azure)**.
 
@@ -36,4 +36,4 @@ python3 -m http.server 8080
 
 ## License
 
-MIT License — © Amit Kumar Koshta (`@kenseiAmit`).
+MIT License — © Amit Kumar (`@kenseiAmit`).

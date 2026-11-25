@@ -183,7 +183,7 @@ function mountDecryptedProfile(decrypted, keyUsed) {
   if (copyBtn) copyBtn.hidden = false;
   if (printBtn) printBtn.hidden = false;
 
-  document.title = "Amit Kumar Koshta — Executive Profile & Experience";
+  document.title = "Amit Kumar — Executive Profile & Experience";
 
   document.querySelectorAll("[data-lens]").forEach((btn) => {
     btn.addEventListener("click", () => applyLens(btn.getAttribute("data-lens"), true));

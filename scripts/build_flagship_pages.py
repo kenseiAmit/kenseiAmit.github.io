@@ -729,7 +729,7 @@ def generate_project_og_card(sys_obj: dict, spec: dict) -> str:
 
     draw.line([(72, 504), (W - 72, 504)], fill="#1E293B", width=2)
     draw.text((72, 532), f"kenseiamit.github.io/projects/{slug}/", fill="#38BDF8", font=f_mono_sm)
-    draw.text((760, 532), "Amit Kumar Koshta · @kenseiAmit", fill="#94A3B8", font=f_mono_sm)
+    draw.text((760, 532), "Amit Kumar · @kenseiAmit", fill="#94A3B8", font=f_mono_sm)
 
     out_path = OG_DIR / f"{slug}.png"
     img.save(out_path, "PNG", optimize=True)
@@ -790,7 +790,7 @@ def generate_business_og_card(sys_obj: dict, biz: dict) -> str:
 
     draw.line([(72, 504), (W - 72, 504)], fill="#1E3A3A", width=2)
     draw.text((72, 532), f"kenseiamit.github.io/projects/{slug}/business/", fill="#34D399", font=f_mono_sm)
-    draw.text((760, 532), "Amit Kumar Koshta · @kenseiAmit", fill="#94A3B8", font=f_mono_sm)
+    draw.text((760, 532), "Amit Kumar · @kenseiAmit", fill="#94A3B8", font=f_mono_sm)
 
     out_path = OG_DIR / f"{slug}-business.png"
     img.save(out_path, "PNG", optimize=True)
@@ -1026,9 +1026,9 @@ def build_flagship_html(
     stack_chips = "".join(f'<span class="stack-chip mono">{esc(s)}</span>' for s in sys_obj["stack"])
 
     page_title = (
-        f"{sys_obj['title']} — Business Value, Unit Economics & ROI | Amit Kumar Koshta"
+        f"{sys_obj['title']} — Business Value, Unit Economics & ROI | Amit Kumar"
         if is_biz_default
-        else f"{sys_obj['title']} — Production Architecture Case Study | Amit Kumar Koshta"
+        else f"{sys_obj['title']} — Production Architecture Case Study | Amit Kumar"
     )
     page_desc = biz["bizHeadline"] if is_biz_default else spec["tagline"]
     canonical_url = (
@@ -1054,7 +1054,7 @@ def build_flagship_html(
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{esc(page_title)}</title>
   <meta name="description" content="{esc(page_desc)}" />
-  <meta name="author" content="Amit Kumar Koshta" />
+  <meta name="author" content="Amit Kumar" />
   <link rel="canonical" href="{esc(canonical_url)}" />
   <link rel="icon" type="image/svg+xml" href="{root_prefix}/assets/favicon.svg" />
 
@@ -1466,7 +1466,7 @@ def build_flagship_html(
   <footer class="site-footer">
     <div class="container footer-inner">
       <div>
-        <div style="font-weight:800;font-size:1.02rem;">Amit Kumar Koshta (@kenseiAmit)</div>
+        <div style="font-weight:800;font-size:1.02rem;">Amit Kumar (@kenseiAmit)</div>
         <div class="mono" style="font-size:0.78rem;color:var(--text-muted);margin-top:4px;">
           Data, MLOps &amp; Agentic AI Engineer · IIT Kanpur · Stockholm, Sweden
         </div>

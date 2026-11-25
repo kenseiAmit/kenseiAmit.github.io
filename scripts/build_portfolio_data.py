@@ -1030,7 +1030,7 @@ def main() -> None:
 
     payload = {
         "profile": {
-            "name": "Amit Kumar Koshta",
+            "name": "Amit Kumar",
             "handle": "kenseiAmit",
             "headline": "Data, MLOps & Agentic AI Engineer",
             "credentials": "IIT Kanpur · Stockholm, Sweden",
