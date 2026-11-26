@@ -33,7 +33,8 @@ GIT_TERMINAL_PROMPT=0 git -C "$SHOWCASE_DIR/kenseiAmit.github.io" \
   -c "credential.helper=" \
   push "https://x-access-token:${GITHUB_PAT}@github.com/kenseiAmit/kenseiAmit.github.io.git" main:main --force --quiet
 
-echo "4/4 Syncing updated LICENSE & author metadata across all 27 project repositories..."
+if [[ "${SYNC_ALL_REPOS:-0}" == "1" ]]; then
+echo "4/4 Syncing all 27 project repositories..."
 for repo_path in "$SHOWCASE_DIR"/*; do
   [[ -d "$repo_path/.git" ]] || continue
   repo_name="$(basename "$repo_path")"
@@ -44,6 +45,7 @@ for repo_path in "$SHOWCASE_DIR"/*; do
     -c "credential.helper=" \
     push "https://x-access-token:${GITHUB_PAT}@github.com/kenseiAmit/${repo_name}.git" main:main --force --quiet
 done
+fi
 
 if [[ -n "${HF_TOKEN:-}" ]]; then
   echo "Bonus: Syncing Hugging Face Space (kenseiamit/agentops-governance-sandbox)..."

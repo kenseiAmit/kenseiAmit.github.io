@@ -73,6 +73,7 @@
       <nav class="nav-links" aria-label="Primary Navigation">
         <a href="#what-i-do">What I Do</a>
         <a href="#hobbies">Hobbies</a>
+        <a href="blog/">Blog</a>
         <a href="#flagships">7 Flagships</a>
         <a href="portfolio/">Full Portfolio (28)</a>
       </nav>
@@ -209,9 +210,43 @@
       </div>
     </section>
 
+    <!-- 03. Featured Engineering Essay -->
+    <section class="home-section" id="writing">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px;">
+        <div class="home-sec-kicker mono">03 · Writing &amp; Field Notes</div>
+        <a href="blog/" class="mono" style="font-size:0.78rem;color:var(--accent-blue);font-weight:700;">All Writing →</a>
+      </div>
+      <h2 class="home-sec-title">Latest Essay</h2>
+      <p class="home-sec-sub">
+        Long-form notes on operating governed AI systems, observability, and reliability engineering in production.
+      </p>
+
+      <article class="flagship-row-card">
+        <div>
+          <div class="fl-top mono">
+            <span class="fl-rank" style="background:rgba(37,99,235,0.12);color:var(--accent-blue);">NEW · 14 MIN READ</span>
+            <span class="fl-domain">Agentic AI · Site Reliability · Data Observability</span>
+          </div>
+          <h3 class="fl-title"><a href="blog/agentic-sre/">Agentic SRE: Seeing What’s Going On (and Fixing It Faster)</a></h3>
+          <p class="fl-desc">
+            Why streaming raw log firehoses to an LLM is an anti-pattern—and how to place governed agents between observability alerts and on-call engineers using canonical event contracts, a 6-stage hypothesis loop, <strong>G0–G6 × L0–L4</strong> earned autonomy, and a non-AI policy gate.
+          </p>
+          <div class="fl-metrics mono">
+            <span class="fl-chip">Signals &gt; Log Firehose</span>
+            <span class="fl-chip">G0–G6 Graded Response</span>
+            <span class="fl-chip">Interactive Risk Simulator</span>
+          </div>
+        </div>
+        <div class="fl-actions">
+          <a href="blog/agentic-sre/" class="btn btn-primary btn-sm">Read Essay →</a>
+          <a href="blog/" class="btn btn-ghost btn-sm">Blog Index →</a>
+        </div>
+      </article>
+    </section>
+
     <!-- 04. Choose a Flagship Project or Enter Full Portfolio -->
     <section class="home-section" id="flagships" style="border-bottom:none;">
-      <div class="home-sec-kicker mono">03 · Selected Engineering Work</div>
+      <div class="home-sec-kicker mono">04 · Selected Engineering Work</div>
       <h2 class="home-sec-title">Explore a Flagship Project — or Open the Full Portfolio</h2>
       <p class="home-sec-sub">
         Each flagship pairs a code-linked <strong>Technical Architecture</strong> deep dive with a dedicated <strong>Business Value &amp; Unit Economics</strong> case study.

@@ -929,6 +929,16 @@ function buildCommandItems(query) {
     }
   });
 
+  items.push({
+    type: "Blog Essay",
+    title: "Essay: Agentic SRE — Seeing What’s Going On (and Fixing It Faster)",
+    sub: "/blog/agentic-sre/ · G0–G6 Graded Response, L0–L4 Autonomy & Policy Gates",
+    haystack: "blog essay writing agentic sre observability incident oncall g0 g6 autonomy runbook".toLowerCase(),
+    action: () => {
+      window.location.href = relUrl("blog/agentic-sre/");
+    }
+  });
+
   state.data.systems
     .filter((s) => s.flagship)
     .forEach((sys) => {

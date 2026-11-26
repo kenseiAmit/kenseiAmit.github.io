@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Engineering Writing &amp; Field Notes — Amit Kumar (@kenseiAmit)</title>
+  <meta name="description" content="Long-form engineering essays by Amit Kumar on Agentic SRE, governed multi-agent architectures, AI security guardrails, and production MLOps." />
+  <meta name="author" content="Amit Kumar" />
+  <link rel="canonical" href="https://kenseiamit.github.io/blog/" />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://kenseiamit.github.io/blog/" />
+  <meta property="og:title" content="Engineering Writing &amp; Field Notes — Amit Kumar (@kenseiAmit)" />
+  <meta property="og:description" content="Practical blueprints on Agentic SRE, deterministic AI guardrails, and production data/ML platforms." />
+  <meta property="og:image" content="https://kenseiamit.github.io/assets/og/blog-agentic-sre.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/blog.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-inner">
+      <a href="../" class="brand" aria-label="Amit Kumar Home">
+        <div class="brand-mark mono">AK</div>
+        <div class="brand-text">
+          <span class="brand-name">Amit Kumar</span>
+          <span class="brand-sub mono">@kenseiAmit · Writing &amp; Field Notes</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary Navigation">
+        <a href="../">← Home</a>
+        <a href="./" style="color:var(--text-primary);font-weight:700;">Blog</a>
+        <a href="../#flagships">7 Flagships</a>
+        <a href="../portfolio/">Full Portfolio (28)</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="../portfolio/" class="btn btn-secondary btn-sm">Full Portfolio →</a>
+        <button type="button" class="icon-btn" id="themeToggleBtn" aria-label="Toggle theme"><span id="themeIcon">☾</span></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="blog-index-shell">
+    <div style="margin-bottom:36px;">
+      <div class="sec-num mono">Engineering Essays &amp; Field Notes</div>
+      <h1 style="margin:0 0 10px;font-size:clamp(2rem,3.4vw,2.65rem);font-weight:800;letter-spacing:-0.03em;">
+        Writing on Governed AI &amp; Reliable Systems
+      </h1>
+      <p style="margin:0;font-size:1rem;color:var(--text-muted);max-width:64ch;">
+        Architectural blueprints and practical mental models on making agentic AI, data observability, and cloud operations dependable in production.
+      </p>
+    </div>
+
+    <article class="post-card">
+      <div class="post-meta-row mono">
+        <span class="g-badge g-med">FEATURED ESSAY</span>
+        <span>November 26, 2026</span>
+        <span>·</span>
+        <span>14 min read</span>
+        <span>·</span>
+        <span>Agentic AI · SRE · Data Observability</span>
+      </div>
+
+      <h2 class="post-card-title">
+        <a href="agentic-sre/">Agentic SRE: Seeing What’s Going On (and Fixing It Faster)</a>
+      </h2>
+
+      <p class="post-card-excerpt">
+        Why shipping raw log firehoses to an LLM is an anti-pattern—and a complete blueprint for placing governed AI agents between observability signals and on-call engineers: canonical event contracts, a 6-stage hypothesis-and-evidence workflow, a two-axis <strong>G0–G6 Graded Response × L0–L4 Earned Autonomy</strong> model, and a non-AI policy engine where the reasoning model never holds production credentials.
+      </p>
+
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding-top:8px;">
+        <div class="stack-row mono" style="margin:0;">
+          <span class="stack-chip">Agentic SRE</span>
+          <span class="stack-chip">G0–G6 Graded Response</span>
+          <span class="stack-chip">L0–L4 Earned Autonomy</span>
+          <span class="stack-chip">MCP &amp; OpenTelemetry</span>
+          <span class="stack-chip">Deterministic Policy Gates</span>
+        </div>
+        <a href="agentic-sre/" class="btn btn-primary btn-sm">Read Full Essay →</a>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <div style="font-weight:800;font-size:1.02rem;">Amit Kumar (@kenseiAmit)</div>
+        <div class="mono" style="font-size:0.78rem;color:var(--text-muted);margin-top:4px;">
+          Stockholm, Sweden · IIT Kanpur · AI, Data &amp; Cloud Systems
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <a href="../" class="btn btn-ghost btn-sm">← Personal Home</a>
+        <a href="../portfolio/" class="btn btn-secondary btn-sm">Full 28-System Portfolio →</a>
+        <a href="https://www.linkedin.com/in/kenseiamit/" target="_blank" rel="noopener" class="btn btn-primary btn-sm">LinkedIn ↗</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toastContainer" aria-live="polite"></div>
+  <script type="module" src="../js/blog.js"></script>
+</body>
+</html>

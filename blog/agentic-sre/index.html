@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agentic SRE: Seeing What’s Going On (and Fixing It Faster) — Amit Kumar</title>
+  <meta name="description" content="A practical blueprint for Agentic SRE across data and cloud platforms: signals over raw log firehoses, a 6-stage hypothesis-and-evidence loop, G0–G6 graded response vs. L0–L4 earned autonomy, and deterministic non-AI policy gates." />
+  <meta name="author" content="Amit Kumar" />
+  <link rel="canonical" href="https://kenseiamit.github.io/blog/agentic-sre/" />
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg" />
+
+  <!-- LinkedIn / OpenGraph / X Preview -->
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://kenseiamit.github.io/blog/agentic-sre/" />
+  <meta property="og:title" content="Agentic SRE: Seeing What’s Going On (and Fixing It Faster)" />
+  <meta property="og:description" content="Signals over firehose · Supervisor + specialist agents · G0–G6 graded response × L0–L4 earned autonomy · Deterministic policy gates where the LLM never holds credentials." />
+  <meta property="og:image" content="https://kenseiamit.github.io/assets/og/blog-agentic-sre.png" />
+  <meta property="article:author" content="Amit Kumar" />
+  <meta property="article:published_time" content="2026-11-26" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Agentic SRE: Seeing What’s Going On (and Fixing It Faster) — Amit Kumar" />
+  <meta name="twitter:description" content="A practical blueprint for governed AI agents in Site Reliability &amp; Data Platform Operations." />
+  <meta name="twitter:image" content="https://kenseiamit.github.io/assets/og/blog-agentic-sre.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../../css/styles.css" />
+  <link rel="stylesheet" href="../../css/blog.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Agentic SRE: Seeing What’s Going On (and Fixing It Faster)",
+    "description": "A practical engineering blueprint for Agentic SRE: signals over log firehoses, a 6-stage bounded reasoning workflow, G0–G6 graded response vs. L0–L4 earned autonomy, and deterministic policy guardrails.",
+    "datePublished": "2026-11-26",
+    "author": {
+      "@type": "Person",
+      "name": "Amit Kumar",
+      "url": "https://kenseiamit.github.io/"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Amit Kumar"
+    },
+    "image": "https://kenseiamit.github.io/assets/og/blog-agentic-sre.png",
+    "mainEntityOfPage": "https://kenseiamit.github.io/blog/agentic-sre/"
+  }
+  </script>
+</head>
+<body>
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <header class="site-header">
+    <div class="container nav-inner">
+      <div class="cs-breadcrumb" style="display:flex;align-items:center;gap:8px;font-size:0.82rem;min-width:0;">
+        <a href="../../" class="brand" style="gap:10px;">
+          <span class="brand-mark mono" style="width:32px;height:32px;font-size:0.8rem;">AK</span>
+          <span>Home</span>
+        </a>
+        <span style="color:var(--text-faint);">/</span>
+        <a href="../" class="mono" style="color:var(--text-secondary);font-weight:600;">blog</a>
+        <span style="color:var(--text-faint);">/</span>
+        <strong class="mono" style="color:var(--text-primary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">agentic-sre</strong>
+      </div>
+
+      <div class="nav-actions">
+        <button type="button" class="icon-btn" id="sharePostBtn" title="Copy article link for LinkedIn / Slack">Share Link</button>
+        <a href="../../portfolio/" class="btn btn-secondary btn-sm">Full Portfolio (28) →</a>
+        <button type="button" class="icon-btn" id="themeToggleBtn" aria-label="Toggle theme"><span id="themeIcon">☾</span></button>
+      </div>
+    </div>
+  </header>
+
+  <section class="article-hero">
+    <div class="container">
+      <div class="article-hero-inner">
+        <div class="post-meta-row mono">
+          <span class="g-badge g-med">ENGINEERING ESSAY · AGENTIC AI &amp; SRE</span>
+          <span>November 26, 2026</span>
+          <span>·</span>
+          <span>14 min read</span>
+        </div>
+
+        <h1 class="article-title">Agentic SRE: Seeing What’s Going On (and Fixing It Faster)</h1>
+        <p class="article-subtitle">
+          How to place governed AI agents between multi-cloud observability signals and on-call engineers—combining canonical event contracts, a bounded 6-stage reasoning loop, a two-axis <strong>G0–G6 × L0–L4</strong> response model, and a non-AI policy gate where the LLM never holds production credentials.
+        </p>
+
+        <div class="article-byline">
+          <span class="byline-avatar mono">AK</span>
+          <div>
+            <strong style="color:var(--text-primary);">Amit Kumar</strong>
+            <span class="mono" style="margin-left:6px;">@kenseiAmit · Stockholm, Sweden</span>
+          </div>
+          <span>·</span>
+          <a href="https://www.linkedin.com/in/kenseiamit/" target="_blank" rel="noopener" class="mono" style="color:var(--accent-blue);font-weight:600;">Discuss on LinkedIn ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container article-layout">
+    <aside class="article-toc" aria-label="Table of Contents">
+      <div class="article-toc-title mono">Contents</div>
+      <nav class="article-toc-nav">
+        <a href="#s1-foundations" class="active">01 · Core Loop &amp; 5 Principles</a>
+        <a href="#s2-patterns">02 · Patterns &amp; L0–L4 Autonomy</a>
+        <a href="#s3-visibility">03 · Pillar 1: See What’s Happening</a>
+        <a href="#s4-alerts">04 · Pillar 2: Useful Alerts &amp; Contract</a>
+        <a href="#s5-toil">05 · Pillar 3: Fix With Less Toil</a>
+        <a href="#s6-workflow">06 · 6-Stage Intelligent Workflow</a>
+        <a href="#s7-grading">07 · Graded Response (G0–G6)</a>
+        <a href="#s8-safety">08 · Safety, Fallbacks &amp; Roadmap</a>
+      </nav>
+      <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border-subtle);display:flex;flex-direction:column;gap:8px;">
+        <a href="../" class="btn btn-ghost btn-sm" style="justify-content:center;">← All Essays</a>
+        <a href="../../#flagships" class="btn btn-secondary btn-sm" style="justify-content:center;">7 Flagship Proofs →</a>
+      </div>
+    </aside>
+
+    <article class="article-prose">
+      <!-- =================================================================
+           01. FOUNDATIONS, CORE LOOP & PRINCIPLES
+           ================================================================= -->
+      <section class="article-section" id="s1-foundations">
+        <span class="sec-num mono">01 · Foundations</span>
+        <h2>Why Agentic SRE — and What It Means in Practice</h2>
+
+        <p>
+          Modern data and cloud estates rarely live inside a single observability pane. A single business workflow often spans <code>dbt</code> transformations, GCP log-based metrics and BigQuery slots, Azure pipelines and services, Grafana boards, and Datadog APM. When something breaks—or silently stalls—platform teams find themselves wrestling with four recurring questions:
+        </p>
+
+        <ul>
+          <li><strong>Where are we flying blind today?</strong> (Systems without clear owners, missing lineage signals, or silent job stalls that users discover before monitoring does.)</li>
+          <li><strong>Which alerts are genuinely useful, and which are noise?</strong> (Ten downstream symptoms paging three channels for a single upstream delay.)</li>
+          <li><strong>What repetitive operational toil can we safely automate?</strong> (Manual retries on transient network resets, warehouse contention, or late upstream feeds.)</li>
+          <li><strong>Where does AI meaningfully help—and where does deterministic code belong instead?</strong></li>
+        </ul>
+
+        <p>
+          <strong>Agentic SRE</strong> applies bounded AI agents to Site Reliability Engineering across triage, cross-system investigation, communication, and governed remediation. Crucially, the agent <strong>does not replace monitoring tools or on-call engineers</strong>. Instead, it sits between signals and people to shrink the time and cognitive load required to move from <em>alert</em> → <em>understood</em> → <em>resolved</em>.
+        </p>
+
+        <div class="callout callout-emerald">
+          <span class="callout-title mono">Architectural Stance: Signals, Not Firehose</span>
+          Configure logging and detection conservatively inside each native observability tool (Datadog, Grafana, GCP, Azure Monitor, dbt Cloud). Send only <strong>alerts, notifications, and summarized signals</strong> to the agent—never stream raw log firehoses into an LLM context window. Existing tools detect; the agent correlates and reasons.
+        </div>
+
+        <p>
+          Rather than granting open-ended shell access, scoping an Agentic SRE system starts by bounding the exact <strong>four operational decisions</strong> the agent is allowed to make:
+        </p>
+        <ol>
+          <li><strong>Escalate an ongoing event</strong> with correlated context, blast radius, and cited evidence.</li>
+          <li><strong>Escalate a predicted future failure or SLA breach</strong> before consumers feel the impact.</li>
+          <li><strong>Watch an ambiguous situation more carefully</strong> via timed rechecks and explicit exit rules.</li>
+          <li><strong>Trigger bounded retries or failure recovery</strong> strictly through allowlisted, idempotent runbooks.</li>
+        </ol>
+
+        <h3>The Core Loop: Observe → Orient → Decide → Act → Learn</h3>
+
+        <figure class="blog-figure">
+          <div class="mermaid-stage" data-mermaid-src='flowchart LR
+  O["1. Observe: Curated Alerts & SLO Signals"] --> Or["2. Orient: Lineage, Ownership & RAG Runbooks"]
+  Or --> D["3. Decide: Grade G0-G6 & Pick Playbook"]
+  D --> P["Non-AI Policy Gate & Allowlist"]
+  P --> A["4. Act: Watch, Advise, Propose or Retry"]
+  A --> L["5. Learn: Verify Outcome & Tune Rules"]
+  L -.->|"Human-Reviewed Updates"| Or'>
+            <pre class="mono" style="font-size:0.78rem;overflow:auto;">Observe -> Orient -> Decide -> Policy Gate -> Act -> Learn</pre>
+          </div>
+          <figcaption class="blog-figcaption mono">Figure 1 · The Agentic SRE OODA+L loop bounded by a non-AI policy gate.</figcaption>
+        </figure>
+
+        <h3>Five Non-Negotiable Engineering Principles</h3>
+        <ul>
+          <li><strong>Signals, not firehose:</strong> Native monitoring tools detect anomalies cheaply; the agent reasons over structured events and targeted read-only lookups.</li>
+          <li><strong>Deterministic first, AI second:</strong> Use explicit rules for known patterns, routing, and risk caps; reserve the LLM for cross-tool correlation, ambiguity, and plain-language synthesis.</li>
+          <li><strong>Graduated autonomy:</strong> Authority is earned <em>per action type</em> through historical replay evidence—never granted globally.</li>
+          <li><strong>Humans own outcomes:</strong> Every agent action must be explainable, auditable, and reversible—or else it is escalated to a human.</li>
+          <li><strong>Fail safe:</strong> If the agent, LLM provider, or intake queue is down or uncertain, critical alerts still reach on-call humans over an independent bypass path.</li>
+        </ul>
+      </section>
+
+      <!-- =================================================================
+           02. ARCHITECTURE PATTERNS & GRADUATED AUTONOMY
+           ================================================================= -->
+      <section class="article-section" id="s2-patterns">
+        <span class="sec-num mono">02 · Topologies &amp; Autonomy</span>
+        <h2>Agent Architecture Patterns &amp; Earned Autonomy (L0–L4)</h2>
+
+        <p>
+          Mature reliability setups rarely jump straight to a complex multi-agent mesh on day one. Four patterns form a natural progression—and complement one another in production:
+        </p>
+
+        <div class="blog-table-wrap">
+          <table class="blog-table">
+            <thead>
+              <tr>
+                <th>Pattern</th>
+                <th>How It Works</th>
+                <th>Strengths</th>
+                <th>Trade-Offs</th>
+                <th>Adoption Role</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>A. Rules + LLM Assistant</strong></td>
+                <td>Deterministic engine routes &amp; deduplicates; LLM summarizes context and recommends next steps.</td>
+                <td>Simple, predictable, low cost &amp; low latency</td>
+                <td>Limited multi-hop investigation across tools</td>
+                <td><span class="g-badge g-low mono">START HERE</span></td>
+              </tr>
+              <tr>
+                <td><strong>B. Single Tool-Using Agent</strong></td>
+                <td>One agent reasons step-by-step calling read-only tools (run history, dashboards, lineage).</td>
+                <td>Flexible multi-signal investigation</td>
+                <td>Harder to regression-test; wider prompt-injection surface</td>
+                <td><span class="g-badge g-med mono">PHASE 2</span></td>
+              </tr>
+              <tr>
+                <td><strong>C. Supervisor + Specialist Agents</strong></td>
+                <td>Coordinator delegates to Triage, Investigation, Prediction, Remediation, and Comms specialists.</td>
+                <td>Separation of duties; narrow per-agent permissions</td>
+                <td>More moving parts &amp; orchestration telemetry</td>
+                <td><span class="g-badge g-purple mono">TARGET STATE</span></td>
+              </tr>
+              <tr>
+                <td><strong>D. Vendor-Embedded Agents</strong></td>
+                <td>Built-in AI assistants inside Datadog, Grafana, GCP, or Azure.</td>
+                <td>Zero build effort; fast per-tool triage</td>
+                <td>Siloed within one vendor; blind to cross-system lineage</td>
+                <td><span class="g-badge g-warn mono">COMPLEMENT</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Target State: Supervisor + Specialists Behind a Non-AI Policy Engine</h3>
+        <p>
+          The single most important security boundary in the target architecture is simple: <strong>the agent that reasons never holds production write credentials</strong>. Specialists investigate using read-only tools (exposed cleanly via <strong>MCP</strong> with per-tool scopes) and emit a structured action proposal. A deterministic, non-AI policy engine validates allowlists, blast radius, rate limits, and approval tokens before an isolated executor runs anything.
+        </p>
+
+        <figure class="blog-figure">
+          <div class="mermaid-stage" data-mermaid-src='flowchart TB
+  Alerts["Normalized Alert Stream"] --> Sup["Supervisor Coordinator Agent"]
+  subgraph Specialists["Read-Only Specialist Agents (Zero Prod Write Credentials)"]
+    T["Triage & Dedup"]
+    I["Investigation (MCP Read-Only)"]
+    Pr["SLA & Quota Predictor"]
+    C["Incident Comms & Scribe"]
+  end
+  Sup --> T & I & Pr & C
+  Sup --> Prop["Structured Action Proposal + Cited Evidence"]
+  Prop --> Pol["Deterministic Non-AI Policy Engine (Allowlist, Caps, Locks)"]
+  Pol -->|"L3 Approved Runbook"| Exec["Isolated Runbook Executor (Scoped Per-Action Creds)"]
+  Pol -->|"L2 One-Click Gate"| Human["On-Call Engineer / Slack & PagerDuty"]'>
+            <pre class="mono" style="font-size:0.78rem;overflow:auto;">Supervisor -> Read-Only Specialists -> Proposal -> Non-AI Policy Engine -> Executor / Human</pre>
+          </div>
+          <figcaption class="blog-figcaption mono">Figure 2 · Supervisor &amp; specialist agents decoupled from credentials by a deterministic policy layer.</figcaption>
+        </figure>
+
+        <h3>Graduated Autonomy Levels (L0 to L4)</h3>
+        <p>
+          Autonomy is assigned <strong>per action type</strong>, not per system. A transient, idempotent job retry might earn <code>L3</code> after 30 clean shadow evaluations, while a partition backfill remains permanently at <code>L1</code> or <code>L2</code>:
+        </p>
+
+        <div class="blog-table-wrap">
+          <table class="blog-table">
+            <thead>
+              <tr>
+                <th>Level</th>
+                <th>Mode</th>
+                <th>Agent Responsibility</th>
+                <th>Human Responsibility</th>
+                <th>Concrete Example</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="mono"><strong>L0</strong></td>
+                <td><strong>Observe</strong></td>
+                <td>Reads events &amp; logs recommendations privately</td>
+                <td>Handles incident normally (compares offline)</td>
+                <td>Shadow-mode pilot evaluation</td>
+              </tr>
+              <tr>
+                <td class="mono"><strong>L1</strong></td>
+                <td><strong>Advise</strong></td>
+                <td>Enriches alert, posts root-cause summary &amp; runbook link</td>
+                <td>Decides and executes remediation</td>
+                <td>Slack/Teams brief with lineage &amp; recent commits</td>
+              </tr>
+              <tr>
+                <td class="mono"><strong>L2</strong></td>
+                <td><strong>Propose</strong></td>
+                <td>Prepares exact parameterized action + rollback plan</td>
+                <td>Approves or rejects with one click</td>
+                <td><em>“Retry dbt job X from failure point? [Approve / Reject]”</em></td>
+              </tr>
+              <tr>
+                <td class="mono"><strong>L3</strong></td>
+                <td><strong>Act &amp; Notify</strong></td>
+                <td>Executes allowlisted low-risk action, verifies, then notifies</td>
+                <td>Reviews audit trail; can halt or undo</td>
+                <td>Auto-retry a transient upstream 503 timeout once</td>
+              </tr>
+              <tr>
+                <td class="mono"><strong>L4</strong></td>
+                <td><strong>Autonomous</strong></td>
+                <td>Handles incident class end-to-end</td>
+                <td>Audits periodically</td>
+                <td><em>Not recommended for initial enterprise rollouts</em></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>
+          Four supporting capabilities make graduated autonomy trustworthy: <strong>RAG over runbooks, postmortems, and lineage</strong> so claims carry citations; <strong>read-only MCP tool servers</strong> for run history, dashboards, and deploy logs; <strong>incident memory</strong> so the agent tracks active watches and never contradicts prior steps; and an <strong>offline replay evaluation harness</strong> to benchmark historical alerts before promoting any action up the L-ladder.
+        </p>
+      </section>
+
+      <!-- =================================================================
+           03. PILLAR 1: SEE WHAT'S HAPPENING
+           ================================================================= -->
+      <section class="article-section" id="s3-visibility">
+        <span class="sec-num mono">03 · Pillar 1 — Observability Foundation</span>
+        <h2>Seeing What’s Happening: Closing Blind Spots Before Adding AI</h2>
+
+        <p>
+          An agent cannot reason over telemetry that does not exist. Before wiring LLM workflows, reliability teams need honest answers to <em>where they are flying blind</em> across multi-cloud pipelines and application services.
+        </p>
+
+        <figure class="blog-figure">
+          <div class="mermaid-stage" data-mermaid-src='flowchart LR
+  subgraph Estate["Multi-Cloud & Data Estate"]
+    S1["dbt Cloud & Warehouses"]
+    S2["GCP Logs & Metrics"]
+    S3["Azure Monitor & Pipelines"]
+    S4["Grafana & Datadog APM"]
+  end
+  S1 & S2 & S3 & S4 -->|"Curated Alerts Only"| Intake["Event Contract Intake & Dedup"]
+  S1 & S2 & S3 & S4 -.->|"Independent Fail-Safe Bypass (P1/Critical)"| Oncall["Direct On-Call Paging"]
+  Intake --> Agent["Agentic SRE Workflow"]
+  Agent --> Oncall'>
+            <pre class="mono" style="font-size:0.78rem;overflow:auto;">Tools -> Curated Alerts -> Agent Intake (plus Independent Critical Bypass -> On-Call)</pre>
+          </div>
+          <figcaption class="blog-figcaption mono">Figure 3 · Reference intake architecture: curated alerts feed the agent while critical P1s keep an independent human path.</figcaption>
+        </figure>
+
+        <ul>
+          <li><strong>Build a system coverage map first:</strong> Document every critical service and pipeline alongside its owner, tier, upstream/downstream dependencies, active monitoring tool, signals covered, and explicit blind spots (especially across secondary cloud footprints like Azure or partner feeds).</li>
+          <li><strong>Cover all five data-observability pillars:</strong> Green job exit codes routinely mask bad data. Instrument <em>freshness</em>, <em>volume</em>, <em>schema changes</em>, <em>distribution/quality</em> (e.g., <code>dbt test</code> assertions), and <em>lineage</em>.</li>
+          <li><strong>Add dead-man’s-switch heartbeats:</strong> Alert when an expected batch, stream checkpoint, or metric <em>fails to arrive</em>. Silence is not health.</li>
+          <li><strong>Propagate correlation IDs end-to-end:</strong> Pass <code>run_id</code>, <code>pipeline_id</code>, and OpenTelemetry <code>trace_id</code> across orchestrators and services so the agent links causal chains deterministically rather than guessing by timestamp.</li>
+          <li><strong>Monitor the monitors:</strong> The event intake queue, the reasoning agent, and the runbook executor require their own liveness heartbeats.</li>
+        </ul>
+      </section>
+
+      <!-- =================================================================
+           04. PILLAR 2: GET USEFUL ALERTS
+           ================================================================= -->
+      <section class="article-section" id="s4-alerts">
+        <span class="sec-num mono">04 · Pillar 2 — Signal Quality</span>
+        <h2>Getting Useful Alerts: Canonical Contracts &amp; SLO Burn Rates</h2>
+
+        <p>
+          Alert fatigue kills on-call effectiveness long before an LLM enters the picture. Every alert that wakes or interrupts an engineer must be actionable; otherwise it belongs in an asynchronous ticket, a daily digest, or the trash.
+        </p>
+
+        <h3>The Canonical Alert / Event Contract</h3>
+        <p>
+          Normalizing alerts from Datadog, Grafana, dbt Cloud, GCP, and Azure into a single JSON schema allows one triage pipeline to deduplicate, enrich, and enforce data-privacy boundaries uniformly:
+        </p>
+
+        <div class="blog-table-wrap">
+          <table class="blog-table">
+            <thead>
+              <tr>
+                <th>Contract Field</th>
+                <th>Operational Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="mono">event_id, source_tool, received_at</td>
+                <td>Idempotent traceability and duplicate suppression across retries/webhooks.</td>
+              </tr>
+              <tr>
+                <td class="mono">system / pipeline / data_product</td>
+                <td>Identifies the exact affected asset for catalog &amp; lineage lookup.</td>
+              </tr>
+              <tr>
+                <td class="mono">severity, symptom, observed_vs_threshold</td>
+                <td>Captures what broke and quantitative magnitude (e.g., freshness lag <code>82m &gt; 45m SLO</code>).</td>
+              </tr>
+              <tr>
+                <td class="mono">correlation_id (run_id, job_id, trace_id)</td>
+                <td>Links upstream root causes to downstream cascading alerts deterministically.</td>
+              </tr>
+              <tr>
+                <td class="mono">owner / routing_key</td>
+                <td>Determines accountable squad and escalation channel.</td>
+              </tr>
+              <tr>
+                <td class="mono">dashboard_url, runbook_url, run_url</td>
+                <td>One-click verification context for both the investigating agent and on-call humans.</td>
+              </tr>
+              <tr>
+                <td class="mono">data_classification</td>
+                <td>Governs redaction &amp; whether payload fields may be sent to external LLM endpoints.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <ul>
+          <li><strong>Alert on symptoms and SLOs, not every low-level cause:</strong> Page when <em>“Data Product X will breach its 06:00 freshness SLO”</em> (using multi-window burn-rate alerts where applicable) rather than paging separately on every worker retry underneath.</li>
+          <li><strong>Unify human severity (`P1–P4`) with agent response grades (`G0–G6`):</strong> Base severity on business impact—not on which monitoring tool screamed loudest—and align scales (`P1 ≈ G6`, `P2 ≈ G5`, `P3 ≈ G2–G4`, `P4 ≈ G0–G1`).</li>
+          <li><strong>Run periodic alert-actionability audits:</strong> Track the percentage of alerts per rule that resulted in a real human or runbook action; tune or delete chronic no-ops.</li>
+          <li><strong>Keep agent briefs scannable in 10 seconds:</strong> <em>What happened · Likely consumer impact · Most probable cause + cited evidence · Confidence score · Suggested next step &amp; links.</em></li>
+        </ul>
+      </section>
+
+      <!-- =================================================================
+           05. PILLAR 3: FIX THINGS WITH LESS TOIL
+           ================================================================= -->
+      <section class="article-section" id="s5-toil">
+        <span class="sec-num mono">05 · Pillar 3 — Toil Elimination</span>
+        <h2>Fixing Things With Less Toil: The Four Decisions &amp; Watch State</h2>
+
+        <p>
+          Each of the four scoped agent decisions carries distinct trigger patterns, required evidence, and starting autonomy ceilings:
+        </p>
+
+        <div class="blog-table-wrap">
+          <table class="blog-table">
+            <thead>
+              <tr>
+                <th>Agent Decision</th>
+                <th>Typical Triggers</th>
+                <th>Required Evidence in Payload</th>
+                <th>Starting Autonomy</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1. Escalate Ongoing Event</strong></td>
+                <td>Critical pipeline failure, active SLO breach, consumer-visible delay, repeated retries</td>
+                <td>Consumer impact, lineage blast radius, timeline, suspected cause, actions already tried</td>
+                <td><span class="g-badge g-med mono">L3 (Notify)</span></td>
+              </tr>
+              <tr>
+                <td><strong>2. Escalate Predicted Failure</strong></td>
+                <td>Runtime creeping upward, warehouse/API quota trending to ceiling, expiring certs/secrets</td>
+                <td>Trend slope, forecast breach window, confidence, cost of acting vs. waiting — <strong>explicitly labeled <code>PREDICTION</code></strong></td>
+                <td><span class="g-badge g-low mono">L1 (Advise)</span></td>
+              </tr>
+              <tr>
+                <td><strong>3. Watch More Carefully</strong></td>
+                <td>Single transient blip, sub-threshold warning, ambiguous upstream signal</td>
+                <td>Watch reason, metrics to re-poll, next check timestamp, escalation condition, max TTL</td>
+                <td><span class="g-badge g-med mono">L3 (Internal State)</span></td>
+              </tr>
+              <tr>
+                <td><strong>4. Retry / Recover</strong></td>
+                <td>Known transient signature (503, lock timeout, slot contention), matching idempotent runbook</td>
+                <td>Runbook ID, verified preconditions, blast radius, attempt counter, post-action check plan</td>
+                <td><span class="g-badge g-warn mono">L1 → L2 → L3</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>The Active Watch State Machine</h3>
+        <p>
+          Binary alerting forces a bad trade-off between paging too early on transient blips or paging too late on slow-burning degradation. Giving the agent a first-class, time-bounded <strong>Watch State (`G1`)</strong> solves this cleanly:
+        </p>
+
+        <figure class="blog-figure">
+          <div class="mermaid-stage" data-mermaid-src='stateDiagram-v2
+  [*] --> Watching: Ambiguous Blip / Rising Lag
+  Watching --> Recheck: Scheduled Poll Timer
+  Recheck --> Watching: Still Below Threshold & Within Max TTL
+  Recheck --> Cleared_G0: Signal Normalized (Log to Digest)
+  Recheck --> Escalated_G2_G5: Threshold Crossed or Watch TTL Expired
+  Cleared_G0 --> [*]
+  Escalated_G2_G5 --> [*]'>
+            <pre class="mono" style="font-size:0.78rem;overflow:auto;">Watching -> Recheck -> Cleared (G0) or Escalated (G2/G5)</pre>
+          </div>
+          <figcaption class="blog-figcaption mono">Figure 4 · Bounded Watch State machine with mandatory max-TTL expiry so anomalies never sit watched forever.</figcaption>
+        </figure>
+
+        <h3>Candidate Toil Matrix: Where to Automate vs. Where to Hold the Line</h3>
+        <div class="blog-table-wrap">
+          <table class="blog-table">
+            <thead>
+              <tr>
+                <th>Operational Scenario</th>
+                <th>Governed Agent Action</th>
+                <th>Risk</th>
+                <th>Target Level</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Transient <code>dbt Cloud</code> failure (timeout, warehouse busy)</td>
+                <td>Retry once from point of failure with backoff</td>
+                <td><span class="g-badge g-low mono">LOW</span></td>
+                <td class="mono">L2 → L3</td>
+              </tr>
+              <tr>
+                <td>Upstream source feed delayed</td>
+                <td>Enter Watch State, recheck freshness, notify owners if SLA window tightens</td>
+                <td><span class="g-badge g-low mono">LOW</span></td>
+                <td class="mono">L3 (Watch)</td>
+              </tr>
+              <tr>
+                <td>Non-critical <code>dbt</code> data test warning</td>
+                <td>Open enriched ticket with downstream lineage summary</td>
+                <td><span class="g-badge g-low mono">LOW</span></td>
+                <td class="mono">L3 (Notify)</td>
+              </tr>
+              <tr>
+                <td>Transient cloud orchestrator activity error (GCP / Azure)</td>
+                <td>Propose runbook-backed single activity rerun</td>
+                <td><span class="g-badge g-warn mono">MEDIUM</span></td>
+                <td class="mono">L2 (Approve)</td>
+              </tr>
+              <tr>
+                <td>Quota, slot, or storage trending toward hard limit</td>
+                <td>Send labeled predictive notice with forecast window to owner</td>
+                <td><span class="g-badge g-warn mono">MEDIUM</span></td>
+                <td class="mono">L1 (Advise)</td>
+              </tr>
+              <tr>
+                <td>Historical partition backfill or data reprocessing</td>
+                <td>Draft execution &amp; cost plan only; human reviews &amp; triggers</td>
+                <td><span class="g-badge g-crit mono">HIGH</span></td>
+                <td class="mono">L1</td>
+              </tr>
+              <tr>
+                <td>Expired credentials, breaking schema drift, IAM errors</td>
+                <td>Escalate immediately with root-cause evidence; <strong>never auto-fix</strong></td>
+                <td><span class="g-badge g-crit mono">HIGH</span></td>
+                <td class="mono">L1</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           06. THE 6-STAGE INTELLIGENT AGENTIC WORKFLOW
+           ================================================================= -->
+      <section class="article-section" id="s6-workflow">
+        <span class="sec-num mono">06 · Runtime Architecture</span>
+        <h2>Inside the 6-Stage Intelligent Agentic Workflow</h2>
+
+        <p>
+          What separates an <em>intelligent</em> reliability workflow from brittle cron-script automation is how it handles cross-system context, uncertainty, and budget limits across six tightly guarded stages:
+        </p>
+
+        <figure class="blog-figure">
+          <div class="mermaid-stage" data-mermaid-src='flowchart LR
+  S1["1. Intake: Contract, Dedup & Lineage Grouping"] --> S2["2. Context: Owner, SLO, Deploys & RAG Runbooks"]
+  S2 --> S3["3. Reason: Bounded Hypothesis Loop + Critic"]
+  S3 --> S4["4. Grade: Deterministic G0-G6 Score & Policy Caps"]
+  S4 --> S5["5. Act: Non-AI Policy Gate -> Allowlisted Playbook"]
+  S5 --> S6["6. Verify & Learn: Re-Grade + Postmortem Draft"]
+  S6 -.->|"Fix Failed -> Raise Grade"| S4'>
+            <pre class="mono" style="font-size:0.78rem;overflow:auto;">1. Intake -> 2. Context -> 3. Reason -> 4. Grade -> 5. Act -> 6. Verify &amp; Learn</pre>
+          </div>
+          <figcaption class="blog-figcaption mono">Figure 5 · Six-stage workflow with closed-loop verification re-grading.</figcaption>
+        </figure>
+
+        <div class="blog-table-wrap">
+          <table class="blog-table">
+            <thead>
+              <tr>
+                <th>Stage</th>
+                <th>What Happens</th>
+                <th>Where Intelligence Adds Leverage</th>
+                <th>Deterministic Guardrail</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1. Intake</strong></td>
+                <td>Normalizes alerts from dbt, GCP, Grafana, Datadog &amp; Azure; deduplicates into one incident.</td>
+                <td>Groups cascading alerts by shared dependency graph &amp; lineage—collapsing 10 alerts into 1 incident.</td>
+                <td>Idempotency keys, rate limits, strict schema validation.</td>
+              </tr>
+              <tr>
+                <td><strong>2. Context</strong></td>
+                <td>Attaches service owner, tier, SLOs, downstream consumers, recent git/dbt deploys &amp; maintenance state.</td>
+                <td>RAG retrieval over runbooks, postmortems, and prior incident resolutions.</td>
+                <td>Read-only, least-privilege metadata &amp; tool scopes.</td>
+              </tr>
+              <tr>
+                <td><strong>3. Reason</strong></td>
+                <td>Runs a short hypothesis-and-evidence loop across read-only MCP tools; forecasts SLA risk.</td>
+                <td>Ranks competing causes, runs a self-critique pass, cites tool links, and outputs calibrated confidence.</td>
+                <td>Hard step, latency &amp; token budgets; tool outputs fenced as untrusted data.</td>
+              </tr>
+              <tr>
+                <td><strong>4. Grade</strong></td>
+                <td>Computes severity &amp; response grade from <code>G0</code> to <code>G6</code>.</td>
+                <td>Explains the multi-factor rationale in clear human prose.</td>
+                <td>Base math &amp; policy overrides computed in deterministic code—never by the LLM.</td>
+              </tr>
+              <tr>
+                <td><strong>5. Act</strong></td>
+                <td>Executes the grade’s playbook: digest, watch, advise, self-heal, one-click proposal, or page.</td>
+                <td>Selects minimum-blast-radius action and pre-computes rollback steps.</td>
+                <td>Non-AI policy engine, allowlist, resource lock, human gate on <code>G4+</code>.</td>
+              </tr>
+              <tr>
+                <td><strong>6. Verify &amp; Learn</strong></td>
+                <td>Checks post-action metrics, re-grades dynamically, and captures operator feedback.</td>
+                <td>Flags noisy rules and drafts candidate runbook/threshold updates from real outcomes.</td>
+                <td>Humans review &amp; merge all policy, runbook, or threshold changes.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout-amber">
+          <span class="callout-title mono">Bounded Reasoning Rule (Stage 3)</span>
+          Inside Stage 3, the agent tests ranked hypotheses (e.g., late upstream source vs. schema change vs. BigQuery slot quota vs. expired secret) one read-only tool call at a time. If its step or token budget runs out before reaching high confidence, <strong>it stops, grades conservatively, and hands over to a human with the evidence gathered so far—never guessing</strong>.
+        </div>
+      </section>
+
+      <!-- =================================================================
+           07. GRADED RESPONSE MODEL (G0–G6) + INTERACTIVE SIMULATOR
+           ================================================================= -->
+      <section class="article-section" id="s7-grading">
+        <span class="sec-num mono">07 · Proportional Response</span>
+        <h2>The Graded Response Model (G0 to G6)</h2>
+
+        <p>
+          Replacing a blunt <em>page / don’t-page</em> switch with a seven-band response ladder lets the platform respond proportionally to risk. Keep the two orthogonal axes distinct:
+        </p>
+        <ul>
+          <li><strong>Situation Grade (`G0–G6`):</strong> How serious the incident is and which operational playbook applies.</li>
+          <li><strong>Action Autonomy (`L0–L4`):</strong> How much authority a specific runbook has earned. For example, a <code>G3</code> scenario only self-heals automatically if that exact runbook holds <code>L3</code> approval; otherwise policy downgrades execution to a <code>G4</code> one-click proposal.</li>
+        </ul>
+
+        <div class="blog-table-wrap">
+          <table class="blog-table">
+            <thead>
+              <tr>
+                <th>Grade</th>
+                <th>Situation</th>
+                <th>Playbook Response</th>
+                <th>Control Mode</th>
+                <th>Data Platform Example</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="g-badge g-low mono">G0 RECORD</span></td>
+                <td>Informational or already self-cleared blip</td>
+                <td>Log to timeline &amp; daily digest; zero chat noise</td>
+                <td class="mono">Auto</td>
+                <td>dbt warning that cleared on next scheduled run</td>
+              </tr>
+              <tr>
+                <td><span class="g-badge g-low mono">G1 WATCH</span></td>
+                <td>Unusual signal, zero current impact</td>
+                <td>Timed re-polling with explicit exit/escalation criteria</td>
+                <td class="mono">Auto (L3 Watch)</td>
+                <td>Freshness lag rising but still comfortably inside SLO</td>
+              </tr>
+              <tr>
+                <td><span class="g-badge g-med mono">G2 INFORM</span></td>
+                <td>Predicted future breach or low-impact issue</td>
+                <td>Post forecast, time-to-breach &amp; recommendation in team channel</td>
+                <td class="mono">Auto (L1 Advise)</td>
+                <td>Runtime slope predicts nightly batch misses 06:00 SLA</td>
+              </tr>
+              <tr>
+                <td><span class="g-badge g-med mono">G3 SELF-HEAL</span></td>
+                <td>Known transient fault + approved L3 runbook</td>
+                <td>Run allowlisted idempotent retry/rerun, verify, then post audit note</td>
+                <td class="mono">Auto (L3 Action)</td>
+                <td>Single 503 API blip → retry dbt job once from failure point</td>
+              </tr>
+              <tr>
+                <td><span class="g-badge g-warn mono">G4 PROPOSE</span></td>
+                <td>Known fix with medium blast radius (backfill, scale-up)</td>
+                <td>Prepare parameterized plan + rollback; request 1-click sign-off</td>
+                <td class="mono">Human Approves (L2)</td>
+                <td>Partition backfill after late-arriving upstream file</td>
+              </tr>
+              <tr>
+                <td><span class="g-badge g-crit mono">G5 ESCALATE</span></td>
+                <td>Active critical SLO breach or high impact w/ low confidence</td>
+                <td>Page on-call with concise synthesis, evidence links &amp; ruled-out causes</td>
+                <td class="mono">Human Leads</td>
+                <td>Tier-1 executive revenue feed failed; retry exhausted</td>
+              </tr>
+              <tr>
+                <td><span class="g-badge g-crit mono">G6 MAJOR</span></td>
+                <td>Multi-system or business-wide outage</td>
+                <td>Open major incident; agent shifts to read-only scribe &amp; status drafter</td>
+                <td class="mono">Incident Commander</td>
+                <td>Regional cloud or warehouse outage blocking multiple domains</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Try the Deterministic G0–G6 Grading Engine</h3>
+        <p>
+          Start with a transparent formula your team can read and audit: multiply <strong>Impact (1–3) × Criticality (1–3) × Urgency (1–3)</strong> for a base score (`1–27`), adjust for trend and downstream blast radius, and apply hard policy overrides (low confidence, failed self-heal, critical tier, maintenance windows). Adjust the sliders below to test how policy rules govern the agent:
+        </p>
+
+        <div class="grade-sim" id="gradeSimulator">
+          <div class="grade-sim-grid">
+            <div class="grade-ctrl">
+              <label for="gsImpact"><span>Impact</span><span class="mono" id="gsImpactVal">2 (Medium)</span></label>
+              <input type="range" id="gsImpact" min="1" max="3" step="1" value="2" />
+            </div>
+            <div class="grade-ctrl">
+              <label for="gsCrit"><span>System Criticality</span><span class="mono" id="gsCritVal">2 (Medium)</span></label>
+              <input type="range" id="gsCrit" min="1" max="3" step="1" value="2" />
+            </div>
+            <div class="grade-ctrl">
+              <label for="gsUrg"><span>SLA Urgency</span><span class="mono" id="gsUrgVal">2 (Medium)</span></label>
+              <input type="range" id="gsUrg" min="1" max="3" step="1" value="2" />
+            </div>
+          </div>
+
+          <div class="grade-toggles">
+            <label class="grade-chk"><input type="checkbox" id="gsRunbook" checked /> Approved L3 Idempotent Runbook Exists</label>
+            <label class="grade-chk"><input type="checkbox" id="gsWorsening" /> Trend Worsening (+1 Band)</label>
+            <label class="grade-chk"><input type="checkbox" id="gsBlast" /> Multi-Consumer Blast Radius (+1 Band)</label>
+            <label class="grade-chk"><input type="checkbox" id="gsLowConf" /> Low Agent Confidence</label>
+            <label class="grade-chk"><input type="checkbox" id="gsFailedHeal" /> Prior Self-Heal Failed</label>
+            <label class="grade-chk"><input type="checkbox" id="gsMaint" /> Active Maintenance Window</label>
+          </div>
+
+          <div class="grade-verdict">
+            <div class="grade-verdict-pill mono g-med" id="gsVerdictPill">
+              <span class="grade-verdict-code" id="gsVerdictCode">G3</span>
+              <span class="grade-verdict-name" id="gsVerdictName">SELF-HEAL</span>
+            </div>
+            <div>
+              <div style="font-weight:750;color:var(--text-primary);font-size:0.93rem;" id="gsPlaybook"></div>
+              <div class="mono" style="font-size:0.76rem;color:var(--text-muted);margin-top:5px;" id="gsRationale"></div>
+            </div>
+          </div>
+        </div>
+
+        <h3>Worked Walkthrough: 02:10 AM Tier-1 Pipeline Reset (`INC-123`)</h3>
+        <div class="incident-timeline">
+          <div class="inc-step">
+            <span class="inc-time mono">02:10 UTC</span>
+            <div><strong>Intake:</strong> <code>dbt Cloud</code> alerts that a Tier-1 daily sales model failed with <code>connection reset</code>. Intake normalizes and opens <code>INC-123</code>.</div>
+          </div>
+          <div class="inc-step">
+            <span class="inc-time mono">02:11 UTC</span>
+            <div><strong>Context &amp; Reason:</strong> SLA is <code>06:00</code>; 3 executive dashboards depend on it. No upstream delay and no recent deploy detected; historical run logs show single retries resolved 9 of the last 10 identical resets (high confidence).</div>
+          </div>
+          <div class="inc-step">
+            <span class="inc-time mono">02:12 UTC</span>
+            <div><strong>Grade <code>G3</code> (Self-Heal):</strong> Policy engine verifies the retry runbook is allowlisted, idempotent, and marked <code>night-safe</code>, triggering exactly <code>1</code> retry with backoff.</div>
+          </div>
+          <div class="inc-step">
+            <span class="inc-time mono">02:24 UTC</span>
+            <div><strong>Verify &amp; Dynamic Re-Grade → <code>G5</code>:</strong> The retry fails again. The <em>failed-self-heal</em> rule halts further retries and bumps the grade; because this is a Tier-1 asset with its <code>06:00</code> SLA at risk and zero automated fixes remaining, the <em>critical-tier floor</em> raises the incident to <code>G5</code>.</div>
+          </div>
+          <div class="inc-step">
+            <span class="inc-time mono">02:25 UTC</span>
+            <div><strong>Human Handover:</strong> On-call is paged once with a 10-second brief, clickable log/lineage links, ruled-out hypotheses (not deploy or upstream lag), and recommended warehouse-networking checks—followed after resolution by a human-reviewed postmortem draft.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           08. SAFETY, AGENT FAILURE MODES & ROLLOUT ROADMAP
+           ================================================================= -->
+      <section class="article-section" id="s8-safety">
+        <span class="sec-num mono">08 · Resilience &amp; Rollout</span>
+        <h2>When the Agent Itself Fails: Guardrails, Fallbacks &amp; Pilot Roadmap</h2>
+
+        <p>
+          An SRE system must never become a single point of failure—or an amplification vector during an outage. Designing for robustness means explicitly engineering for how the agent itself can fail:
+        </p>
+
+        <div class="blog-table-wrap">
+          <table class="blog-table">
+            <thead>
+              <tr>
+                <th>Failure Mode</th>
+                <th>Operational Risk</th>
+                <th>Mandatory Engineering Control</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Agent or LLM API Outage</strong></td>
+                <td>Critical alerts silently dropped</td>
+                <td>Independent critical-alert path bypasses the agent directly to PagerDuty; dead-man’s heartbeat on intake &amp; agent forwards raw alerts on timeout.</td>
+              </tr>
+              <tr>
+                <td><strong>Cloud Outage Alert Storm</strong></td>
+                <td>Token spike, queue backlog &amp; page flood</td>
+                <td>Back-pressure queue, dependency-graph grouping, rate caps, and automatic <strong>Storm Mode</strong> opening a single <code>G6</code> bridge instead of 100 pages.</td>
+              </tr>
+              <tr>
+                <td><strong>Duplicate / Replayed Webhooks</strong></td>
+                <td>Double retries or duplicate pages</td>
+                <td>Idempotency keys on both intake events and actions + per-resource mutex locks preventing concurrent mutations.</td>
+              </tr>
+              <tr>
+                <td><strong>Retry Amplification</strong></td>
+                <td>Overloading a struggling database or duplicating rows</td>
+                <td>Strictly idempotent runbooks, max-attempt ceilings, exponential backoff with jitter, and per-signature circuit breakers.</td>
+              </tr>
+              <tr>
+                <td><strong>Hallucinated Root Cause</strong></td>
+                <td>Misleading on-call or picking wrong runbook</td>
+                <td>Mandatory evidence URLs per claim, critic pass, low-confidence auto-action block, and strict runbook allowlisting.</td>
+              </tr>
+              <tr>
+                <td><strong>Prompt Injection in Logs</strong></td>
+                <td>Crafted log text tricking agent into action</td>
+                <td>Fence tool/log payloads as untrusted data; LLM holds zero credentials; non-AI policy engine authorizes every action.</td>
+              </tr>
+              <tr>
+                <td><strong>Prompt / Model Drift</strong></td>
+                <td>Silent triage regression after model update</td>
+                <td>Version prompts, models &amp; YAML policies; replay historical incident benchmark suite in CI before shadow promotion.</td>
+              </tr>
+              <tr>
+                <td><strong>Runaway Reasoning Loop</strong></td>
+                <td>High latency &amp; unbounded token spend</td>
+                <td>Hard per-incident step, wall-clock, and token budgets; on budget exhaustion, grade conservatively and hand over.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Pragmatic Rollout Roadmap &amp; Success Metrics</h3>
+        <p>
+          Start small on <strong>one well-owned, business-relevant pipeline</strong> with recurring transient faults, establish baseline metrics first, and earn autonomy one rung at a time:
+        </p>
+        <ol>
+          <li><strong>Phase 1 — Foundation &amp; Coverage Map:</strong> Audit blind spots, add missing heartbeats, standardize the 7-field alert contract, and baseline weekly alert volume, duplicate rate, MTTA/MTTR, and out-of-hours pages.</li>
+          <li><strong>Phase 2 — Shadow Mode (`L0`) &amp; Replay Harness:</strong> Run intake, correlation, RAG context, and <code>G0–G6</code> grading silently alongside humans; measure human-agreement precision and missed/false escalations.</li>
+          <li><strong>Phase 3 — Enriched Triage (`L1`) &amp; One-Click Proposals (`L2`):</strong> Post concise evidence-linked briefs in Slack/Teams and enable one-click human approval cards for vetted retry runbooks.</li>
+          <li><strong>Phase 4 — Earned Bounded Self-Heal (`L3`):</strong> Promote only high-precision, low-blast-radius idempotent runbooks to <code>L3</code>, governed continuously by policy-denial tracking and a 1-click kill switch.</li>
+        </ol>
+
+        <div class="callout">
+          <span class="callout-title mono">Related Open-Source Reference Implementations in My Portfolio</span>
+          Want to inspect working Python code for the exact building blocks described in this essay?
+          <ul style="margin:8px 0 0;">
+            <li><a href="../../projects/guarded-salesops-agent-runtime/" style="color:var(--accent-blue);font-weight:650;">Guarded AgentOps Runtime →</a> Non-AI input/tool/output middleware, HITL approval gates, and recursive PII trace scrubbing.</li>
+            <li><a href="../../projects/claude-extraction-eval-observability/" style="color:var(--accent-blue);font-weight:650;">Claude Calibration &amp; Harness Suite →</a> Sliced confidence calibration, taxonomy-driven retry controllers (<code>1</code> call vs. <code>4</code>), timeout envelopes, and <code>56.8%</code> context compression.</li>
+            <li><a href="../../projects/rag-gateway-eval-cost-controls/" style="color:var(--accent-blue);font-weight:650;">Tiered RAG &amp; OpenTelemetry Gateway →</a> Complexity-tiered model routing, untrusted context fencing, and Arize Phoenix OpenTelemetry span waterfalls.</li>
+          </ul>
+        </div>
+
+        <h3>Further Reading &amp; References</h3>
+        <ul>
+          <li><a href="https://sre.google/workbook/alerting-on-slos/" target="_blank" rel="noopener" style="color:var(--accent-blue);">Google SRE Workbook: Alerting on SLOs ↗</a> — Multi-window burn-rate and symptom-driven alerting.</li>
+          <li><a href="https://sre.google/sre-book/eliminating-toil/" target="_blank" rel="noopener" style="color:var(--accent-blue);">Google SRE Book: Eliminating Toil ↗</a> — Defining bounded, automatable operational work.</li>
+          <li><a href="https://sre.google/sre-book/monitoring-distributed-systems/" target="_blank" rel="noopener" style="color:var(--accent-blue);">Google SRE Book: Monitoring Distributed Systems ↗</a> — Golden signals and symptoms vs. causes.</li>
+          <li><a href="https://cheatsheetseries.owasp.org/cheatsheets/AI_Agent_Security_Cheat_Sheet.html" target="_blank" rel="noopener" style="color:var(--accent-blue);">OWASP AI Agent Security Cheat Sheet ↗</a> — Least privilege, untrusted tool outputs, and human oversight.</li>
+          <li><a href="https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/" target="_blank" rel="noopener" style="color:var(--accent-blue);">AWS Builders’ Library: Timeouts, Retries and Backoff with Jitter ↗</a> — Preventing retry storms and load amplification.</li>
+          <li><a href="https://docs.getdbt.com/docs/deploy/retry-jobs" target="_blank" rel="noopener" style="color:var(--accent-blue);">dbt Documentation: Retry Your dbt Jobs ↗</a> — Idempotent point-of-failure job recovery.</li>
+        </ul>
+      </section>
+    </article>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <div style="font-weight:800;font-size:1.02rem;">Amit Kumar (@kenseiAmit)</div>
+        <div class="mono" style="font-size:0.78rem;color:var(--text-muted);margin-top:4px;">
+          Stockholm, Sweden · IIT Kanpur · AI, Data &amp; Cloud Systems
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <a href="../" class="btn btn-ghost btn-sm">← All Writing</a>
+        <a href="../../" class="btn btn-ghost btn-sm">Personal Home</a>
+        <a href="../../portfolio/" class="btn btn-secondary btn-sm">Full Portfolio (28) →</a>
+        <a href="https://www.linkedin.com/in/kenseiamit/" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Connect on LinkedIn ↗</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toastContainer" aria-live="polite"></div>
+  <script type="module" src="../../js/blog.js"></script>
+</body>
+</html>
