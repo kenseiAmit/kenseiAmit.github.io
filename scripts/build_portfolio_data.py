@@ -559,6 +559,11 @@ def extract_repo_details(slug: str) -> dict:
         ]
         details["quickStart"] = "git clone https://github.com/kenseiAmit/Text-Summarizer-Project.git\ncd Text-Summarizer-Project\npip install -r requirements.txt\npython app.py"
         TELEMETRY_DIR.mkdir(parents=True, exist_ok=True)
+        png_path = TELEMETRY_DIR / "Text-Summarizer-Project.png"
+        if png_path.exists():
+            details["primaryImage"] = "assets/telemetry/Text-Summarizer-Project.png"
+            details["gallery"] = [{"caption": "PEGASUS Abstractive Dialogue Summarization — Enterprise Architecture Blueprint", "url": "assets/telemetry/Text-Summarizer-Project.png"}]
+            return details
         svg_path = TELEMETRY_DIR / "Text-Summarizer-Project.svg"
         svg_path.write_text(
             '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" width="100%">'

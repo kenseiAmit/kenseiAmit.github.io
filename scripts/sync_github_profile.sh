@@ -66,8 +66,8 @@ GIT_TERMINAL_PROMPT=0 git -C "$SHOWCASE_DIR/kenseiAmit.github.io" \
   -c "credential.helper=" \
   push "https://x-access-token:${GITHUB_PAT}@github.com/kenseiAmit/kenseiAmit.github.io.git" main:main --force --quiet
 
-if [[ "${SYNC_ALL_REPOS:-0}" == "1" ]]; then
-  echo "5/5 Syncing all 28 local project repositories..."
+if [[ "${SYNC_ALL_REPOS:-1}" == "1" ]]; then
+  echo "5/5 Syncing all 28 local project repositories (with Enterprise Cloud Blueprints)..."
   for repo_path in "$SHOWCASE_DIR"/*; do
     [[ -d "$repo_path/.git" ]] || continue
     repo_name="$(basename "$repo_path")"

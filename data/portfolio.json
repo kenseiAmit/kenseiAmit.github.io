@@ -192,8 +192,12 @@
       "primaryImage": "assets/telemetry/guarded-salesops-agent-runtime.png",
       "gallery": [
         {
-          "caption": "SalesOps Guardrail & Operational Telemetry",
+          "caption": "Guarded SalesOps Agent Runtime \u2014 3-Tier Security Architecture",
           "url": "assets/telemetry/guarded-salesops-agent-runtime.png"
+        },
+        {
+          "caption": "SalesOps Guardrail & Operational Telemetry",
+          "url": "https://raw.githubusercontent.com/kenseiAmit/guarded-salesops-agent-runtime/main/docs/images/salesops_guardrail_telemetry.png"
         }
       ]
     },
@@ -244,8 +248,12 @@
       "primaryImage": "assets/telemetry/rag-gateway-eval-cost-controls.png",
       "gallery": [
         {
-          "caption": "RAGAS Sweep & Cost Telemetry",
+          "caption": "Production RAG Gateway \u2014 Semantic Cache & FinOps Architecture",
           "url": "assets/telemetry/rag-gateway-eval-cost-controls.png"
+        },
+        {
+          "caption": "RAGAS Sweep & Cost Telemetry",
+          "url": "https://raw.githubusercontent.com/kenseiAmit/rag-gateway-eval-cost-controls/main/docs/evidence/ragas_sweep_and_cost_telemetry.png"
         },
         {
           "caption": "Cost Dashboard",
@@ -310,8 +318,12 @@
       "primaryImage": "assets/telemetry/multi-agent-banking-system.png",
       "gallery": [
         {
-          "caption": "Loan Approval Events",
+          "caption": "Multi-Agent Retail Banking \u2014 A2A, MCP & Zero-Knowledge Blueprint",
           "url": "assets/telemetry/multi-agent-banking-system.png"
+        },
+        {
+          "caption": "Loan Approval Events",
+          "url": "https://raw.githubusercontent.com/kenseiAmit/multi-agent-banking-system/main/screenshots/01_loan_approval_events.png"
         },
         {
           "caption": "Loan Approval State",
@@ -377,8 +389,12 @@
       "primaryImage": "assets/telemetry/trace-aml-sar-compliance-engine.png",
       "gallery": [
         {
-          "caption": "TRACE AML & FinCEN SAR Telemetry",
+          "caption": "TRACE BSA/AML & FinCEN Form 111 SAR Compliance Architecture",
           "url": "assets/telemetry/trace-aml-sar-compliance-engine.png"
+        },
+        {
+          "caption": "TRACE AML & FinCEN SAR Telemetry",
+          "url": "https://raw.githubusercontent.com/kenseiAmit/trace-aml-sar-compliance-engine/main/docs/images/trace_aml_sar_telemetry.png"
         },
         {
           "caption": "Customer Risk Distribution",
@@ -444,8 +460,12 @@
       "primaryImage": "assets/telemetry/bedrock-rag-threat-modeling-guardrails.png",
       "gallery": [
         {
-          "caption": "Bedrock Guardrails Red-Team Matrix",
+          "caption": "AWS Bedrock RAG Security \u2014 IAM, Guardrails & IR Architecture",
           "url": "assets/telemetry/bedrock-rag-threat-modeling-guardrails.png"
+        },
+        {
+          "caption": "Bedrock Guardrails Red-Team Matrix",
+          "url": "https://raw.githubusercontent.com/kenseiAmit/bedrock-rag-threat-modeling-guardrails/main/docs/images/bedrock_guardrails_redteam_matrix.png"
         }
       ]
     },
@@ -497,8 +517,12 @@
       "primaryImage": "assets/telemetry/clinical-ai-governance-fairness-audit.png",
       "gallery": [
         {
-          "caption": "Intersectional FNR & Counterfactual De-Biasing",
+          "caption": "HealthGuard Clinical AI \u2014 Fairness, TreeSHAP & EU AI Act Blueprint",
           "url": "assets/telemetry/clinical-ai-governance-fairness-audit.png"
+        },
+        {
+          "caption": "Intersectional FNR & Counterfactual De-Biasing",
+          "url": "https://raw.githubusercontent.com/kenseiAmit/clinical-ai-governance-fairness-audit/main/images/intersectional_fnr_and_debiasing.png"
         },
         {
           "caption": "TreeSHAP Global & Local Attribution",
@@ -559,8 +583,12 @@
       "primaryImage": "assets/telemetry/claude-extraction-eval-observability.png",
       "gallery": [
         {
-          "caption": "Brier Calibration & Perturbation Telemetry",
+          "caption": "Claude Extraction Eval, Sliced Calibration & Harness Blueprint",
           "url": "assets/telemetry/claude-extraction-eval-observability.png"
+        },
+        {
+          "caption": "Brier Calibration & Perturbation Telemetry",
+          "url": "https://raw.githubusercontent.com/kenseiAmit/claude-extraction-eval-observability/main/docs/images/brier_calibration_and_perturbation.png"
         }
       ]
     },
@@ -608,8 +636,12 @@
       "primaryImage": "assets/telemetry/adk-research-workflow-engine.png",
       "gallery": [
         {
-          "caption": "ADK Loop Convergence & Telemetry",
+          "caption": "Google ADK Autonomous Research Engine \u2014 7-Stage Architecture",
           "url": "assets/telemetry/adk-research-workflow-engine.png"
+        },
+        {
+          "caption": "ADK Loop Convergence & Telemetry",
+          "url": "https://raw.githubusercontent.com/kenseiAmit/adk-research-workflow-engine/main/docs/images/adk_loop_convergence_telemetry.png"
         }
       ]
     },
@@ -657,8 +689,12 @@
       "primaryImage": "assets/telemetry/adk-retail-concierge-agent.png",
       "gallery": [
         {
-          "caption": "Concierge Tool Routing Telemetry",
+          "caption": "Google ADK Multi-Tool Retail Concierge \u2014 MCP & Vertex RAG",
           "url": "assets/telemetry/adk-retail-concierge-agent.png"
+        },
+        {
+          "caption": "Concierge Tool Routing Telemetry",
+          "url": "https://raw.githubusercontent.com/kenseiAmit/adk-retail-concierge-agent/main/docs/images/concierge_tool_routing_telemetry.png"
         },
         {
           "caption": "Session Overview",
@@ -722,8 +758,12 @@
       "primaryImage": "assets/telemetry/agentquant-timeseries-pipeline.png",
       "gallery": [
         {
-          "caption": "AgentQuant Time-Series Cleaning Telemetry",
+          "caption": "AgentQuant Time-Series Pipeline \u2014 Multi-Agent GroupChat Blueprint",
           "url": "assets/telemetry/agentquant-timeseries-pipeline.png"
+        },
+        {
+          "caption": "AgentQuant Time-Series Cleaning Telemetry",
+          "url": "https://raw.githubusercontent.com/kenseiAmit/agentquant-timeseries-pipeline/main/docs/images/agentquant_timeseries_cleaning.png"
         }
       ]
     },
@@ -778,8 +818,12 @@
       "primaryImage": "assets/telemetry/claude-multiagent-pr-reviewer.png",
       "gallery": [
         {
-          "caption": "PR Review Scores & Guardrails",
+          "caption": "Claude Multi-Agent GitHub PR Reviewer \u2014 Bounded MCP Blueprint",
           "url": "assets/telemetry/claude-multiagent-pr-reviewer.png"
+        },
+        {
+          "caption": "PR Review Scores & Guardrails",
+          "url": "https://raw.githubusercontent.com/kenseiAmit/claude-multiagent-pr-reviewer/main/docs/images/pr_review_scores_and_guardrails.png"
         }
       ]
     },
@@ -827,8 +871,12 @@
       "primaryImage": "assets/telemetry/mcp-llm-pricing-intelligence.png",
       "gallery": [
         {
-          "caption": "MCP Cross-Provider Pricing",
+          "caption": "MCP Cross-Provider LLM Pricing Intelligence Architecture",
           "url": "assets/telemetry/mcp-llm-pricing-intelligence.png"
+        },
+        {
+          "caption": "MCP Cross-Provider Pricing",
+          "url": "https://raw.githubusercontent.com/kenseiAmit/mcp-llm-pricing-intelligence/main/docs/images/mcp_cross_provider_pricing.png"
         }
       ]
     },
@@ -879,8 +927,12 @@
       "primaryImage": "assets/telemetry/vectrabank-agentic-rag.png",
       "gallery": [
         {
-          "caption": "VectraBank Benchmark & Risk Model",
+          "caption": "VectraBank 6-Agent Azure Semantic Kernel Hybrid RAG Blueprint",
           "url": "assets/telemetry/vectrabank-agentic-rag.png"
+        },
+        {
+          "caption": "VectraBank Benchmark & Risk Model",
+          "url": "https://raw.githubusercontent.com/kenseiAmit/vectrabank-agentic-rag/main/docs/images/vectrabank_benchmark_and_risk_model.png"
         }
       ]
     },
@@ -1005,8 +1057,12 @@
       "primaryImage": "assets/telemetry/agentic-alpha-trading-system.png",
       "gallery": [
         {
-          "caption": "Agentic Alpha Pipeline Telemetry",
+          "caption": "Agentic Alpha \u2014 6-Agent PydanticAI & SEC Reg M Platform",
           "url": "assets/telemetry/agentic-alpha-trading-system.png"
+        },
+        {
+          "caption": "Agentic Alpha Pipeline Telemetry",
+          "url": "https://raw.githubusercontent.com/kenseiAmit/agentic-alpha-trading-system/main/docs/images/agentic_alpha_pipeline_telemetry.png"
         }
       ]
     },
@@ -1055,8 +1111,12 @@
       "primaryImage": "assets/telemetry/edgar-rag-financial-analyst-agent.png",
       "gallery": [
         {
-          "caption": "FinTool Verification & Guardrails",
+          "caption": "FinTool SEC EDGAR 10-K RAG & NL-to-SQL Analyst Blueprint",
           "url": "assets/telemetry/edgar-rag-financial-analyst-agent.png"
+        },
+        {
+          "caption": "FinTool Verification & Guardrails",
+          "url": "https://raw.githubusercontent.com/kenseiAmit/edgar-rag-financial-analyst-agent/main/docs/images/fintool_verification_and_guardrails.png"
         }
       ]
     },
@@ -1103,8 +1163,12 @@
       "primaryImage": "assets/telemetry/swiftguard-mt103-fraud-pipeline.png",
       "gallery": [
         {
-          "caption": "SWIFTGuard Screening & Settlement Telemetry",
+          "caption": "SWIFTGuard MT103 International Wire Screening Architecture",
           "url": "assets/telemetry/swiftguard-mt103-fraud-pipeline.png"
+        },
+        {
+          "caption": "SWIFTGuard Screening & Settlement Telemetry",
+          "url": "https://raw.githubusercontent.com/kenseiAmit/swiftguard-mt103-fraud-pipeline/main/docs/images/swiftguard_screening_telemetry.png"
         }
       ]
     },
@@ -1152,8 +1216,12 @@
       "primaryImage": "assets/telemetry/hardened-rag-agent-security-gateway.png",
       "gallery": [
         {
-          "caption": "RAG Defense-in-Depth Benchmark",
+          "caption": "Hardened Local RAG Agent \u2014 5-Layer Defense-in-Depth Blueprint",
           "url": "assets/telemetry/hardened-rag-agent-security-gateway.png"
+        },
+        {
+          "caption": "RAG Defense-in-Depth Benchmark",
+          "url": "https://raw.githubusercontent.com/kenseiAmit/hardened-rag-agent-security-gateway/main/security_ops/images/rag_defense_in_depth_benchmark.png"
         }
       ]
     },
@@ -1202,8 +1270,12 @@
       "primaryImage": "assets/telemetry/adversarial-ml-rag-redteam-suite.png",
       "gallery": [
         {
-          "caption": "Red Team Empirical Telemetry",
+          "caption": "Offensive Adversarial ML & RAG Red-Team Assessment Blueprint",
           "url": "assets/telemetry/adversarial-ml-rag-redteam-suite.png"
+        },
+        {
+          "caption": "Red Team Empirical Telemetry",
+          "url": "https://raw.githubusercontent.com/kenseiAmit/adversarial-ml-rag-redteam-suite/main/attacks/results/redteam_empirical_telemetry.png"
         },
         {
           "caption": "FGSM 0.05",
@@ -1276,8 +1348,12 @@
       "primaryImage": "assets/telemetry/census-income-api.png",
       "gallery": [
         {
-          "caption": "Demographic Slice Fairness Audit",
+          "caption": "US Census Income MLOps & Subgroup Fairness API Blueprint",
           "url": "assets/telemetry/census-income-api.png"
+        },
+        {
+          "caption": "Demographic Slice Fairness Audit",
+          "url": "https://raw.githubusercontent.com/kenseiAmit/census-income-api/main/screenshots/demographic_slice_fairness_chart.png"
         },
         {
           "caption": "Swagger UI",
@@ -1294,10 +1370,6 @@
         {
           "caption": "CI Pipeline",
           "url": "https://raw.githubusercontent.com/kenseiAmit/census-income-api/main/screenshots/continuous_integration.png"
-        },
-        {
-          "caption": "Continuous Deployment",
-          "url": "https://raw.githubusercontent.com/kenseiAmit/census-income-api/main/screenshots/continuous_deployment.png"
         }
       ]
     },
@@ -1344,8 +1416,12 @@
       "primaryImage": "assets/telemetry/automated-ml-drift-risk-monitor.png",
       "gallery": [
         {
-          "caption": "Closed-Loop Drift & Diagnostics Telemetry",
+          "caption": "Closed-Loop ML Drift Detection & Automated Retraining Blueprint",
           "url": "assets/telemetry/automated-ml-drift-risk-monitor.png"
+        },
+        {
+          "caption": "Closed-Loop Drift & Diagnostics Telemetry",
+          "url": "https://raw.githubusercontent.com/kenseiAmit/automated-ml-drift-risk-monitor/main/images/drift_control_loop_telemetry.png"
         },
         {
           "caption": "Practice Confusion Matrix",
@@ -1401,8 +1477,12 @@
       "primaryImage": "assets/telemetry/credit-card-churn-ml-pipeline.png",
       "gallery": [
         {
-          "caption": "ROC Curve Comparison",
+          "caption": "Credit Card Customer Attrition \u2014 Clean-Code MLOps Blueprint",
           "url": "assets/telemetry/credit-card-churn-ml-pipeline.png"
+        },
+        {
+          "caption": "ROC Curve Comparison",
+          "url": "https://raw.githubusercontent.com/kenseiAmit/credit-card-churn-ml-pipeline/main/images/results/roc_curve_result.png"
         },
         {
           "caption": "TreeSHAP Summary",
@@ -1419,10 +1499,6 @@
         {
           "caption": "Logistic Regression Results",
           "url": "https://raw.githubusercontent.com/kenseiAmit/credit-card-churn-ml-pipeline/main/images/results/logistic_results.png"
-        },
-        {
-          "caption": "Correlation Heatmap",
-          "url": "https://raw.githubusercontent.com/kenseiAmit/credit-card-churn-ml-pipeline/main/images/eda/heatmap.png"
         }
       ]
     },
@@ -1476,8 +1552,12 @@
       "primaryImage": "assets/telemetry/finbert-sentiment-mlops-service.png",
       "gallery": [
         {
-          "caption": "FinBERT Pipeline & Quality Gates",
+          "caption": "FinBERT Financial Sentiment MLOps \u2014 DVC, MLflow & ECS Blueprint",
           "url": "assets/telemetry/finbert-sentiment-mlops-service.png"
+        },
+        {
+          "caption": "FinBERT Pipeline & Quality Gates",
+          "url": "https://raw.githubusercontent.com/kenseiAmit/finbert-sentiment-mlops-service/main/docs/images/finbert_pipeline_and_gates.png"
         }
       ]
     },
@@ -1525,8 +1605,12 @@
       "primaryImage": "assets/telemetry/nyc-rental-pricing-mlflow-pipeline.png",
       "gallery": [
         {
-          "caption": "Hydra Sweep & Champion Benchmark",
+          "caption": "NYC Rental Pricing \u2014 6-Stage MLflow, Hydra & W&B DAG Blueprint",
           "url": "assets/telemetry/nyc-rental-pricing-mlflow-pipeline.png"
+        },
+        {
+          "caption": "Hydra Sweep & Champion Benchmark",
+          "url": "https://raw.githubusercontent.com/kenseiAmit/nyc-rental-pricing-mlflow-pipeline/main/images/hydra_sweep_benchmark.png"
         },
         {
           "caption": "NYC Geospatial Map",
@@ -1588,11 +1672,11 @@
       "liveUrl": null,
       "ci": null,
       "liveDemoSvg": null,
-      "primaryImage": "assets/telemetry/Text-Summarizer-Project.svg",
+      "primaryImage": "assets/telemetry/Text-Summarizer-Project.png",
       "gallery": [
         {
-          "caption": "4-Stage PEGASUS Seq2Seq Pipeline Architecture",
-          "url": "assets/telemetry/Text-Summarizer-Project.svg"
+          "caption": "PEGASUS Abstractive Dialogue Summarization \u2014 Enterprise Architecture Blueprint",
+          "url": "assets/telemetry/Text-Summarizer-Project.png"
         }
       ]
     },
@@ -1642,8 +1726,12 @@
       "primaryImage": "assets/telemetry/aws-serverless-fraud-ml-pipeline.png",
       "gallery": [
         {
-          "caption": "Glue Spark Optimization & Telemetry",
+          "caption": "AWS Glue 4.0 PySpark & Serverless Fraud ML Pipeline Blueprint",
           "url": "assets/telemetry/aws-serverless-fraud-ml-pipeline.png"
+        },
+        {
+          "caption": "Glue Spark Optimization & Telemetry",
+          "url": "https://raw.githubusercontent.com/kenseiAmit/aws-serverless-fraud-ml-pipeline/main/evidence/glue_spark_caching_benchmark.png"
         },
         {
           "caption": "Glue Training Job",
@@ -1660,10 +1748,6 @@
         {
           "caption": "Lambda Retraining",
           "url": "https://raw.githubusercontent.com/kenseiAmit/aws-serverless-fraud-ml-pipeline/main/evidence/table5_lambda_retraining.png"
-        },
-        {
-          "caption": "IAM Glue & Lambda",
-          "url": "https://raw.githubusercontent.com/kenseiAmit/aws-serverless-fraud-ml-pipeline/main/evidence/table7_iam_glue_lambda.png"
         }
       ]
     },
@@ -1711,8 +1795,12 @@
       "primaryImage": "assets/telemetry/aws-organizations-landing-zone-peering.png",
       "gallery": [
         {
-          "caption": "Enterprise 5-OU Hierarchy",
+          "caption": "AWS Organizations M&A Landing Zone, SCPs & FinOps Blueprint",
           "url": "assets/telemetry/aws-organizations-landing-zone-peering.png"
+        },
+        {
+          "caption": "Enterprise 5-OU Hierarchy",
+          "url": "https://raw.githubusercontent.com/kenseiAmit/aws-organizations-landing-zone-peering/main/assets/task1_ou_hierarchy_diagram.png"
         },
         {
           "caption": "Cross-Region VPC Peering Architecture",
@@ -1777,8 +1865,12 @@
       "primaryImage": "assets/telemetry/adaptive-flashcard-cli.png",
       "gallery": [
         {
-          "caption": "Coverage & Adaptive Retry Telemetry",
+          "caption": "Adaptive Spaced-Repetition CLI \u2014 Zero-Dependency OOP Blueprint",
           "url": "assets/telemetry/adaptive-flashcard-cli.png"
+        },
+        {
+          "caption": "Coverage & Adaptive Retry Telemetry",
+          "url": "https://raw.githubusercontent.com/kenseiAmit/adaptive-flashcard-cli/main/docs/images/coverage_and_adaptive_retry.png"
         }
       ]
     },
@@ -1830,8 +1922,12 @@
       "primaryImage": "assets/telemetry/aws-bedrock-legal-summarizer-iac.png",
       "gallery": [
         {
-          "caption": "System Architecture",
+          "caption": "Serverless AWS Bedrock Legal Summarizer \u2014 CloudFormation Blueprint",
           "url": "assets/telemetry/aws-bedrock-legal-summarizer-iac.png"
+        },
+        {
+          "caption": "System Architecture",
+          "url": "https://raw.githubusercontent.com/kenseiAmit/aws-bedrock-legal-summarizer-iac/main/architecture_diagram.png"
         },
         {
           "caption": "Latency & FinOps Telemetry",
@@ -1848,10 +1944,6 @@
         {
           "caption": "S3 Event Trigger",
           "url": "https://raw.githubusercontent.com/kenseiAmit/aws-bedrock-legal-summarizer-iac/main/screenshots/02_s3_input_bucket_event_notifications.png"
-        },
-        {
-          "caption": "CloudWatch Logs",
-          "url": "https://raw.githubusercontent.com/kenseiAmit/aws-bedrock-legal-summarizer-iac/main/screenshots/06_cloudwatch_log_stream.png"
         }
       ]
     }

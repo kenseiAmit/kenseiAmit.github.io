@@ -910,6 +910,18 @@ def build_flagship_html(
         for a in spec["adrs"]
     )
 
+    blueprint_hero_html = ""
+    if sys_obj.get("primaryImage"):
+        bp_url = fix_asset_rel(sys_obj["primaryImage"], root_prefix)
+        blueprint_hero_html = f"""
+        <figure class="gallery-figure" style="margin-bottom:22px;">
+          <a href="{esc(bp_url)}" target="_blank" rel="noopener">
+            <img src="{esc(bp_url)}" alt="{esc(sys_obj["title"])} Enterprise Cloud Architecture Blueprint" style="width:100%;display:block;" />
+          </a>
+          <figcaption class="gallery-caption mono">Enterprise Cloud Architecture Blueprint · {esc(slug)} (Click for 2960×1760 Retina ↗)</figcaption>
+        </figure>
+        """
+
     live_svg_html = ""
     if sys_obj.get("liveDemoSvg"):
         live_svg_html = f"""
@@ -918,6 +930,10 @@ def build_flagship_html(
           <figcaption class="gallery-caption mono">Recorded Terminal Execution Trace · {esc(slug)}</figcaption>
         </figure>
         """
+
+    rem_gallery = [g for g in sys_obj.get("gallery", []) if g["url"] != sys_obj.get("primaryImage")]
+    if not rem_gallery:
+        rem_gallery = sys_obj.get("gallery", [])
 
     gallery_html = "\n".join(
         f"""
@@ -928,7 +944,7 @@ def build_flagship_html(
           <figcaption class="gallery-caption mono">{esc(g["caption"])} (Full-Res ↗)</figcaption>
         </figure>
         """
-        for g in sys_obj.get("gallery", [])
+        for g in rem_gallery
     )
 
     trace_json_html = ""
@@ -1230,6 +1246,8 @@ def build_flagship_html(
           <h2 class="cs-sec-title">System Topology &amp; Failure-Mode Lifecycles</h2>
           <p class="cs-sec-desc">End-to-end execution graph paired with nominal request flow and adversarial / degraded fault-handling paths.</p>
         </div>
+
+        {blueprint_hero_html}
 
         {mermaids_html}
 
