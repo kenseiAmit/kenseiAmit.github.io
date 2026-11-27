@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 310" width="1080" height="310" role="img" aria-label="NASA Mission Archive RAG &amp; Async RAGAS Execution Trace">
+  <defs>
+    <linearGradient id="hdr" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="310" rx="14" fill="#0B0F19" stroke="#334155" stroke-width="1.4"/>
+  <path d="M 1 14 Q 1 1 14 1 L 1066 1 Q 1079 1 1079 14 L 1079 42 L 1 42 Z" fill="url(#hdr)"/>
+  <circle cx="24" cy="21" r="6" fill="#EF4444"/>
+  <circle cx="44" cy="21" r="6" fill="#F59E0B"/>
+  <circle cx="64" cy="21" r="6" fill="#10B981"/>
+  <text x="540" y="26" text-anchor="middle" fill="#94A3B8" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" font-weight="600">nasa-mission-rag-eval-engine — Ingestion, Mission Routing &amp; Async RAGAS Trace</text>
+
+  <text x="28" y="76" fill="#10B981" font-family="ui-monospace, Menlo, monospace" font-size="13.5" font-weight="700">❯</text>
+  <text x="46" y="76" fill="#F8FAFC" font-family="ui-monospace, Menlo, monospace" font-size="13.5" font-weight="600">python ragas_evaluator.py --dataset evaluation_dataset.txt --top-k 4</text>
+  <line x1="28" y1="92" x2="1052" y2="92" stroke="#1E293B" stroke-width="1"/>
+
+  <text x="28" y="122" fill="#38BDF8" font-family="ui-monospace, Menlo, monospace" font-size="12.5">[INDEX]   chroma_db_openai/nasa_space_missions_text · 8,046 chunks (Apollo 11: 4,312 | Apollo 13: 3,182 | Challenger: 552)</text>
+  <text x="28" y="152" fill="#C084FC" font-family="ui-monospace, Menlo, monospace" font-size="12.5">[ROUTER]  Query "AS-506 launch &amp; flight azimuth?" -&gt; where={"mission": "apollo_11"} · dist=0.3768 (19900066485_textract)</text>
+  <text x="28" y="182" fill="#E2E8F0" font-family="ui-monospace, Menlo, monospace" font-size="12.5">[ANSWER]  Launch azimuth 90 deg E of N -&gt; flight azimuth 72.058 deg E of N [Source 1: 19900066485_textract_full_text.txt, chunk 1]</text>
+  <text x="28" y="212" fill="#34D399" font-family="ui-monospace, Menlo, monospace" font-size="12.5">[RAGAS]   Precision=0.9861 | Faithfulness=0.9583 | Relevancy=0.8923 | Recall=0.6944 (6-category golden benchmark)</text>
+  <text x="28" y="242" fill="#FBBF24" font-family="ui-monospace, Menlo, monospace" font-size="12.5">[SAFETY]  Challenger STS-51L booster-joint query -&gt; Epistemic humility: separates pad ice-team checks from unconfirmed speculation</text>
+  <text x="28" y="276" fill="#10B981" font-family="ui-monospace, Menlo, monospace" font-size="12.5" font-weight="700">[CI PASS] pytest tests/ -v · Deterministic offline unit &amp; ChromaDB idempotency gates passed</text>
+</svg>

@@ -2,7 +2,7 @@
 """
 Deterministic portfolio data & asset compiler for kenseiAmit.github.io.
 Extracts real Mermaid topologies, quick-start snippets, empirical telemetry charts,
-animated SVG traces, and verified runtime JSON payloads across all 28 repositories.
+animated SVG traces, and verified runtime JSON payloads across all 29 repositories.
 """
 
 from __future__ import annotations
@@ -76,7 +76,7 @@ ROLE_TRACKS = [
     {
         "id": "all",
         "label": "Executive Overview",
-        "badge": "All 28 Systems",
+        "badge": "All 29 Systems",
         "headline": "End-to-End Agentic AI, AI Security & Cloud MLOps Engineering",
         "pitch": "Curated view leading with 7 verified flagship architectures across multi-agent protocols (MCP, A2A, ADK, LangGraph), runtime AI security & EU AI Act governance, FinOps-optimized LLMOps gateways, and multi-cloud MLOps."
     },
@@ -208,6 +208,18 @@ CURATED_SYSTEMS = {
         "summary": "Three-package production evaluation and observability monorepo for Anthropic Claude pipelines: sliced Brier confidence calibration with blind second-model review, two-pass arithmetic-validated mortgage extraction, and timeout-isolated supply-chain synthesis.",
         "tradeoff": "Aggregate Brier score (`0.291`) hid catastrophic overconfidence on `umbrella / exclusions` (`conf=0.93, acc=0.00, Brier=0.865`); slicing calibration across `policy_type x field` + error-classified retry halted `missing_source` failures in 1 call instead of 4.",
         "stack": ["Claude Haiku 4.5", "Brier Calibration", "Structured Outputs", "Pytest", "Mypy", "Sentence-Transformers", "Python", "GitHub Actions"],
+        "language": "Python"
+    },
+    "nasa-mission-rag-eval-engine": {
+        "title": "NASA Mission Archive RAG & Async RAGAS Engine",
+        "domainId": "llmops-eval",
+        "tracks": ["llmops", "agentic-ai"],
+        "flagship": False,
+        "flagshipRank": 99,
+        "metrics": ["8,046 Chroma Chunks", "0.9861 RAGAS Precision", "0.9583 Faithfulness", "30 Pytest Gates"],
+        "summary": "End-to-end aerospace RAG and real-time asynchronous RAGAS v0.4.3 evaluation engine over 6.23 MB of primary NASA Apollo 11, Apollo 13, and Challenger (STS-51L) transcripts—combining sentence-aligned idempotent ChromaDB indexing, query-inferred mission routing, epistemic grounding, and Streamlit live telemetry.",
+        "tradeoff": "Paired query-inferred single-mission ChromaDB metadata routing + 2k candidate deduplication with concurrent AsyncOpenAI RAGAS scoring (`IncompleteOutput` 8k -> 16k fallback)—achieving 0.9861 context precision and 0.9583 faithfulness while preserving unfiltered cross-mission comparisons.",
+        "stack": ["OpenAI", "ChromaDB", "RAGAS", "Streamlit", "AsyncIO", "Pytest", "Python", "GitHub Actions"],
         "language": "Python"
     },
     "claude-multiagent-pr-reviewer": {
@@ -630,6 +642,7 @@ def extract_repo_details(slug: str) -> dict:
         for b_title, b_rest in bullets[:5]:
             clean_title = b_title.strip().rstrip(":")
             clean_rest = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", b_rest).strip()
+            clean_rest = re.sub(r"\*\*([^*]+)\*\*", r"\1", clean_rest)
             # Strip inline latex $...$ for clean plain-text rendering
             clean_rest = re.sub(r"\$+[^$]+\$+", "", clean_rest)
             clean_rest = re.sub(r"\(\s*\)", "", clean_rest)
@@ -1040,9 +1053,9 @@ def main() -> None:
             "siteUrl": "https://kenseiamit.github.io",
             "summary": "Engineering production-grade multi-agent systems (MCP, A2A, Google ADK, LangGraph, Claude Agent SDK, Semantic Kernel), adversarial AI security & EU AI Act governance, and FinOps-calibrated MLOps pipelines across GCP, AWS, and Azure.",
             "stats": [
-                {"value": "28", "label": "Public Production Systems", "sub": "MIT Licensed · End-to-End Documented"},
+                {"value": "29", "label": "Public Production Systems", "sub": "MIT Licensed · End-to-End Documented"},
                 {"value": "61.9%", "label": "Verified LLM Cost Reduction", "sub": "Tiered Routing + 1.4ms Semantic Cache"},
-                {"value": "500+", "label": "Automated Eval & Security Gates", "sub": "9 Passing GitHub Actions CI Pipelines"},
+                {"value": "500+", "label": "Automated Eval & Security Gates", "sub": "10 Passing GitHub Actions CI Pipelines"},
                 {"value": "3 Clouds", "label": "Multi-Cloud AI Architecture", "sub": "GCP Vertex/ADK · AWS Bedrock · Azure AI"}
             ]
         },

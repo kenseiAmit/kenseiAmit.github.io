@@ -11,7 +11,7 @@
     "summary": "Engineering production-grade multi-agent systems (MCP, A2A, Google ADK, LangGraph, Claude Agent SDK, Semantic Kernel), adversarial AI security & EU AI Act governance, and FinOps-calibrated MLOps pipelines across GCP, AWS, and Azure.",
     "stats": [
       {
-        "value": "28",
+        "value": "29",
         "label": "Public Production Systems",
         "sub": "MIT Licensed \u00b7 End-to-End Documented"
       },
@@ -23,7 +23,7 @@
       {
         "value": "500+",
         "label": "Automated Eval & Security Gates",
-        "sub": "9 Passing GitHub Actions CI Pipelines"
+        "sub": "10 Passing GitHub Actions CI Pipelines"
       },
       {
         "value": "3 Clouds",
@@ -86,26 +86,26 @@
     {
       "id": "all",
       "label": "Executive Overview",
-      "badge": "All 28 Systems",
+      "badge": "All 29 Systems",
       "headline": "End-to-End Agentic AI, AI Security & Cloud MLOps Engineering",
       "pitch": "Curated view leading with 7 verified flagship architectures across multi-agent protocols (MCP, A2A, ADK, LangGraph), runtime AI security & EU AI Act governance, FinOps-optimized LLMOps gateways, and multi-cloud MLOps.",
-      "count": 28
+      "count": 29
     },
     {
       "id": "agentic-ai",
       "label": "Agentic AI & MCP",
-      "badge": "15 Systems",
+      "badge": "16 Systems",
       "headline": "Senior / Principal Agentic AI & Multi-Agent Systems Track",
       "pitch": "Production orchestration across Anthropic Claude Agent SDK, Google ADK (A2A JSON-RPC), LangGraph StateGraphs, Microsoft Semantic Kernel, PydanticAI, and custom FastMCP servers\u2014combining deterministic math/SQL tools with bounded autonomy.",
-      "count": 15
+      "count": 16
     },
     {
       "id": "llmops",
       "label": "LLMOps & Reliability",
-      "badge": "8 Systems",
+      "badge": "9 Systems",
       "headline": "LLMOps, AgentOps, Evaluation & FinOps Platform Track",
       "pitch": "Focused on unit economics, latency, and post-deployment reliability: 61.9% tiered-routing cost savings, 1.4ms semantic caching, Arize Phoenix OpenTelemetry spans, RAGAS sweeps, AST sandboxes, and sliced Brier calibration.",
-      "count": 8
+      "count": 9
     },
     {
       "id": "fintech",
@@ -470,7 +470,7 @@
       "summary": "End-to-end AI Security Governance, Risk & Compliance (GRC) portfolio for clinical diabetes triage\u2014combining intersectional subgroup fairness auditing, TreeSHAP proxy bias attribution, counterfactual de-biasing, MITRE ATLAS, and EU AI Act Annex III artifacts.",
       "tradeoff": "Used TreeSHAP interaction values to prove `insurance_type` acted as a socioeconomic proxy inflating Medicaid False Negative Rates, then applied counterfactual sample re-weighting to slash the Medicaid-Private FNR disparity by 31.4 percentage points without collapsing overall AUC.",
       "highlights": [
-        "Counterfactual Retraining Proof (`audit_notebook.ipynb` Cell 20): Ablating `insurance_type` preserved overall discrimination (`ROC-AUC = 0.807` vs. `0.812` baseline) while cutting `Rural \u00d7 Medicaid` FNR from **`60.6%` \u2192 `48.5%` (`-12.1 pp`)** and collapsing the within-rural Medicaid\u2013Private disparity gap from **`+37.5 pp` \u2192 `+6.2 pp` (`-31.4 pp` reduction)**."
+        "Counterfactual Retraining Proof (`audit_notebook.ipynb` Cell 20): Ablating `insurance_type` preserved overall discrimination (`ROC-AUC = 0.807` vs. `0.812` baseline) while cutting `Rural \u00d7 Medicaid` FNR from `60.6%` \u2192 `48.5%` (`-12.1 pp`) and collapsing the within-rural Medicaid\u2013Private disparity gap from `+37.5 pp` \u2192 `+6.2 pp` (`-31.4 pp` reduction)."
       ],
       "mermaids": [
         "flowchart LR\n    DATA[\"Clinical Diabetes Triage Cohort\"] --> BASE[\"Baseline Classifier\\nIntersectional Subgroup Audit\"]\n    BASE --> SHAP[\"TreeSHAP Proxy Attribution\\nInsurance -> Socioeconomic Bias\"]\n    SHAP --> DEBIAS[\"Counterfactual Sample Re-Weighting\\n-31.4 pp Medicaid-Private FNR Gap\"]\n    DEBIAS --> GRC[\"EU AI Act Annex III + NIST AI RMF\\nKRIs \u00b7 MITRE ATLAS \u00b7 Schrems II TIA\"]"
@@ -881,6 +881,78 @@
         {
           "caption": "VectraBank Benchmark & Risk Model",
           "url": "assets/telemetry/vectrabank-agentic-rag.png"
+        }
+      ]
+    },
+    {
+      "slug": "nasa-mission-rag-eval-engine",
+      "title": "NASA Mission Archive RAG & Async RAGAS Engine",
+      "domainId": "llmops-eval",
+      "domainName": "LLMOps & Calibration",
+      "domainColor": "#A855F7",
+      "tracks": [
+        "llmops",
+        "agentic-ai"
+      ],
+      "flagship": false,
+      "flagshipRank": 99,
+      "metrics": [
+        "8,046 Chroma Chunks",
+        "0.9861 RAGAS Precision",
+        "0.9583 Faithfulness",
+        "30 Pytest Gates"
+      ],
+      "summary": "End-to-end aerospace RAG and real-time asynchronous RAGAS v0.4.3 evaluation engine over 6.23 MB of primary NASA Apollo 11, Apollo 13, and Challenger (STS-51L) transcripts\u2014combining sentence-aligned idempotent ChromaDB indexing, query-inferred mission routing, epistemic grounding, and Streamlit live telemetry.",
+      "tradeoff": "Paired query-inferred single-mission ChromaDB metadata routing + 2k candidate deduplication with concurrent AsyncOpenAI RAGAS scoring (`IncompleteOutput` 8k -> 16k fallback)\u2014achieving 0.9861 context precision and 0.9583 faithfulness while preserving unfiltered cross-mission comparisons.",
+      "highlights": [
+        "Boundary-Aligned Idempotent Ingestion (`embedding_pipeline.py`): Splits 12 NASA archive files into 8,046 chunks (`1,000` chars, `200` overlap) aligned on newline/sentence boundaries (`\\n`, `. `, `? `, `! `), generates deterministic SHA-1 IDs (`{mission}_{source}_{sha1}_chunk_{idx:04d}`), and supports `skip` (`3.17s` zero-cost re-runs), `update` (with automatic stale-chunk pruning), and `replace` modes.",
+        "Query-Inferred Mission Metadata Routing & Deduplication (`rag_client.py`): Infers unambiguous single-mission ChromaDB `where` filters directly from user phrasing (`Apollo 11` / `AS-506`, `Apollo 13`, `Challenger` / `STS-51L`) while leaving cross-mission comparative queries unfiltered; over-fetches `2 \u00d7 top_k` candidates, sorts by cosine distance, and deduplicates overlapping passages.",
+        "Epistemic Grounding & Prompt-Injection Isolation (`llm_client.py`): Enforces inline `[Source N: filename.txt]` citations over a bounded 10-turn sliding window (`temperature=0.2`), explicitly distinguishing verified transcript evidence from unconfirmed speculation while isolating untrusted archive text from system instructions.",
+        "Concurrent Async RAGAS `v0.4.3` Quality Harness (`ragas_evaluator.py`): Evaluates `AnswerRelevancy`, `Faithfulness`, `ContextPrecisionWithoutReference`, and `ContextRecall` concurrently via `asyncio.gather` + `AsyncOpenAI`, with automatic `IncompleteOutput` token-budget escalation (`8,192 \u2192 16,384`) and thread-safe execution inside Streamlit's active event loop."
+      ],
+      "mermaids": [
+        "flowchart LR\n    subgraph Corpus[\"NASA Primary Archives (6.23 MB \u00b7 12 Files)\"]\n        A11[\"Apollo 11 (6 files \u00b7 4,312 chunks)\"]\n        A13[\"Apollo 13 (3 files \u00b7 3,182 chunks)\"]\n        CHL[\"Challenger STS-51L (3 files \u00b7 552 chunks)\"]\n    end\n\n    subgraph Ingestion[\"Idempotent Embedding Pipeline\"]\n        CHK[\"Sentence/Line Chunker\\n(1,000 chars \u00b7 200 overlap)\"]\n        EMB[\"OpenAI Embeddings\\n(text-embedding-3-small \u00b7 1536d)\"]\n        CDB[(\"ChromaDB Persistent Store\\n8,046 Vectors \u00b7 Cosine HNSW\")]\n    end\n\n    subgraph Runtime[\"Grounded RAG Runtime\"]\n        Q[\"Mission Query\"] --> ROUTE[\"Query Embedding +\\nMission Metadata Router\"]\n        ROUTE <--> CDB\n        ROUTE --> CTX[\"2k Over-Fetch + Distance Sort\\n+ Source-Attributed Context\"]\n        CTX --> LLM[\"OpenAI Chat Completion\\n(Epistemic Prompt \u00b7 10-Turn Window)\"]\n        LLM --> UI[\"Streamlit Workbench +\\nExpandable Citations\"]\n    end\n\n    subgraph Eval[\"Real-Time & Batch Quality Gate\"]\n        UI --> RAGAS[\"Concurrent Async RAGAS v0.4.3\\nPrecision 0.9861 \u00b7 Faithfulness 0.9583\"]\n    end\n\n    Corpus --> CHK --> EMB --> CDB"
+      ],
+      "quickStart": "python3 -m venv .venv\nsource .venv/bin/activate\npip install -r requirements.txt\ncp .env.example .env  # set OPENAI_API_KEY\n\n# 1. Run offline deterministic unit & ChromaDB idempotency test suite\npytest tests/ -v\n\n# 2. Index the 12 NASA mission archives into ChromaDB (8,046 chunks)\npython embedding_pipeline.py --data-path ./data_text --chroma-dir ./chroma_db_openai --collection-name nasa_space_missions_text\n\n# 3. Run batch RAGAS v0.4.3 golden evaluation\npython ragas_evaluator.py --dataset evaluation_dataset.txt --chroma-dir ./chroma_db_openai --top-k 4 --output evaluation_results.json\n\n# 4. Launch interactive Streamlit chat & live RAGAS workbench\nstreamlit run chat.py",
+      "stack": [
+        "OpenAI",
+        "ChromaDB",
+        "RAGAS",
+        "Streamlit",
+        "AsyncIO",
+        "Pytest",
+        "Python",
+        "GitHub Actions"
+      ],
+      "language": "Python",
+      "repoUrl": "https://github.com/kenseiAmit/nasa-mission-rag-eval-engine",
+      "liveUrl": null,
+      "ci": {
+        "badge": "https://github.com/kenseiAmit/nasa-mission-rag-eval-engine/actions/workflows/ci.yml/badge.svg",
+        "url": "https://github.com/kenseiAmit/nasa-mission-rag-eval-engine/actions/workflows/ci.yml"
+      },
+      "liveDemoSvg": "assets/demos/nasa-mission-rag-eval-engine.svg",
+      "primaryImage": "assets/telemetry/nasa-mission-rag-eval-engine.png",
+      "gallery": [
+        {
+          "caption": "RAGAS Benchmark Results",
+          "url": "assets/telemetry/nasa-mission-rag-eval-engine.png"
+        },
+        {
+          "caption": "Corpus Chunk Distribution",
+          "url": "https://raw.githubusercontent.com/kenseiAmit/nasa-mission-rag-eval-engine/main/docs/images/corpus_chunk_distribution.png"
+        },
+        {
+          "caption": "Apollo 11",
+          "url": "https://raw.githubusercontent.com/kenseiAmit/nasa-mission-rag-eval-engine/main/docs/images/01_apollo11_rag_chat_and_sources.png"
+        },
+        {
+          "caption": "Apollo 13",
+          "url": "https://raw.githubusercontent.com/kenseiAmit/nasa-mission-rag-eval-engine/main/docs/images/02_apollo13_multiturn_mission_filter.png"
+        },
+        {
+          "caption": "Challenger",
+          "url": "https://raw.githubusercontent.com/kenseiAmit/nasa-mission-rag-eval-engine/main/docs/images/03_challenger_grounded_analysis.png"
         }
       ]
     },

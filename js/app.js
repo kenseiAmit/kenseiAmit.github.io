@@ -427,7 +427,7 @@ function renderTraceLab() {
 }
 
 /* ==========================================================================
-   28-System Engineering Catalog & Domain Cards
+   29-System Engineering Catalog & Domain Cards
    ========================================================================== */
 
 function matchesStackFilter(sys, filter) {
@@ -459,7 +459,7 @@ function renderCatalogFilters() {
   if (!domWrap || !stackWrap) return;
 
   const domButtons = [
-    `<button type="button" class="filter-pill ${state.domainFilter === "all" ? "active" : ""}" data-dom="all">All 6 Domains (28)</button>`,
+    `<button type="button" class="filter-pill ${state.domainFilter === "all" ? "active" : ""}" data-dom="all">All 6 Domains (${state.data.systems.length})</button>`,
     ...state.data.domains.map((d) => {
       const cnt = state.data.systems.filter((s) => s.domainId === d.id).length;
       const active = state.domainFilter === d.id ? "active" : "";
