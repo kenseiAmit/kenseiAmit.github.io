@@ -935,8 +935,12 @@
       "primaryImage": "assets/telemetry/nasa-mission-rag-eval-engine.png",
       "gallery": [
         {
-          "caption": "RAGAS Benchmark Results",
+          "caption": "NASA Mission Archive RAG Enterprise Architecture Blueprint",
           "url": "assets/telemetry/nasa-mission-rag-eval-engine.png"
+        },
+        {
+          "caption": "RAGAS Benchmark Results",
+          "url": "https://raw.githubusercontent.com/kenseiAmit/nasa-mission-rag-eval-engine/main/docs/images/ragas_benchmark_scores.png"
         },
         {
           "caption": "Corpus Chunk Distribution",
