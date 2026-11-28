@@ -11,7 +11,7 @@
     "summary": "Engineering production-grade multi-agent systems (MCP, A2A, Google ADK, LangGraph, Claude Agent SDK, Semantic Kernel), adversarial AI security & EU AI Act governance, and FinOps-calibrated MLOps pipelines across GCP, AWS, and Azure.",
     "stats": [
       {
-        "value": "29",
+        "value": "30",
         "label": "Public Production Systems",
         "sub": "MIT Licensed \u00b7 End-to-End Documented"
       },
@@ -23,7 +23,7 @@
       {
         "value": "500+",
         "label": "Automated Eval & Security Gates",
-        "sub": "10 Passing GitHub Actions CI Pipelines"
+        "sub": "11 Passing GitHub Actions CI Pipelines"
       },
       {
         "value": "3 Clouds",
@@ -86,26 +86,26 @@
     {
       "id": "all",
       "label": "Executive Overview",
-      "badge": "All 29 Systems",
+      "badge": "All 30 Systems",
       "headline": "End-to-End Agentic AI, AI Security & Cloud MLOps Engineering",
       "pitch": "Curated view leading with 7 verified flagship architectures across multi-agent protocols (MCP, A2A, ADK, LangGraph), runtime AI security & EU AI Act governance, FinOps-optimized LLMOps gateways, and multi-cloud MLOps.",
-      "count": 29
+      "count": 30
     },
     {
       "id": "agentic-ai",
       "label": "Agentic AI & MCP",
-      "badge": "16 Systems",
+      "badge": "17 Systems",
       "headline": "Senior / Principal Agentic AI & Multi-Agent Systems Track",
       "pitch": "Production orchestration across Anthropic Claude Agent SDK, Google ADK (A2A JSON-RPC), LangGraph StateGraphs, Microsoft Semantic Kernel, PydanticAI, and custom FastMCP servers\u2014combining deterministic math/SQL tools with bounded autonomy.",
-      "count": 16
+      "count": 17
     },
     {
       "id": "llmops",
       "label": "LLMOps & Reliability",
-      "badge": "9 Systems",
+      "badge": "10 Systems",
       "headline": "LLMOps, AgentOps, Evaluation & FinOps Platform Track",
       "pitch": "Focused on unit economics, latency, and post-deployment reliability: 61.9% tiered-routing cost savings, 1.4ms semantic caching, Arize Phoenix OpenTelemetry spans, RAGAS sweeps, AST sandboxes, and sliced Brier calibration.",
-      "count": 9
+      "count": 10
     },
     {
       "id": "fintech",
@@ -824,6 +824,75 @@
         {
           "caption": "PR Review Scores & Guardrails",
           "url": "https://raw.githubusercontent.com/kenseiAmit/claude-multiagent-pr-reviewer/main/docs/images/pr_review_scores_and_guardrails.png"
+        }
+      ]
+    },
+    {
+      "slug": "ecohome-energy-advisor-agent",
+      "title": "EcoHome Energy Advisor (LangGraph + RAG)",
+      "domainId": "multi-agent-mcp",
+      "domainName": "Multi-Agent & MCP",
+      "domainColor": "#3B82F6",
+      "tracks": [
+        "agentic-ai",
+        "llmops"
+      ],
+      "flagship": false,
+      "flagshipRank": 99,
+      "metrics": [
+        "12/12 Eval Pass (100%)",
+        "95.8% Combined Score",
+        "+25.0 pp Tool Recall",
+        "7-Tool LangGraph"
+      ],
+      "summary": "Autonomous smart-home solar PV, EV, HVAC, battery storage, and appliance optimization agent built on a stateful LangGraph `StateGraph`\u2014unifying 1\u20137 day irradiance forecasts, dynamic Time-of-Use (TOU) tariffs, bounded SQLite telemetry (`2,608` rows), ChromaDB RAG (`8` guides), and hybrid LLM-as-a-Judge + tool-telemetry evaluation.",
+      "tradeoff": "Added a deterministic `prepare_context` calendar-grounding node, 72-row SQLite context caps over full-range aggregations, and `period_days` ROI normalization\u2014eliminating multi-day annualization drift and lifting scenario pass rate from 83.3% to 100.0% (+25.0 pp tool recall).",
+      "highlights": [
+        "Explicit LangGraph `StateGraph` Orchestration ([agent.py](agent.py)): Implements a deterministic `START -> prepare_context -> agent <-> tools -> END` topology (`recursion_limit=25`, `ToolNode(..., handle_tool_errors=True)`). The `prepare_context` node pre-computes ISO dates, a 7-day weekday calendar table, and 7d/14d/30d SQLite lookback windows so the LLM never hallucinates relative dates.",
+        "7-Tool Multi-Modal Smart-Home Suite ([tools.py](tools.py)): Unifies SHA-256 deterministic 1\u20137 day weather & solar irradiance (`W/m\u00b2` + kWh) forecasts, dynamic TOU electricity tariffs (`off_peak` `22:00\u201306:00` ~`0` demand charge vs. `peak` `16:00\u201322:00` ~`$0.28/kWh`), bounded SQLite device/solar analytics (`2,208` usage + `400` solar records with 72-row raw context protection), ChromaDB RAG over `8` domain guides (`30` chunks), and a `period_days`-normalized ROI & CO2 calculator (`0.40 kg CO2/kWh`).",
+        "Eval-Driven Engineering Iteration (`88.2%` \u2192 `95.8%`, [evaluator.py](evaluator.py)): Diagnosed v1 baseline failure modes\u2014multi-day kWh annualization drift and skipped RAG retrieval\u2014and resolved them via `period_days` ROI normalization and mandatory knowledge-base citation policies, achieving 100.0% scenario pass rate and 98.3% response accuracy.",
+        "Air-Gapped Testability & CI Gate ([tests/test_ecohome_advisor.py](tests/test_ecohome_advisor.py)): Dependency-injected `Agent(llm=...)` and offline lexical RAG fallback enable full end-to-end `StateGraph` + SQLite + tool telemetry verification in GitHub Actions without external API keys."
+      ],
+      "mermaids": [
+        "flowchart LR\n    User([\"Homeowner Query + Location Context\"]) --> START((START))\n    START --> ContextNode[\"prepare_context Node\\n(7-Day Calendar + Lookback Grounding)\"]\n    ContextNode --> AgentNode[\"agent Node\\n(ChatOpenAI gpt-4o-mini + System Policy)\"]\n    AgentNode --> Router{\"_should_continue\"}\n    Router -- \"tool_calls\" --> ToolNode[\"tools Node\\n(Parallel ToolNode + Error Guard)\"]\n\n    subgraph ToolSuite[\"7-Tool Smart-Home Integration Layer\"]\n        T1[\"get_weather_forecast\"]\n        T2[\"get_electricity_prices\"]\n        T3[\"query_energy_usage (SQLite)\"]\n        T4[\"query_solar_generation (SQLite)\"]\n        T5[\"get_recent_energy_summary\"]\n        T6[\"search_energy_tips (ChromaDB RAG)\"]\n        T7[\"calculate_energy_savings (ROI + CO2)\"]\n    end\n\n    ToolNode --> ToolSuite\n    ToolSuite --> AgentNode\n    Router -- \"final_answer\" --> END((END))"
+      ],
+      "quickStart": "python3 -m venv .venv\nsource .venv/bin/activate\npip install -r requirements.txt\n\n# Run the full offline test suite (no API key required)\npytest tests/ -v\n\n# Run live interactive queries with OpenAI\ncp .env.example .env   # Set OPENAI_API_KEY\npython agent.py --question \"When should I charge my electric car tomorrow to minimize cost and maximize solar power?\" --context \"Location: San Francisco, CA\"",
+      "stack": [
+        "LangGraph",
+        "LangChain",
+        "ChromaDB",
+        "SQLAlchemy",
+        "SQLite",
+        "OpenAI",
+        "Pydantic v2",
+        "Pytest",
+        "GitHub Actions"
+      ],
+      "language": "Python",
+      "repoUrl": "https://github.com/kenseiAmit/ecohome-energy-advisor-agent",
+      "liveUrl": null,
+      "ci": {
+        "badge": "https://github.com/kenseiAmit/ecohome-energy-advisor-agent/actions/workflows/ci.yml/badge.svg",
+        "url": "https://github.com/kenseiAmit/ecohome-energy-advisor-agent/actions/workflows/ci.yml"
+      },
+      "liveDemoSvg": "assets/demos/ecohome-energy-advisor-agent.svg",
+      "primaryImage": "assets/telemetry/ecohome-energy-advisor-agent.png",
+      "gallery": [
+        {
+          "caption": "EcoHome Energy Advisor Enterprise Architecture Blueprint",
+          "url": "assets/telemetry/ecohome-energy-advisor-agent.png"
+        },
+        {
+          "caption": "Eval-Driven Ablation Comparison",
+          "url": "https://raw.githubusercontent.com/kenseiAmit/ecohome-energy-advisor-agent/main/docs/images/01_eval_ablation_comparison.png"
+        },
+        {
+          "caption": "12-Scenario Multi-Dimensional Scorecard",
+          "url": "https://raw.githubusercontent.com/kenseiAmit/ecohome-energy-advisor-agent/main/docs/images/02_scenario_scorecard_heatmap.png"
+        },
+        {
+          "caption": "24-Hour Energy, Solar & TOU Profile",
+          "url": "https://raw.githubusercontent.com/kenseiAmit/ecohome-energy-advisor-agent/main/docs/images/03_energy_solar_tou_profile.png"
         }
       ]
     },

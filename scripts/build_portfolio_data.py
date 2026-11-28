@@ -2,7 +2,7 @@
 """
 Deterministic portfolio data & asset compiler for kenseiAmit.github.io.
 Extracts real Mermaid topologies, quick-start snippets, empirical telemetry charts,
-animated SVG traces, and verified runtime JSON payloads across all 29 repositories.
+animated SVG traces, and verified runtime JSON payloads across all 30 repositories.
 """
 
 from __future__ import annotations
@@ -76,7 +76,7 @@ ROLE_TRACKS = [
     {
         "id": "all",
         "label": "Executive Overview",
-        "badge": "All 29 Systems",
+        "badge": "All 30 Systems",
         "headline": "End-to-End Agentic AI, AI Security & Cloud MLOps Engineering",
         "pitch": "Curated view leading with 7 verified flagship architectures across multi-agent protocols (MCP, A2A, ADK, LangGraph), runtime AI security & EU AI Act governance, FinOps-optimized LLMOps gateways, and multi-cloud MLOps."
     },
@@ -233,6 +233,18 @@ CURATED_SYSTEMS = {
         "tradeoff": "Enforced read-only GitHub/ESLint MCP tool permissions, per-subagent turn budgets, and strict Zod output schemas so autonomous PR reviews never mutate branches or runaway on large diffs.",
         "stack": ["TypeScript", "Claude Agent SDK", "MCP", "GitHub API", "ESLint", "Zod", "GitHub Actions"],
         "language": "TypeScript"
+    },
+    "ecohome-energy-advisor-agent": {
+        "title": "EcoHome Energy Advisor (LangGraph + RAG)",
+        "domainId": "multi-agent-mcp",
+        "tracks": ["agentic-ai", "llmops"],
+        "flagship": False,
+        "flagshipRank": 99,
+        "metrics": ["12/12 Eval Pass (100%)", "95.8% Combined Score", "+25.0 pp Tool Recall", "7-Tool LangGraph"],
+        "summary": "Autonomous smart-home solar PV, EV, HVAC, battery storage, and appliance optimization agent built on a stateful LangGraph `StateGraph`—unifying 1–7 day irradiance forecasts, dynamic Time-of-Use (TOU) tariffs, bounded SQLite telemetry (`2,608` rows), ChromaDB RAG (`8` guides), and hybrid LLM-as-a-Judge + tool-telemetry evaluation.",
+        "tradeoff": "Added a deterministic `prepare_context` calendar-grounding node, 72-row SQLite context caps over full-range aggregations, and `period_days` ROI normalization—eliminating multi-day annualization drift and lifting scenario pass rate from 83.3% to 100.0% (+25.0 pp tool recall).",
+        "stack": ["LangGraph", "LangChain", "ChromaDB", "SQLAlchemy", "SQLite", "OpenAI", "Pydantic v2", "Pytest", "GitHub Actions"],
+        "language": "Python"
     },
     "adk-research-workflow-engine": {
         "title": "ADK Autonomous Research Workflow Engine",
@@ -1058,9 +1070,9 @@ def main() -> None:
             "siteUrl": "https://kenseiamit.github.io",
             "summary": "Engineering production-grade multi-agent systems (MCP, A2A, Google ADK, LangGraph, Claude Agent SDK, Semantic Kernel), adversarial AI security & EU AI Act governance, and FinOps-calibrated MLOps pipelines across GCP, AWS, and Azure.",
             "stats": [
-                {"value": "29", "label": "Public Production Systems", "sub": "MIT Licensed · End-to-End Documented"},
+                {"value": "30", "label": "Public Production Systems", "sub": "MIT Licensed · End-to-End Documented"},
                 {"value": "61.9%", "label": "Verified LLM Cost Reduction", "sub": "Tiered Routing + 1.4ms Semantic Cache"},
-                {"value": "500+", "label": "Automated Eval & Security Gates", "sub": "10 Passing GitHub Actions CI Pipelines"},
+                {"value": "500+", "label": "Automated Eval & Security Gates", "sub": "11 Passing GitHub Actions CI Pipelines"},
                 {"value": "3 Clouds", "label": "Multi-Cloud AI Architecture", "sub": "GCP Vertex/ADK · AWS Bedrock · Azure AI"}
             ]
         },

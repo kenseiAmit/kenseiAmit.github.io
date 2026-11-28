@@ -1222,7 +1222,7 @@ def build_flagship_html(
       <div class="cs-toc-links">
         <a href="{esc(repo_url)}" target="_blank" rel="noopener" class="btn btn-secondary btn-sm" style="justify-content:center;">View Repository ↗</a>
         <a href="{root_prefix}/#flagships" class="btn btn-ghost btn-sm" style="justify-content:center;">← Home &amp; 7 Flagships</a>
-        <a href="{root_prefix}/portfolio/" class="btn btn-ghost btn-sm" style="justify-content:center;">Full Portfolio (29) →</a>
+        <a href="{root_prefix}/portfolio/" class="btn btn-ghost btn-sm" style="justify-content:center;">Full Portfolio (30) →</a>
       </div>
     </aside>
 
@@ -1491,7 +1491,7 @@ def build_flagship_html(
       </div>
       <div style="display:flex;gap:10px;flex-wrap:wrap;">
         <a href="{root_prefix}/" class="btn btn-ghost btn-sm">← Personal Home</a>
-        <a href="{root_prefix}/portfolio/" class="btn btn-secondary btn-sm">Full Portfolio (29 Systems) →</a>
+        <a href="{root_prefix}/portfolio/" class="btn btn-secondary btn-sm">Full Portfolio (30 Systems) →</a>
         <a href="{esc(repo_url)}" target="_blank" rel="noopener" class="btn btn-primary btn-sm">GitHub Repository ↗</a>
         <a href="https://www.linkedin.com/in/kenseiamit/" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">LinkedIn ↗</a>
       </div>
